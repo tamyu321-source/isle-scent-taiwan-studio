@@ -6,9 +6,9 @@
 
 - 原創品牌概念、視覺方向與繁體中文內容
 - 11 個完整頁面，而非單頁展示稿
-- 首頁使用 Canvas Sprite Sequence，依滾動進度播放 16 格產品轉場
+- 首頁使用 Canvas Sprite Sequence，將 16 格原始影格以慣性與影格融合方式播放
 - 支援滑鼠、觸控、手機版選單與 `prefers-reduced-motion`
-- 圖片採用專案專屬生成素材，沒有外部圖庫依賴
+- 圖片採用專案專屬生成素材，並提供 WebP 輕量版本，沒有外部圖庫依賴
 - 語意化結構、動態頁面標題、客製 favicon 與 404 頁面
 
 ## 頁面
@@ -29,7 +29,7 @@
 
 Vinext / React 19 / TypeScript / Tailwind CSS 4 / Canvas 2D / requestAnimationFrame / Next Image
 
-逐幀效果只在影格改變時重繪，裝置像素比上限為 1.5，避免高解析手機進行不必要的 GPU 運算。捲動監聽使用 passive listener，並以 requestAnimationFrame 合併更新。
+逐幀效果以 `requestAnimationFrame` 平滑追蹤滾動位置，透過相鄰影格融合降低跳格感；裝置像素比上限為 1.5，避免高解析手機進行不必要的 GPU 運算。捲動監聽採用 passive listener，介面文字只在章節切換時更新。
 
 ## 開發
 

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ScrollSequence } from "@/components/scroll-sequence";
@@ -8,76 +8,74 @@ export const dynamic = "force-static";
 
 export default function Home() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
   return (
-    <main>
+    <main className="overflow-clip bg-black">
       <SiteHeader theme="dark" />
 
-      <section className="hero relative flex min-h-[100svh] items-end overflow-hidden bg-ink px-5 pb-12 text-chalk md:px-12 md:pb-16">
-        <div className="hero-haze" aria-hidden="true" />
-        <div className="relative z-10 grid w-full gap-10 border-t border-white/20 pt-6 md:grid-cols-[1fr_auto] md:items-end">
-          <div>
-            <p className="eyebrow text-white/55">O-01 · EAU DE PARFUM</p>
-            <h1 className="mt-4 max-w-[12ch] text-[clamp(3.2rem,9.3vw,9.8rem)] font-medium leading-[.84] tracking-[-.075em]">
-              島嶼留下的，<br />從不是氣味。
-            </h1>
+      <section className="cinematic-hero relative min-h-[100svh] overflow-hidden bg-black text-white">
+        <Image
+          src={`${basePath}/images/coast-bottle.webp`}
+          alt="海霧岩岸上的 O-01 深潮香水"
+          fill
+          priority
+          className="cinematic-hero-image object-cover"
+          sizes="100vw"
+        />
+        <div className="cinematic-hero-shade absolute inset-0" aria-hidden="true" />
+
+        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1200px] flex-col items-center px-5 pb-10 pt-24 text-center md:pb-14 md:pt-28">
+          <div className="hero-copy-enter">
+            <p className="eyebrow text-white/60">O-01 · EAU DE PARFUM</p>
+            <h1 className="mt-3 text-[clamp(4.6rem,11vw,10rem)] font-semibold leading-[.88] tracking-[-.075em]">深 潮</h1>
+            <p className="mx-auto mt-5 max-w-xl text-[clamp(1.05rem,2vw,1.45rem)] leading-relaxed text-white/78">島嶼的黑潮，落在肌膚上。</p>
+            <div className="mt-7 flex flex-wrap justify-center gap-3">
+              <a className="button-primary" href="#sequence">進入氣味</a>
+              <a className="button-secondary" href={`${basePath}/collections/o-01/`}>進一步了解 <ArrowUpRight size={15} /></a>
+            </div>
           </div>
-          <div className="max-w-xs md:pb-2">
-            <p className="text-base leading-7 text-white/70">
-              黑潮穿過岩岸，檜木與茶煙停在皮膚上。沿著滾動，讓氣味慢慢顯影。
-            </p>
-            <a className="link-arrow mt-6 inline-flex text-sm" href="#sequence">
-              探索 O-01 <span>↓</span>
-            </a>
-          </div>
+
+          <a href="#sequence" className="hero-scroll-cue mt-auto" aria-label="向下探索逐幀動畫">
+            <span>SCROLL TO DISCOVER</span>
+            <ArrowDown size={16} />
+          </a>
         </div>
       </section>
 
       <ScrollSequence />
 
-      <section className="bg-chalk px-5 py-24 text-ink md:px-12 md:py-36">
-        <div className="mx-auto grid max-w-[1500px] gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-24">
-          <div className="flex flex-col justify-between">
-            <div>
-              <p className="eyebrow text-ink/45">FROM THE ISLAND</p>
-              <h2 className="mt-5 text-[clamp(2.8rem,6vw,6.8rem)] font-medium leading-[.91] tracking-[-.06em]">
-                每一道氣味，<br />都有地形。
-              </h2>
-            </div>
-            <a className="link-arrow mt-12 w-fit" href={`${basePath}/ingredients/`}>
-              查看島嶼原料 <ArrowUpRight size={17} />
-            </a>
-          </div>
-          <figure className="image-frame aspect-[16/10] overflow-hidden bg-stone-900">
-            <Image src={`${basePath}/images/island-botanicals.png`} alt="雨後岩石上的檜木、茶葉與蘭花" fill className="object-cover transition-transform duration-1000 hover:scale-[1.02]" sizes="(max-width: 1024px) 100vw, 60vw" />
-          </figure>
+      <section className="view-stage bg-chalk px-5 py-24 text-ink md:px-12 md:py-36">
+        <div className="reveal-block mx-auto max-w-5xl text-center">
+          <p className="eyebrow text-ink/45">FROM THE ISLAND</p>
+          <h2 className="mt-6 text-[clamp(3rem,7.2vw,7.5rem)] font-semibold leading-[.94] tracking-[-.055em]">每一道氣味，<br />都有地形。</h2>
+          <p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-ink/60 md:text-lg">檜木、焙火烏龍與海霧，不是香調清單，而是島嶼在身體裡留下的距離。</p>
+          <a className="button-dark mt-9" href={`${basePath}/ingredients/`}>查看島嶼原料 <ArrowUpRight size={16} /></a>
         </div>
-      </section>
 
-      <section className="grid min-h-[90svh] bg-stone-950 text-chalk lg:grid-cols-2">
-        <figure className="relative min-h-[62svh] overflow-hidden">
-          <Image src={`${basePath}/images/coast-bottle.png`} alt="海霧岩岸上的 O-01 香水瓶" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+        <figure className="landscape-window reveal-image mx-auto mt-16 aspect-[16/9] max-w-[1500px] overflow-hidden md:mt-24">
+          <Image src={`${basePath}/images/island-botanicals.webp`} alt="雨後岩石上的檜木、茶葉與蘭花" fill className="object-cover" sizes="(max-width: 768px) 100vw, 90vw" />
         </figure>
-        <div className="flex flex-col justify-between px-5 py-14 md:px-12 md:py-16 lg:px-16 lg:py-20">
-          <p className="eyebrow text-white/45">SIGNATURE / O-01</p>
-          <div className="py-20">
-            <p className="mb-8 text-lg text-white/50">潮汐・木質調</p>
-            <h2 className="text-[clamp(3.8rem,8vw,8.5rem)] font-medium leading-[.8] tracking-[-.08em]">深 潮</h2>
-            <p className="mt-10 max-w-md text-base leading-8 text-white/65">前調是海鹽與冷杉，中央浮現烏龍茶的焙火，最後沉入台灣檜木與岩蘭草。不是海的味道，是靠近海時，身體記住的溫度。</p>
-          </div>
-          <a className="link-arrow w-fit" href={`${basePath}/collections/o-01/`}>進入香氣檔案 <ArrowUpRight size={17} /></a>
+      </section>
+
+      <section className="product-stage grid min-h-[100svh] bg-black text-chalk lg:grid-cols-2">
+        <figure className="reveal-image relative min-h-[66svh] overflow-hidden lg:min-h-screen">
+          <Image src={`${basePath}/images/coast-bottle.webp`} alt="海岸晨光裡的 O-01 香水瓶" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+        </figure>
+        <div className="reveal-block flex flex-col justify-center px-5 py-20 md:px-12 lg:px-[10vw]">
+          <p className="eyebrow text-white/42">SIGNATURE / O-01</p>
+          <h2 className="mt-7 text-[clamp(4rem,8vw,8.5rem)] font-semibold leading-[.86] tracking-[-.07em]">深 潮</h2>
+          <p className="mt-7 text-xl text-white/55">潮汐・木質調</p>
+          <p className="mt-7 max-w-md text-base leading-8 text-white/62">海鹽與冷杉先打開空氣，焙火烏龍在中央留下暖意，最後沉入台灣檜木與濕苔。</p>
+          <a className="button-light mt-10" href={`${basePath}/collections/o-01/`}>查看 O-01 <ArrowUpRight size={16} /></a>
         </div>
       </section>
 
-      <section className="bg-ember px-5 py-24 text-ink md:px-12 md:py-36">
-        <div className="mx-auto max-w-[1500px]">
-          <p className="eyebrow text-ink/45">THE FIELD NOTES</p>
-          <div className="mt-8 grid items-end gap-12 lg:grid-cols-[1fr_.5fr]">
-            <h2 className="max-w-5xl text-[clamp(3rem,7vw,7.6rem)] font-medium leading-[.88] tracking-[-.065em]">香氣不是裝飾，<br />是另一種抵達。</h2>
-            <div>
-              <p className="text-base leading-8 text-ink/65">我們與採集者、調香師和玻璃工匠一起工作，讓每一批作品保留季節差異，也保留人的手感。</p>
-              <a className="link-arrow mt-8 w-fit" href={`${basePath}/story/`}>閱讀品牌故事 <ArrowUpRight size={17} /></a>
-            </div>
-          </div>
+      <section className="closing-stage bg-ember px-5 py-28 text-ink md:px-12 md:py-44">
+        <div className="reveal-block mx-auto max-w-[1200px] text-center">
+          <p className="eyebrow text-ink/45">ISLE / SCENT</p>
+          <h2 className="mx-auto mt-7 max-w-[12ch] text-[clamp(3.5rem,8.5vw,9rem)] font-semibold leading-[.9] tracking-[-.065em]">香氣不是裝飾，<br />是另一種抵達。</h2>
+          <p className="mx-auto mt-8 max-w-xl text-base leading-8 text-ink/65">從採集、熟成到裝瓶，讓一座島慢慢靠近。</p>
+          <a className="button-dark mt-10" href={`${basePath}/story/`}>閱讀品牌故事 <ArrowUpRight size={16} /></a>
         </div>
       </section>
 

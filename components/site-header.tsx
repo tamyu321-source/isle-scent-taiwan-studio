@@ -7,14 +7,13 @@ export function SiteHeader({ theme = "dark" }: { theme?: "dark" | "light" }) {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const [open, setOpen] = useState(false);
   useEffect(() => { document.body.style.overflow = open ? "hidden" : ""; return () => { document.body.style.overflow = ""; }; }, [open]);
-  const colors = theme === "dark" ? "text-chalk border-white/15" : "text-ink border-black/15";
   return (
-    <header className={`absolute inset-x-0 top-0 z-50 border-b ${colors}`}>
-      <div className="grid h-[76px] grid-cols-[1fr_auto_1fr] items-center px-5 md:px-12">
-        <a href={`${basePath}/`} className="relative z-50 text-sm font-bold tracking-[.16em]" aria-label="嶼氣首頁">嶼 氣</a>
+    <header className="site-header fixed inset-x-0 top-0 z-50 text-chalk" data-theme={theme}>
+      <div className="mx-auto grid h-[56px] max-w-[1500px] grid-cols-[1fr_auto_1fr] items-center px-5 md:px-12">
+        <a href={`${basePath}/`} className="relative z-50 text-[.78rem] font-bold tracking-[.18em]" aria-label="嶼氣首頁">嶼 氣</a>
         <nav className="hidden items-center gap-7 lg:flex" aria-label="主要導覽">{links.map(([label, href]) => <a key={href} href={`${basePath}${href}/`} className="text-sm opacity-70 transition-opacity hover:opacity-100">{label}</a>)}</nav>
         <div className="flex items-center justify-end gap-5">
-          <a href={`${basePath}/contact/`} className="hidden text-sm md:block">聯絡合作</a>
+          <a href={`${basePath}/contact/`} className="nav-contact hidden text-xs font-semibold md:block">聯絡合作</a>
           <button onClick={() => setOpen(!open)} className="relative z-50 grid h-10 w-10 place-items-center lg:hidden" aria-label={open ? "關閉選單" : "開啟選單"} aria-expanded={open}>{open ? <X /> : <Menu />}</button>
         </div>
       </div>
