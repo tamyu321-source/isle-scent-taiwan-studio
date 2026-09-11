@@ -44,6 +44,11 @@ npm run dev
 npm run build
 ```
 
+## 線上展示
+
+- GitHub Pages：`https://tamyu321-source.github.io/isle-scent-taiwan-studio/`
+- 每次推送到 `main` 分支後，GitHub Actions 會自動重新建置與發布。
+
 ## 作品集使用方式
 
 這是一個概念品牌案例。對外展示時，可在作品說明中標示：

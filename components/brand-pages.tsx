@@ -1,8 +1,5 @@
-import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, MapPin } from "lucide-react";
-import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -71,53 +68,59 @@ const products = [
   { code: "T-03", name: "餘 火", family: "茶煙・琥珀調", color: "#9b5537" },
 ];
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
-  const key = (await params).slug.join("/");
-  const title = pages[key]?.title.replace("\n", "") || (key === "collections" ? "香氣系列" : key.startsWith("journal") ? "誌記" : key === "stockists" ? "體驗據點" : key === "contact" ? "聯絡合作" : key === "collections/o-01" ? "O-01 深潮" : "嶼氣");
-  return { title };
+function internalHref(path: string) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  return `${basePath}${path}${path.endsWith("/") ? "" : "/"}`;
 }
 
 function Intro({ page }: { page: PageData }) {
   return <><section className="page-intro"><div className="page-shell w-full"><p className="eyebrow text-white/45">{page.eyebrow}</p><h1 className="mt-6 whitespace-pre-line text-[clamp(3.4rem,8vw,8.8rem)] font-medium leading-[.87] tracking-[-.07em]">{page.title}</h1></div></section><section className={`px-5 py-20 md:px-12 md:py-28 ${page.tone === "ember" ? "bg-ember" : page.tone === "mist" ? "bg-mist" : "bg-chalk"}`}><div className="page-shell grid gap-8 md:grid-cols-[.65fr_1.35fr]"><p className="eyebrow opacity-45">IN BRIEF</p><p className="max-w-3xl text-[clamp(1.5rem,2.8vw,2.7rem)] leading-[1.35] tracking-[-.035em]">{page.intro}</p></div></section></>;
 }
 
-function EditorialPage({ page }: { page: PageData }) {
-  return <main><SiteHeader /><Intro page={page} />{page === pages.ingredients && <figure className="relative aspect-[16/8] min-h-[360px]"><Image src="/images/island-botanicals.png" alt="雨後山林原料標本" fill className="object-cover" sizes="100vw" /></figure>}<section className="bg-chalk px-5 py-20 md:px-12 md:py-28"><div className="page-shell">{page.sections.map(section => <article key={section.label} className="detail-grid"><p className="eyebrow pt-2 opacity-45">{section.label}</p><div className="grid gap-6 md:grid-cols-[.85fr_1fr]"><h2 className="text-[clamp(2rem,4vw,4.3rem)] font-medium leading-none tracking-[-.055em]">{section.title}</h2><p className="max-w-xl text-base leading-8 text-ink/60">{section.body}</p></div></article>)}</div></section><SiteFooter /></main>;
+export function EditorialPage({ page }: { page: PageData }) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  return <main><SiteHeader /><Intro page={page} />{page === pages.ingredients && <figure className="relative aspect-[16/8] min-h-[360px]"><Image src={`${basePath}/images/island-botanicals.png`} alt="雨後山林原料標本" fill className="object-cover" sizes="100vw" /></figure>}<section className="bg-chalk px-5 py-20 md:px-12 md:py-28"><div className="page-shell">{page.sections.map(section => <article key={section.label} className="detail-grid"><p className="eyebrow pt-2 opacity-45">{section.label}</p><div className="grid gap-6 md:grid-cols-[.85fr_1fr]"><h2 className="text-[clamp(2rem,4vw,4.3rem)] font-medium leading-none tracking-[-.055em]">{section.title}</h2><p className="max-w-xl text-base leading-8 text-ink/60">{section.body}</p></div></article>)}</div></section><SiteFooter /></main>;
 }
 
-function Collections() {
-  return <main className="bg-chalk"><SiteHeader /><section className="page-intro"><div className="page-shell w-full"><p className="eyebrow text-white/45">THE COLLECTION</p><h1 className="mt-6 text-[clamp(4rem,10vw,11rem)] font-medium leading-[.8] tracking-[-.08em]">三段地景，<br />三種靠近。</h1></div></section><section className="px-5 py-20 md:px-12 md:py-28"><div className="page-shell grid gap-px bg-black/15 md:grid-cols-3">{products.map((product, index) => <Link href={index === 0 ? "/collections/o-01" : "/contact"} key={product.code} className="group relative flex aspect-[3/4] flex-col justify-between overflow-hidden p-7 text-chalk md:p-9" style={{ background: product.color }}><div className="absolute inset-0 opacity-50 transition-transform duration-700 group-hover:scale-110" style={{ background: "radial-gradient(circle at 70% 35%, rgba(255,255,255,.2), transparent 28%), linear-gradient(155deg, transparent 50%, rgba(0,0,0,.5))" }} /><p className="eyebrow relative opacity-45">{product.code}</p><div className="relative"><p className="mb-3 text-sm opacity-55">{product.family}</p><h2 className="text-[clamp(3rem,5vw,5.8rem)] font-medium leading-none tracking-[-.07em]">{product.name}</h2><span className="mt-7 inline-flex items-center gap-2 text-sm">查看香氣 <ArrowUpRight size={16} /></span></div></Link>)}</div></section><SiteFooter /></main>;
+export function CollectionsPage() {
+  return <main className="bg-chalk"><SiteHeader /><section className="page-intro"><div className="page-shell w-full"><p className="eyebrow text-white/45">THE COLLECTION</p><h1 className="mt-6 text-[clamp(4rem,10vw,11rem)] font-medium leading-[.8] tracking-[-.08em]">三段地景，<br />三種靠近。</h1></div></section><section className="px-5 py-20 md:px-12 md:py-28"><div className="page-shell grid gap-px bg-black/15 md:grid-cols-3">{products.map((product, index) => <a href={internalHref(index === 0 ? "/collections/o-01" : "/contact")} key={product.code} className="group relative flex aspect-[3/4] flex-col justify-between overflow-hidden p-7 text-chalk md:p-9" style={{ background: product.color }}><div className="absolute inset-0 opacity-50 transition-transform duration-700 group-hover:scale-110" style={{ background: "radial-gradient(circle at 70% 35%, rgba(255,255,255,.2), transparent 28%), linear-gradient(155deg, transparent 50%, rgba(0,0,0,.5))" }} /><p className="eyebrow relative opacity-45">{product.code}</p><div className="relative"><p className="mb-3 text-sm opacity-55">{product.family}</p><h2 className="text-[clamp(3rem,5vw,5.8rem)] font-medium leading-none tracking-[-.07em]">{product.name}</h2><span className="mt-7 inline-flex items-center gap-2 text-sm">查看香氣 <ArrowUpRight size={16} /></span></div></a>)}</div></section><SiteFooter /></main>;
 }
 
-function Product() {
-  return <main className="bg-ink text-chalk"><SiteHeader /><section className="grid min-h-[100svh] pt-[76px] lg:grid-cols-[1.05fr_.95fr]"><figure className="relative min-h-[60svh]"><Image src="/images/coast-bottle.png" alt="O-01 深潮香水" fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 55vw" /></figure><div className="flex flex-col justify-between p-5 py-12 md:p-12 lg:p-16"><p className="eyebrow text-white/40">EAU DE PARFUM · 50ML</p><div className="py-16"><p className="text-lg text-white/45">O-01 / 潮汐・木質調</p><h1 className="mt-6 text-[clamp(5rem,10vw,11rem)] font-medium leading-[.78] tracking-[-.09em]">深 潮</h1><p className="mt-10 max-w-md text-base leading-8 text-white/60">冷杉與海鹽先打開空氣，焙火烏龍在中央留下暖意，最後沉入檜木、岩蘭草與濕苔。</p><div className="mt-10 grid grid-cols-3 gap-4 border-y border-white/15 py-5 text-sm"><span>海鹽<br /><small className="text-white/35">TOP</small></span><span>烏龍<br /><small className="text-white/35">HEART</small></span><span>檜木<br /><small className="text-white/35">BASE</small></span></div></div><Link href="/contact" className="flex w-full items-center justify-between bg-chalk px-5 py-4 text-sm font-semibold text-ink">詢問現貨與試香 <ArrowUpRight size={18} /></Link></div></section><SiteFooter /></main>;
+export function ProductPage() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  return <main className="bg-ink text-chalk"><SiteHeader /><section className="grid min-h-[100svh] pt-[76px] lg:grid-cols-[1.05fr_.95fr]"><figure className="relative min-h-[60svh]"><Image src={`${basePath}/images/coast-bottle.png`} alt="O-01 深潮香水" fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 55vw" /></figure><div className="flex flex-col justify-between p-5 py-12 md:p-12 lg:p-16"><p className="eyebrow text-white/40">EAU DE PARFUM · 50ML</p><div className="py-16"><p className="text-lg text-white/45">O-01 / 潮汐・木質調</p><h1 className="mt-6 text-[clamp(5rem,10vw,11rem)] font-medium leading-[.78] tracking-[-.09em]">深 潮</h1><p className="mt-10 max-w-md text-base leading-8 text-white/60">冷杉與海鹽先打開空氣，焙火烏龍在中央留下暖意，最後沉入檜木、岩蘭草與濕苔。</p><div className="mt-10 grid grid-cols-3 gap-4 border-y border-white/15 py-5 text-sm"><span>海鹽<br /><small className="text-white/35">TOP</small></span><span>烏龍<br /><small className="text-white/35">HEART</small></span><span>檜木<br /><small className="text-white/35">BASE</small></span></div></div><a href={internalHref("/contact")} className="flex w-full items-center justify-between bg-chalk px-5 py-4 text-sm font-semibold text-ink">詢問現貨與試香 <ArrowUpRight size={18} /></a></div></section><SiteFooter /></main>;
 }
 
-function Journal() {
-  return <main><SiteHeader /><section className="page-intro"><div className="page-shell w-full"><p className="eyebrow text-white/45">FIELD NOTES</p><h1 className="mt-6 text-[clamp(5rem,12vw,13rem)] font-medium leading-[.75] tracking-[-.09em]">誌 記</h1></div></section><section className="bg-chalk px-5 py-20 md:px-12 md:py-28"><div className="page-shell">{notes.map((note, index) => <Link href={note.href} key={note.title} className="group grid gap-5 border-t border-black/15 py-8 md:grid-cols-[.25fr_.35fr_1fr_auto] md:items-center"><span className="text-sm opacity-45">{note.date}</span><span className="eyebrow opacity-45">{note.category}</span><h2 className="text-[clamp(1.7rem,3vw,3.5rem)] font-medium tracking-[-.05em]">{note.title}</h2><ArrowUpRight className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></Link>)}</div></section><SiteFooter /></main>;
+export function JournalPage() {
+  return <main><SiteHeader /><section className="page-intro"><div className="page-shell w-full"><p className="eyebrow text-white/45">FIELD NOTES</p><h1 className="mt-6 text-[clamp(5rem,12vw,13rem)] font-medium leading-[.75] tracking-[-.09em]">誌 記</h1></div></section><section className="bg-chalk px-5 py-20 md:px-12 md:py-28"><div className="page-shell">{notes.map((note) => <a href={internalHref(note.href)} key={note.title} className="group grid gap-5 border-t border-black/15 py-8 md:grid-cols-[.25fr_.35fr_1fr_auto] md:items-center"><span className="text-sm opacity-45">{note.date}</span><span className="eyebrow opacity-45">{note.category}</span><h2 className="text-[clamp(1.7rem,3vw,3.5rem)] font-medium tracking-[-.05em]">{note.title}</h2><ArrowUpRight className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></a>)}</div></section><SiteFooter /></main>;
 }
 
-function Article() {
-  return <main><SiteHeader /><article><section className="page-intro min-h-[88svh]"><div className="page-shell w-full"><Link href="/journal" className="mb-10 inline-flex items-center gap-2 text-sm text-white/45"><ArrowLeft size={16} /> 返回誌記</Link><p className="eyebrow text-white/45">FIELD NOTE 07 · 2026.08.17</p><h1 className="mt-6 max-w-6xl text-[clamp(3.3rem,8vw,8.6rem)] font-medium leading-[.86] tracking-[-.07em]">沿著立霧溪，<br />記錄石頭的溫度。</h1></div></section><figure className="relative aspect-[16/8] min-h-[380px]"><Image src="/images/island-botanicals.png" alt="雨霧中的溪谷與島嶼植物" fill className="object-cover" sizes="100vw" /></figure><div className="bg-chalk px-5 py-20 md:px-12 md:py-28"><div className="mx-auto max-w-3xl space-y-9 text-lg leading-9 text-ink/70"><p className="text-[clamp(1.8rem,3.4vw,3rem)] leading-[1.4] tracking-[-.035em] text-ink">雨停後的太魯閣，岩壁並不安靜。水沿著每一條裂隙移動，冷杉、苔蘚與石灰岩在空氣裡彼此重疊。</p><p>我們在清晨五點進入溪谷。不是為了採集，而是記錄：濕度、風向、石頭被陽光碰到前後的氣味差異。嗅覺有時比攝影更接近記憶，因為它保留了當時身體所在的位置。</p><p>這些筆記後來成為 O-01 的第三個版本。我們刪掉原先太明亮的柑橘，把礦物與檜木之間留出更多空氣。成品不像太魯閣，卻保存了那一天最重要的事——霧散去以前，石頭是有溫度的。</p></div></div></article><SiteFooter /></main>;
+export function ArticlePage() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  return <main><SiteHeader /><article><section className="page-intro min-h-[88svh]"><div className="page-shell w-full"><a href={internalHref("/journal")} className="mb-10 inline-flex items-center gap-2 text-sm text-white/45"><ArrowLeft size={16} /> 返回誌記</a><p className="eyebrow text-white/45">FIELD NOTE 07 · 2026.08.17</p><h1 className="mt-6 max-w-6xl text-[clamp(3.3rem,8vw,8.6rem)] font-medium leading-[.86] tracking-[-.07em]">沿著立霧溪，<br />記錄石頭的溫度。</h1></div></section><figure className="relative aspect-[16/8] min-h-[380px]"><Image src={`${basePath}/images/island-botanicals.png`} alt="雨霧中的溪谷與島嶼植物" fill className="object-cover" sizes="100vw" /></figure><div className="bg-chalk px-5 py-20 md:px-12 md:py-28"><div className="mx-auto max-w-3xl space-y-9 text-lg leading-9 text-ink/70"><p className="text-[clamp(1.8rem,3.4vw,3rem)] leading-[1.4] tracking-[-.035em] text-ink">雨停後的太魯閣，岩壁並不安靜。水沿著每一條裂隙移動，冷杉、苔蘚與石灰岩在空氣裡彼此重疊。</p><p>我們在清晨五點進入溪谷。不是為了採集，而是記錄：濕度、風向、石頭被陽光碰到前後的氣味差異。嗅覺有時比攝影更接近記憶，因為它保留了當時身體所在的位置。</p><p>這些筆記後來成為 O-01 的第三個版本。我們刪掉原先太明亮的柑橘，把礦物與檜木之間留出更多空氣。成品不像太魯閣，卻保存了那一天最重要的事——霧散去以前，石頭是有溫度的。</p></div></div></article><SiteFooter /></main>;
 }
 
-function Stockists() {
+export function StockistsPage() {
   const stores = [["台北", "嶼氣研究室", "大安區新生南路一段 103 巷"], ["台中", "留白計畫", "西區中興街 247 號"], ["台南", "霧室", "中西區信義街 38 號"], ["高雄", "海線選物", "鹽埕區大勇路 11 號"]];
   return <main><SiteHeader /><section className="page-intro"><div className="page-shell w-full"><p className="eyebrow text-white/45">STOCKISTS</p><h1 className="mt-6 text-[clamp(4rem,9vw,9.5rem)] font-medium leading-[.82] tracking-[-.08em]">靠近氣味，<br />從一次試聞開始。</h1></div></section><section className="bg-mist px-5 py-20 md:px-12 md:py-28"><div className="page-shell"><p className="mb-16 max-w-2xl text-xl leading-9">以下合作空間備有全系列試香。氣味會因肌膚與環境改變，我們建議停留至少二十分鐘，再決定哪一道地景屬於你。</p>{stores.map(([city, name, address]) => <div key={name} className="grid gap-3 border-t border-black/20 py-6 md:grid-cols-[.35fr_1fr_1fr_auto] md:items-center"><p className="eyebrow opacity-45">{city}</p><h2 className="text-3xl font-medium tracking-[-.04em]">{name}</h2><p className="text-sm opacity-55">{address}</p><MapPin size={18} className="opacity-50" /></div>)}</div></section><SiteFooter /></main>;
 }
 
-function Contact() {
+export function ContactPage() {
   return <main><SiteHeader /><section className="flex min-h-[100svh] items-end bg-ember px-5 pb-14 pt-32 text-ink md:px-12 md:pb-20"><div className="page-shell w-full"><p className="eyebrow opacity-45">CONTACT / COLLABORATION</p><h1 className="mt-6 max-w-[11ch] text-[clamp(4rem,10vw,11rem)] font-medium leading-[.8] tracking-[-.085em]">一起，為空間留下氣味。</h1><div className="mt-16 grid gap-8 border-t border-black/20 pt-7 md:grid-cols-[1fr_1fr]"><p className="max-w-lg text-lg leading-8 opacity-65">品牌合作、空間氣味、媒體與試香預約，請告訴我們時間、地點與你正在想像的感受。</p><div className="md:text-right"><a href="mailto:studio@islescent.tw" className="text-[clamp(1.4rem,3vw,3rem)] font-medium tracking-[-.04em] underline decoration-1 underline-offset-8">studio@islescent.tw</a><p className="mt-4 text-sm opacity-50">通常於 2 個工作日內回覆</p></div></div></div></section><SiteFooter /></main>;
 }
 
-export default async function InnerPage({ params }: { params: Promise<{ slug: string[] }> }) {
-  const key = (await params).slug.join("/");
-  if (pages[key]) return <EditorialPage page={pages[key]} />;
-  if (key === "collections") return <Collections />;
-  if (key === "collections/o-01") return <Product />;
-  if (key === "journal") return <Journal />;
-  if (key === "journal/field-note-07") return <Article />;
-  if (key === "stockists") return <Stockists />;
-  if (key === "contact") return <Contact />;
-  notFound();
+export function StoryPage() {
+  return <EditorialPage page={pages.story} />;
+}
+
+export function CraftPage() {
+  return <EditorialPage page={pages.craft} />;
+}
+
+export function IngredientsPage() {
+  return <EditorialPage page={pages.ingredients} />;
+}
+
+export function SpacesPage() {
+  return <EditorialPage page={pages.spaces} />;
 }

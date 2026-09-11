@@ -11,7 +11,7 @@ const chapters = [
 export function ScrollSequence() {
   const sectionRef = useRef<HTMLElement>(null); const canvasRef = useRef<HTMLCanvasElement>(null); const imageRef = useRef<HTMLImageElement | null>(null); const frameRef = useRef(-1);
   const [progress, setProgress] = useState(0); const [ready, setReady] = useState(false);
-  useEffect(() => { const img = new Image(); img.src = "/images/obsidian-sequence.png"; img.onload = () => { imageRef.current = img; setReady(true); }; }, []);
+  useEffect(() => { const img = new Image(); img.src = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/obsidian-sequence.png`; img.onload = () => { imageRef.current = img; setReady(true); }; }, []);
   useEffect(() => {
     const canvas = canvasRef.current; const section = sectionRef.current; const image = imageRef.current;
     if (!canvas || !section || !image || !ready) return; const context = canvas.getContext("2d"); if (!context) return; let ticking = false;
