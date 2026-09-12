@@ -4,12 +4,12 @@ import { Pause, Play, RotateCcw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const FRAME_COUNT = 16;
-const PLAYBACK_DURATION = 9600;
+const PLAYBACK_DURATION = 14_400;
 const chapters = [
-  { at: 0, no: "01", kicker: "OPENING", title: "海霧先抵達", body: "佛手柑、海鹽與冷杉。像清晨第一口帶著礦物感的風。" },
-  { at: .27, no: "02", kicker: "HEART", title: "茶火慢慢浮現", body: "焙火烏龍與冷煙，在體溫裡留下一道明暗交界。" },
-  { at: .54, no: "03", kicker: "DEPTH", title: "沉入林線", body: "檜木、岩蘭草與濕苔。深、靜，卻仍有呼吸。" },
-  { at: .81, no: "04", kicker: "AFTERGLOW", title: "最後，只剩你", body: "氣味貼近肌膚，成為沒有名字的一段地景。" },
+  { at: 0, no: "01", kicker: "SEA MIST", word: "海", title: "海霧，先抵達。", body: "佛手柑與海鹽打開空氣，像浪還沒靠岸以前的第一道冷光。" },
+  { at: .25, no: "02", kicker: "ROASTED TEA", word: "火", title: "接著，是茶火。", body: "焙火烏龍緩慢升溫，讓黑色玻璃裡出現一道溫暖的邊界。" },
+  { at: .5, no: "03", kicker: "FOREST LINE", word: "林", title: "再沉入林線。", body: "檜木、岩蘭草與濕苔，把氣味拉向更深、更安靜的地方。" },
+  { at: .75, no: "04", kicker: "SKIN", word: "餘", title: "最後，留在肌膚。", body: "當地景退去，只剩一段貼近身體、沒有名字的餘韻。" },
 ];
 
 type PlaybackState = "idle" | "playing" | "paused" | "complete";
@@ -19,15 +19,41 @@ type PlaybackController = {
   replay: () => void;
 };
 
-function easeInOut(progress: number) {
-  return progress * progress * (3 - 2 * progress);
+function clamp(value: number) {
+  return Math.max(0, Math.min(1, value));
+}
+
+function lerp(from: number, to: number, amount: number) {
+  return from + (to - from) * amount;
+}
+
+function smoothstep(progress: number) {
+  const value = clamp(progress);
+  return value * value * (3 - 2 * value);
+}
+
+function cameraAt(progress: number) {
+  if (progress < .2) {
+    const phase = smoothstep(progress / .2);
+    return { scale: lerp(.72, .92, phase), x: lerp(0, .08, phase), y: lerp(.04, 0, phase), focus: lerp(7, 0, phase) };
+  }
+  if (progress < .47) {
+    const phase = smoothstep((progress - .2) / .27);
+    return { scale: lerp(.92, 1.18, phase), x: lerp(.08, -.1, phase), y: lerp(0, -.015, phase), focus: 0 };
+  }
+  if (progress < .72) {
+    const phase = smoothstep((progress - .47) / .25);
+    return { scale: lerp(1.18, 1.42, phase), x: lerp(-.1, .12, phase), y: lerp(-.015, .02, phase), focus: 0 };
+  }
+
+  const phase = smoothstep((progress - .72) / .28);
+  return { scale: lerp(1.42, .94, phase), x: lerp(.12, 0, phase), y: lerp(.02, 0, phase), focus: 0 };
 }
 
 export function ScrollSequence() {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
-  const progressRef = useRef<HTMLSpanElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const controllerRef = useRef<PlaybackController | null>(null);
   const [ready, setReady] = useState(false);
@@ -64,9 +90,10 @@ export function ScrollSequence() {
     let animationFrame = 0;
     let elapsed = 0;
     let startedAt = 0;
-    let lastActiveIndex = -1;
     let state: PlaybackState = "idle";
+    let lastActiveIndex = -1;
     let hasEntered = false;
+    let manuallyPaused = false;
 
     const resizeCanvas = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -88,18 +115,23 @@ export function ScrollSequence() {
       const blend = framePosition - firstFrame;
       const portrait = canvas.height > canvas.width;
       const baseScale = Math.min(canvas.width / sourceWidth, canvas.height / sourceHeight);
-      const scale = baseScale * (portrait ? 1.12 : .88 + progress * .06);
+      const camera = cameraAt(progress);
+      const scale = baseScale * camera.scale * (portrait ? 1.28 : 1);
       const destinationWidth = sourceWidth * scale;
       const destinationHeight = sourceHeight * scale;
-      const destinationX = (canvas.width - destinationWidth) / 2;
-      const destinationY = (canvas.height - destinationHeight) / 2 + canvas.height * (portrait ? .035 : .015);
+      const destinationX = (canvas.width - destinationWidth) / 2 + canvas.width * camera.x * (portrait ? .32 : 1);
+      const destinationY = (canvas.height - destinationHeight) / 2 + canvas.height * camera.y;
 
       context.globalAlpha = 1;
-      context.fillStyle = "#050505";
+      context.filter = "none";
+      context.fillStyle = "#020303";
       context.fillRect(0, 0, canvas.width, canvas.height);
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = "high";
 
-      const draw = (frame: number, alpha: number) => {
+      const draw = (frame: number, alpha: number, blur = 0) => {
         context.globalAlpha = alpha;
+        context.filter = blur ? `blur(${blur}px)` : "none";
         context.drawImage(
           image,
           (frame % 4) * sourceWidth,
@@ -113,14 +145,19 @@ export function ScrollSequence() {
         );
       };
 
-      draw(firstFrame, 1);
-      if (secondFrame !== firstFrame && blend > .02) draw(secondFrame, blend);
+      const arrival = smoothstep(progress / .09);
+      draw(firstFrame, arrival, camera.focus);
+      if (secondFrame !== firstFrame && blend > .02) draw(secondFrame, blend * arrival, camera.focus);
       context.globalAlpha = 1;
+      context.filter = "none";
     };
 
     const updateInterface = (progress: number) => {
-      if (progressRef.current) progressRef.current.textContent = `${String(Math.round(progress * 100)).padStart(3, "0")}%`;
       if (barRef.current) barRef.current.style.transform = `scaleX(${progress})`;
+      section.style.setProperty("--sequence-progress", String(progress));
+      section.style.setProperty("--sequence-shift-x", `${Math.sin(progress * Math.PI * 2) * 8}%`);
+      section.style.setProperty("--sequence-glass-x", `${progress * 190 - 95}%`);
+      section.style.setProperty("--sequence-aurora-opacity", String(.38 + progress * .42));
 
       const nextIndex = chapters.reduce((latest, chapter, index) => progress >= chapter.at ? index : latest, 0);
       if (nextIndex !== lastActiveIndex) {
@@ -137,36 +174,48 @@ export function ScrollSequence() {
     const render = (time: number) => {
       if (!startedAt) startedAt = time - elapsed;
       elapsed = Math.min(PLAYBACK_DURATION, time - startedAt);
-      const linearProgress = elapsed / PLAYBACK_DURATION;
-      const visualProgress = easeInOut(linearProgress);
+      const progress = elapsed / PLAYBACK_DURATION;
+      drawFrame(progress);
+      updateInterface(progress);
 
-      drawFrame(visualProgress);
-      updateInterface(visualProgress);
-
-      if (linearProgress < 1) animationFrame = requestAnimationFrame(render);
+      if (progress < 1) animationFrame = requestAnimationFrame(render);
       else {
         animationFrame = 0;
         setState("complete");
       }
     };
 
-    const play = () => {
-      if (state === "complete") return;
-      if (state === "idle") elapsed = 0;
+    const resume = () => {
+      if (state === "complete" || manuallyPaused) return;
       startedAt = performance.now() - elapsed;
       setState("playing");
       cancelAnimationFrame(animationFrame);
       animationFrame = requestAnimationFrame(render);
     };
 
-    const pause = () => {
+    const suspend = () => {
       if (state !== "playing") return;
       cancelAnimationFrame(animationFrame);
       animationFrame = 0;
       setState("paused");
     };
 
+    const playByUser = () => {
+      manuallyPaused = false;
+      if (state === "complete") return;
+      startedAt = performance.now() - elapsed;
+      setState("playing");
+      cancelAnimationFrame(animationFrame);
+      animationFrame = requestAnimationFrame(render);
+    };
+
+    const pauseByUser = () => {
+      manuallyPaused = true;
+      suspend();
+    };
+
     const replay = () => {
+      manuallyPaused = false;
       cancelAnimationFrame(animationFrame);
       elapsed = 0;
       startedAt = performance.now();
@@ -176,7 +225,7 @@ export function ScrollSequence() {
       animationFrame = requestAnimationFrame(render);
     };
 
-    controllerRef.current = { pause, play, replay };
+    controllerRef.current = { pause: pauseByUser, play: playByUser, replay };
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) {
@@ -194,18 +243,17 @@ export function ScrollSequence() {
       if (!entry || reducedMotion) return;
 
       if (entry.intersectionRatio >= .38) {
-        if (!hasEntered) hasEntered = true;
-        if (state === "idle" || state === "paused") play();
-      } else if (hasEntered && entry.intersectionRatio < .08 && state === "playing") {
-        pause();
+        hasEntered = true;
+        if (state === "idle" || (state === "paused" && !manuallyPaused)) resume();
+      } else if (hasEntered && entry.intersectionRatio < .06) {
+        suspend();
       }
-    }, { threshold: [0, .08, .38, .7] });
+    }, { threshold: [0, .06, .38, .72] });
 
     observer.observe(section);
 
     const onResize = () => {
-      const progress = easeInOut(Math.min(1, elapsed / PLAYBACK_DURATION));
-      drawFrame(progress);
+      drawFrame(clamp(elapsed / PLAYBACK_DURATION));
     };
     window.addEventListener("resize", onResize);
 
@@ -229,34 +277,47 @@ export function ScrollSequence() {
   const ControlIcon = playbackState === "playing" ? Pause : playbackState === "complete" ? RotateCcw : Play;
 
   return (
-    <section ref={sectionRef} id="sequence" className="sequence-section relative min-h-[100svh] bg-black text-white">
-      <div className="sequence-stage relative h-[100svh] min-h-[620px] overflow-hidden bg-black">
-        <canvas ref={canvasRef} className={`sequence-canvas h-full w-full transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`} aria-label="O-01 香水瓶進入畫面後自動旋轉展示" role="img" />
-        <div className="sequence-vignette pointer-events-none absolute inset-0" aria-hidden="true" />
-
-        {!ready && <div className="absolute inset-0 grid place-items-center text-xs tracking-[.22em] text-white/42">PREPARING O-01</div>}
-
-        <div className="absolute inset-x-5 top-[74px] flex items-center justify-between text-[.68rem] tracking-[.18em] text-white/42 md:inset-x-12">
-          <span>AUTOPLAY STUDY / O-01</span>
-          <span ref={progressRef}>000%</span>
+    <section ref={sectionRef} id="sequence" className="sequence-section relative h-[132svh] bg-black text-white">
+      <div className="sequence-stage sticky top-0 h-[100svh] min-h-[620px] overflow-hidden bg-black">
+        <div className="sequence-aurora pointer-events-none absolute inset-0" aria-hidden="true" />
+        <div className="sequence-horizon pointer-events-none absolute inset-0" aria-hidden="true" />
+        <div key={activeIndex} className="sequence-word pointer-events-none absolute inset-0 grid place-items-center" aria-hidden="true">
+          {chapters[activeIndex].word}
         </div>
 
-        <div className="absolute inset-x-5 bottom-[11vh] md:inset-x-12 md:bottom-[12vh]">
+        <canvas ref={canvasRef} className={`sequence-canvas absolute inset-0 h-full w-full transition-opacity duration-1000 ${ready ? "opacity-100" : "opacity-0"}`} aria-label="O-01 深潮香水自動旋轉與鏡頭推進展示" role="img" />
+        <div className="sequence-glass pointer-events-none absolute inset-0" aria-hidden="true" />
+        <div className="sequence-vignette pointer-events-none absolute inset-0" aria-hidden="true" />
+
+        {!ready && <div className="absolute inset-0 grid place-items-center text-xs font-semibold tracking-[.22em] text-white/40">LOADING O—01</div>}
+
+        <div className="absolute inset-x-5 top-[78px] z-10 flex items-center justify-between text-[.7rem] font-semibold tracking-[.2em] text-white/48 md:inset-x-12">
+          <span>O—01 / 深潮</span>
+          <span>AN OLFACTIVE PORTRAIT</span>
+        </div>
+
+        <div className="absolute inset-x-5 bottom-[14vh] z-10 md:inset-x-12 md:bottom-[16vh]">
           {chapters.map((chapter, index) => (
-            <div key={chapter.no} className="sequence-copy absolute bottom-0 w-full max-w-md" data-active={index === activeIndex} data-align={index % 2 === 0 ? "left" : "right"}>
-              <p className="eyebrow text-white/42">{chapter.no} / 04 · {chapter.kicker}</p>
-              <h2 className="mt-4 text-[clamp(2.7rem,5.4vw,5.8rem)] font-semibold leading-[.92] tracking-[-.055em]">{chapter.title}</h2>
-              <p className="mt-5 max-w-sm text-base leading-8 text-white/58">{chapter.body}</p>
-            </div>
+            <article key={chapter.no} className="sequence-copy absolute bottom-0 w-full max-w-lg" data-active={index === activeIndex} data-align={index % 2 === 0 ? "left" : "right"}>
+              <p className="eyebrow text-white/45">{chapter.no} / 04 · {chapter.kicker}</p>
+              <h2 className="mt-4 text-[clamp(2.9rem,5.7vw,6.4rem)] font-semibold leading-[.9] tracking-[-.06em]">{chapter.title}</h2>
+              <p className="mt-5 max-w-md text-base leading-8 text-white/62 md:text-lg">{chapter.body}</p>
+            </article>
           ))}
         </div>
 
-        <button type="button" onClick={handlePlayback} className="sequence-control absolute bottom-6 right-5 z-10 grid h-11 w-11 place-items-center rounded-full border border-white/25 bg-black/35 text-white backdrop-blur-md transition-colors hover:bg-white hover:text-black md:bottom-8 md:right-12" aria-label={controlLabel} disabled={!ready}>
-          <ControlIcon size={17} fill={playbackState === "playing" ? "currentColor" : "none"} />
-        </button>
+        <div className="absolute inset-x-5 bottom-6 z-20 flex items-center gap-4 md:inset-x-12 md:bottom-8">
+          <div className="flex min-w-0 flex-1 items-center gap-2" aria-hidden="true">
+            {chapters.map((chapter, index) => <span key={chapter.no} className="sequence-tick" data-active={index <= activeIndex} />)}
+          </div>
+          <span className="hidden text-[.66rem] font-semibold tracking-[.18em] text-white/40 sm:block">AUTO FILM · 14 SEC</span>
+          <button type="button" onClick={handlePlayback} className="sequence-control grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/28 bg-black/30 text-white backdrop-blur-xl transition-colors hover:bg-white hover:text-black" aria-label={controlLabel} disabled={!ready}>
+            <ControlIcon size={16} fill={playbackState === "playing" ? "currentColor" : "none"} />
+          </button>
+        </div>
 
-        <div className="absolute inset-x-0 bottom-0 h-px bg-white/10">
-          <div ref={barRef} className="h-full origin-left scale-x-0 bg-ember will-change-transform" />
+        <div className="absolute inset-x-0 bottom-0 z-20 h-[2px] bg-white/10">
+          <div ref={barRef} className="h-full origin-left scale-x-0 bg-white will-change-transform" />
         </div>
       </div>
     </section>

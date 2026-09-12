@@ -89,7 +89,102 @@ export function CollectionsPage() {
 
 export function ProductPage() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-  return <main className="bg-ink text-chalk"><SiteHeader /><section className="grid min-h-[100svh] pt-[56px] lg:grid-cols-[1.05fr_.95fr]"><figure className="relative min-h-[60svh]"><Image src={`${basePath}/images/coast-bottle.webp`} alt="O-01 深潮香水" fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 55vw" /></figure><div className="flex flex-col justify-between p-5 py-12 md:p-12 lg:p-16"><p className="eyebrow text-white/40">EAU DE PARFUM · 50ML</p><div className="py-16"><p className="text-lg text-white/45">O-01 / 潮汐・木質調</p><h1 className="mt-6 text-[clamp(5rem,10vw,11rem)] font-medium leading-[.78] tracking-[-.09em]">深 潮</h1><p className="mt-10 max-w-md text-base leading-8 text-white/60">冷杉與海鹽先打開空氣，焙火烏龍在中央留下暖意，最後沉入檜木、岩蘭草與濕苔。</p><div className="mt-10 grid grid-cols-3 gap-4 border-y border-white/15 py-5 text-sm"><span>海鹽<br /><small className="text-white/35">TOP</small></span><span>烏龍<br /><small className="text-white/35">HEART</small></span><span>檜木<br /><small className="text-white/35">BASE</small></span></div></div><a href="#sequence" className="flex w-full items-center justify-between bg-chalk px-5 py-4 text-sm font-semibold text-ink">觀看氣味展開 <ArrowUpRight size={18} /></a></div></section><ScrollSequence /><SiteFooter /></main>;
+  return (
+    <main className="overflow-clip bg-ink text-chalk">
+      <SiteHeader />
+
+      <section className="product-hero relative min-h-[100svh] overflow-hidden bg-black">
+        <Image
+          src={`${basePath}/images/coast-bottle.webp`}
+          alt="海岸晨光中的 O-01 深潮香水"
+          fill
+          priority
+          className="product-hero-image object-cover"
+          sizes="100vw"
+        />
+        <div className="product-hero-shade absolute inset-0" aria-hidden="true" />
+
+        <div className="product-hero-content relative z-10 mx-auto flex min-h-[100svh] max-w-[1500px] flex-col px-5 pb-8 pt-24 md:px-12 md:pb-12 md:pt-28">
+          <div className="product-hero-kicker flex items-center justify-between border-b border-white/20 pb-4 text-[.7rem] font-semibold tracking-[.2em] text-white/60">
+            <span>O—01 / EAU DE PARFUM</span>
+            <span>50 ML · 2026</span>
+          </div>
+
+          <div className="product-hero-title my-auto text-center">
+            <p className="mb-4 text-[clamp(1rem,1.8vw,1.35rem)] font-medium tracking-[.16em] text-white/65">潮汐・木質調</p>
+            <h1 className="text-[clamp(6rem,18vw,17rem)] font-semibold leading-[.72] tracking-[-.095em]">深潮</h1>
+            <p className="mx-auto mt-8 max-w-lg text-[clamp(1.05rem,2vw,1.45rem)] leading-relaxed text-white/75">島嶼的黑潮，穿過茶火與林線，最後落在肌膚上。</p>
+          </div>
+
+          <div className="product-hero-footer flex flex-col gap-5 border-t border-white/20 pt-5 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-sm text-sm leading-6 text-white/55">海鹽 · 焙火烏龍 · 台灣檜木</p>
+            <a href="#sequence" className="button-light">觀看氣味展開 <ArrowUpRight size={16} /></a>
+          </div>
+        </div>
+      </section>
+
+      <ScrollSequence />
+
+      <section className="product-manifesto bg-chalk px-5 py-28 text-ink md:px-12 md:py-44">
+        <div className="reveal-block mx-auto max-w-[1300px]">
+          <p className="eyebrow text-ink/40">THE COMPOSITION</p>
+          <h2 className="mt-8 max-w-[13ch] text-[clamp(3.6rem,8.6vw,9.2rem)] font-semibold leading-[.9] tracking-[-.07em]">不是海洋香，<br />是潮水退去後<br />留下的溫度。</h2>
+          <div className="mt-16 grid gap-8 border-t border-black/18 pt-7 md:grid-cols-[1fr_1fr]">
+            <p className="max-w-lg text-[clamp(1.25rem,2.2vw,2rem)] leading-relaxed tracking-[-.025em]">明亮只停留片刻。O—01 很快轉向茶煙、濕木與岩石，把乾淨的鹹味收進更深的輪廓。</p>
+            <p className="max-w-xl text-base leading-8 text-ink/58 md:justify-self-end">我們以冷杉和礦物分子重建海風，再讓焙火烏龍帶出體溫。最後的台灣檜木不是厚重木頭，而是一道貼近皮膚的乾燥線條。</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="product-landscape relative min-h-[100svh] overflow-hidden">
+        <Image src={`${basePath}/images/island-botanicals.webp`} alt="雨後岩石上的檜木、茶葉與蘭花" fill className="product-landscape-image object-cover" sizes="100vw" />
+        <div className="product-landscape-shade absolute inset-0" aria-hidden="true" />
+        <div className="reveal-block relative z-10 mx-auto flex min-h-[100svh] max-w-[1500px] flex-col justify-between px-5 py-16 md:px-12 md:py-24">
+          <p className="eyebrow text-white/55">THREE TEMPERATURES</p>
+          <div>
+            <p className="product-landscape-words text-[clamp(4.8rem,15vw,14rem)] font-semibold leading-[.72] tracking-[-.09em]">冷 · 火 · 木</p>
+            <p className="mt-10 max-w-lg text-lg leading-8 text-white/68">不是依序出現的三種香調，而是同時存在的三種溫度。</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-black px-5 py-28 md:px-12 md:py-40">
+        <div className="mx-auto max-w-[1500px]">
+          <div className="reveal-block flex flex-col gap-8 border-b border-white/18 pb-14 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="eyebrow text-white/40">SCENT ARCHITECTURE</p>
+              <h2 className="mt-6 text-[clamp(3.4rem,7vw,7.5rem)] font-semibold leading-[.86] tracking-[-.07em]">從第一秒，<br />到第八小時。</h2>
+            </div>
+            <p className="max-w-md text-base leading-8 text-white/55">香氣不一次說完。每一層都在前一層退去時，留下自己的輪廓。</p>
+          </div>
+
+          <div className="product-note-grid grid md:grid-cols-3">
+            {[
+              ["00:00", "海鹽 / 冷杉", "一道冷光，帶著礦物與潮濕空氣。"],
+              ["01:30", "焙火烏龍", "茶梗、薄煙與肌膚升起的暖意。"],
+              ["08:00", "檜木 / 濕苔", "安靜、乾燥，最後貼近身體。"],
+            ].map(([time, title, body], index) => (
+              <article key={time} className="reveal-block border-b border-white/18 py-10 md:border-b-0 md:border-r md:px-8 md:py-14 first:md:pl-0 last:md:border-r-0 last:md:pr-0">
+                <p className="text-sm tracking-[.16em] text-white/35">{String(index + 1).padStart(2, "0")} / {time}</p>
+                <h3 className="mt-16 text-[clamp(2.2rem,4vw,4.2rem)] font-medium leading-none tracking-[-.055em]">{title}</h3>
+                <p className="mt-6 max-w-sm text-base leading-8 text-white/52">{body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-ember px-5 py-28 text-ink md:px-12 md:py-44">
+        <div className="reveal-block mx-auto max-w-[1250px] text-center">
+          <p className="eyebrow text-ink/45">O—01 / 深潮</p>
+          <h2 className="mx-auto mt-7 max-w-[10ch] text-[clamp(4rem,10vw,10rem)] font-semibold leading-[.84] tracking-[-.08em]">讓地景，<br />留在身上。</h2>
+          <a href={internalHref("/contact")} className="button-dark mt-12">預約試香 <ArrowUpRight size={16} /></a>
+        </div>
+      </section>
+
+      <SiteFooter />
+    </main>
+  );
 }
 
 export function JournalPage() {

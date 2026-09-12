@@ -6,7 +6,7 @@
 
 - 原創品牌概念、視覺方向與繁體中文內容
 - 11 個完整頁面，而非單頁展示稿
-- 首頁與產品頁使用 Canvas Sprite Sequence，進入視窗後自動播放 16 格影格融合動畫
+- 首頁與產品頁使用 Canvas Sprite Sequence，進入視窗後自動播放 16 格影格融合與多鏡位推拉動畫
 - 支援滑鼠、觸控、手機版選單與 `prefers-reduced-motion`
 - 圖片採用專案專屬生成素材，並提供 WebP 輕量版本，沒有外部圖庫依賴
 - 語意化結構、動態頁面標題、客製 favicon 與 404 頁面
@@ -29,7 +29,7 @@
 
 Vinext / React 19 / TypeScript / Tailwind CSS 4 / Canvas 2D / requestAnimationFrame / Next Image
 
-逐幀效果由 `IntersectionObserver` 在舞台進入視窗後觸發，再以 `requestAnimationFrame` 自動播放；透過相鄰影格融合降低跳格感，離開視窗時暫停並在返回後續播。畫面提供暫停與重播控制，也會尊重 `prefers-reduced-motion`。裝置像素比上限為 1.5，避免高解析手機進行不必要的 GPU 運算。
+逐幀效果由 `IntersectionObserver` 在舞台進入視窗後觸發，再以 `requestAnimationFrame` 播放 14.4 秒電影式時間軸；產品旋轉、鏡頭推拉、對焦、環境光與四段文字敘事共用同一進度。透過相鄰影格融合降低跳格感，離開視窗時暫停並在返回後續播。畫面提供暫停與重播控制，也會尊重 `prefers-reduced-motion`。裝置像素比上限為 1.5，避免高解析手機進行不必要的 GPU 運算。
 
 ## 開發
 
