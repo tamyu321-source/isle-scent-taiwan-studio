@@ -11,13 +11,19 @@ const projects = [
 
 export function PortfolioWorks() {
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  const featuredProjects = projects.filter(p => ["01", "05"].includes(p.number));
+  const pairedProjects = projects.filter(p => !["01", "05"].includes(p.number));
+  const renderProject = (p: (typeof projects)[number], featured = false) => <article className={`portfolio-real-card${featured ? " portfolio-real-feature" : ""}`} id={`project-${p.number}`} key={p.number}>
+    <div className="portfolio-real-meta"><span className="portfolio-real-number">{p.number}</span><span>{p.type}</span><span>2026</span></div>
+    <a className="portfolio-real-preview" href={base + p.href} aria-label={`直接進入 ${p.title} 網站`}><img src={`${base}/images/${p.image}`} alt={`${p.title} 實際網站首頁預覽`} width={1264} height={712} loading="lazy" /><span>實際網站預覽 <ArrowUpRight size={17} /></span></a>
+    <div className="portfolio-real-copy"><p className="portfolio-real-subtitle">{p.subtitle}</p><h3>{p.title}</h3><p>{p.description}</p><div className="portfolio-tag-row">{p.tags.map(t => <span key={t}>{t}</span>)}</div><div className="portfolio-work-actions"><a className="portfolio-enter-button" href={base + p.href}>進入網站 <ArrowUpRight size={18} /></a>{p.admin && <a href={base + p.admin}><LayoutDashboard size={16} /> 查看後台</a>}{p.extra && <a href={base + p.extra}>{p.extraLabel} ↗</a>}</div></div>
+  </article>;
   return <section id="work" className="portfolio-work portfolio-real-work" aria-labelledby="work-title">
     <div className="portfolio-section-heading"><p className="portfolio-label">01—{String(projects.length).padStart(2, "0")} / SELECTED WORK</p><h2 id="work-title">精選作品。<br />一鍵，直接體驗。</h2><p>以下皆為可瀏覽、可互動的概念作品，預覽圖取自實際網站。點擊圖片或「進入網站」即可直達；管理系統為本機資料示範，無真實交易。</p></div>
     <nav className="portfolio-work-index" aria-label="作品快速索引">{projects.map(p => <a href={`#project-${p.number}`} key={p.number}><span>{p.number}</span>{p.title}<ArrowUpRight size={16} /></a>)}</nav>
-    <div className="portfolio-real-grid">{projects.map(p => <article className={`portfolio-real-card${["05", "06"].includes(p.number) ? " portfolio-real-feature" : ""}`} id={`project-${p.number}`} key={p.number}>
-      <div className="portfolio-real-meta"><span className="portfolio-real-number">{p.number}</span><span>{p.type}</span><span>2026</span></div>
-      <a className="portfolio-real-preview" href={base + p.href} aria-label={`直接進入 ${p.title} 網站`}><img src={`${base}/images/${p.image}`} alt={`${p.title} 實際網站首頁預覽`} width={1264} height={712} loading="lazy" /><span>實際網站預覽 <ArrowUpRight size={17} /></span></a>
-      <div className="portfolio-real-copy"><p className="portfolio-real-subtitle">{p.subtitle}</p><h3>{p.title}</h3><p>{p.description}</p><div className="portfolio-tag-row">{p.tags.map(t => <span key={t}>{t}</span>)}</div><div className="portfolio-work-actions"><a className="portfolio-enter-button" href={base + p.href}>進入網站 <ArrowUpRight size={18} /></a>{p.admin && <a href={base + p.admin}><LayoutDashboard size={16} /> 查看後台</a>}{p.extra && <a href={base + p.extra}>{p.extraLabel} ↗</a>}</div></div>
-    </article>)}</div>
+    <div className="portfolio-real-grid">
+      {featuredProjects.map(p => renderProject(p, true))}
+      <div className="portfolio-real-pair-grid">{pairedProjects.map(p => renderProject(p))}</div>
+    </div>
   </section>;
 }
