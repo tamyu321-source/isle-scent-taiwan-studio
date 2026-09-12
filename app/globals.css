@@ -31,8 +31,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero-scroll-cue { display: inline-flex; flex-direction: column; align-items: center; gap: .55rem; color: rgba(255,255,255,.6); font-size: .63rem; font-weight: 650; letter-spacing: .18em; }
 .hero-scroll-cue svg { animation: scroll-cue 1.8s ease-in-out infinite; }
 .sequence-section { --sequence-progress: 0; --sequence-shift-x: 0%; --sequence-glass-x: -95%; --sequence-aurora-opacity: .38; }
-.sequence-canvas { will-change: contents; }
+.sequence-scene { z-index: 0; transform-origin: center; will-change: opacity, transform; }
+.sequence-scene-final { z-index: 4; }
+.sequence-scene img { transform: scale(1.015); }
+.sequence-scene-shade { background: linear-gradient(180deg, rgba(1,2,2,.52), rgba(1,2,2,.04) 42%, rgba(1,2,2,.72)); }
+.sequence-scene-shade-macro { background: linear-gradient(90deg, rgba(1,2,2,.72), transparent 48%, rgba(1,2,2,.16)), linear-gradient(180deg, rgba(1,2,2,.36), transparent 50%, rgba(1,2,2,.62)); }
+.sequence-scene-shade-final { background: linear-gradient(180deg, rgba(1,2,2,.5), rgba(1,2,2,.05) 42%, rgba(1,2,2,.78)); }
+.sequence-canvas { z-index: 3; will-change: contents, opacity; }
 .sequence-aurora {
+  z-index: 1;
   background:
     radial-gradient(ellipse at 26% 46%, rgba(91,122,125,.24), transparent 36%),
     radial-gradient(ellipse at 74% 54%, rgba(199,105,55,.19), transparent 31%);
@@ -40,10 +47,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   opacity: var(--sequence-aurora-opacity);
   transform: translateX(var(--sequence-shift-x)) scale(1.08);
 }
-.sequence-horizon { background: linear-gradient(180deg, transparent 51%, rgba(255,255,255,.07) 51.1%, transparent 51.35%); opacity: .5; }
-.sequence-word { color: rgba(255,255,255,.065); font-size: clamp(17rem, 44vw, 48rem); font-weight: 700; line-height: .7; letter-spacing: -.12em; transform: translateX(-.04em); animation: sequence-word-enter 1.2s var(--ease-cinematic) both; }
-.sequence-glass { background: linear-gradient(112deg, transparent 36%, rgba(255,255,255,.055) 49.8%, transparent 62%); mix-blend-mode: screen; transform: translateX(var(--sequence-glass-x)); }
-.sequence-vignette { background: radial-gradient(circle at 50% 51%, transparent 19%, rgba(0,0,0,.11) 48%, rgba(0,0,0,.8) 100%), linear-gradient(180deg, rgba(0,0,0,.54), transparent 25%, transparent 66%, rgba(0,0,0,.62)); }
+.sequence-horizon { z-index: 1; background: linear-gradient(180deg, transparent 51%, rgba(255,255,255,.07) 51.1%, transparent 51.35%); opacity: .5; }
+.sequence-word { z-index: 7; color: rgba(255,255,255,.06); font-size: clamp(17rem, 44vw, 48rem); font-weight: 700; line-height: .7; letter-spacing: -.12em; text-shadow: 0 16px 80px rgba(0,0,0,.28); transform: translateX(-.04em); animation: sequence-word-enter 1.05s var(--ease-cinematic) both; }
+.sequence-glass { z-index: 8; background: linear-gradient(112deg, transparent 36%, rgba(255,255,255,.055) 49.8%, transparent 62%); mix-blend-mode: screen; transform: translateX(var(--sequence-glass-x)); }
+.sequence-vignette { z-index: 8; background: radial-gradient(circle at 50% 51%, transparent 19%, rgba(0,0,0,.11) 48%, rgba(0,0,0,.8) 100%), linear-gradient(180deg, rgba(0,0,0,.54), transparent 25%, transparent 66%, rgba(0,0,0,.62)); }
 .sequence-copy { opacity: 0; filter: blur(12px); transform: translateY(54px) scale(.985); transition: opacity .9s var(--ease-cinematic), transform .9s var(--ease-cinematic), filter .9s var(--ease-cinematic); pointer-events: none; }
 .sequence-copy[data-active="true"] { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
 .sequence-copy h2 { text-wrap: balance; text-shadow: 0 4px 38px rgba(0,0,0,.68); }
@@ -61,6 +68,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .product-landscape-shade { background: linear-gradient(180deg, rgba(5,7,7,.55), rgba(5,7,7,.07) 40%, rgba(5,7,7,.72)), linear-gradient(90deg, rgba(5,7,7,.25), transparent 55%); }
 .product-landscape-words { text-shadow: 0 6px 60px rgba(0,0,0,.45); }
 .product-note-grid article { min-height: 29rem; }
+.product-feature-card, .product-macro-panel { transition: transform .7s var(--ease-cinematic), background .5s ease; }
+.product-feature-card:hover { transform: translateY(-5px); }
+.product-macro-panel img { transition: transform 1.4s var(--ease-cinematic); }
+.product-macro-panel:hover img { transform: scale(1.035); }
+.product-spec-list dd { text-wrap: balance; }
 .landscape-window { position: relative; box-shadow: 0 40px 100px rgba(13,18,18,.16); }
 .reveal-image img { transform: scale(1.045); }
 @keyframes hero-settle { from { opacity: .25; transform: scale(1.09); } to { opacity: 1; transform: scale(1.035); } }

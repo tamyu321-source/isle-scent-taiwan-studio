@@ -92,8 +92,19 @@ export function ProductPage() {
   return (
     <main className="overflow-clip bg-ink text-chalk">
       <SiteHeader />
+      <nav className="product-local-nav fixed inset-x-0 top-[56px] z-40 border-b border-white/12 bg-black/72 text-white backdrop-blur-2xl" aria-label="O-01 產品導覽">
+        <div className="mx-auto flex h-[52px] max-w-[1500px] items-center justify-between px-5 md:px-12">
+          <a href="#overview" className="text-sm font-semibold tracking-[-.01em]">O—01 <span className="ml-1 font-normal text-white/48">深潮</span></a>
+          <div className="flex items-center gap-5">
+            <a href="#film" className="hidden text-xs text-white/55 transition-colors hover:text-white sm:block">形體</a>
+            <a href="#notes" className="hidden text-xs text-white/55 transition-colors hover:text-white sm:block">香氣</a>
+            <a href="#details" className="hidden text-xs text-white/55 transition-colors hover:text-white sm:block">產品資訊</a>
+            <a href={internalHref("/contact")} className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-black">預約試香</a>
+          </div>
+        </div>
+      </nav>
 
-      <section className="product-hero relative min-h-[100svh] overflow-hidden bg-black">
+      <section id="overview" className="product-hero relative min-h-[100svh] overflow-hidden bg-black">
         <Image
           src={`${basePath}/images/coast-bottle.webp`}
           alt="海岸晨光中的 O-01 深潮香水"
@@ -105,7 +116,7 @@ export function ProductPage() {
         <div className="product-hero-shade absolute inset-0" aria-hidden="true" />
 
         <div className="product-hero-content relative z-10 mx-auto flex min-h-[100svh] max-w-[1500px] flex-col px-5 pb-8 pt-24 md:px-12 md:pb-12 md:pt-28">
-          <div className="product-hero-kicker flex items-center justify-between border-b border-white/20 pb-4 text-[.7rem] font-semibold tracking-[.2em] text-white/60">
+          <div className="product-hero-kicker mt-[52px] flex items-center justify-between border-b border-white/20 pb-4 text-[.7rem] font-semibold tracking-[.2em] text-white/60">
             <span>O—01 / EAU DE PARFUM</span>
             <span>50 ML · 2026</span>
           </div>
@@ -123,15 +134,55 @@ export function ProductPage() {
         </div>
       </section>
 
-      <ScrollSequence />
+      <div id="film"><ScrollSequence /></div>
 
-      <section className="product-manifesto bg-chalk px-5 py-28 text-ink md:px-12 md:py-44">
+      <section id="notes" className="product-manifesto bg-chalk px-5 py-28 text-ink md:px-12 md:py-44">
         <div className="reveal-block mx-auto max-w-[1300px]">
           <p className="eyebrow text-ink/40">THE COMPOSITION</p>
           <h2 className="mt-8 max-w-[13ch] text-[clamp(3.6rem,8.6vw,9.2rem)] font-semibold leading-[.9] tracking-[-.07em]">不是海洋香，<br />是潮水退去後<br />留下的溫度。</h2>
           <div className="mt-16 grid gap-8 border-t border-black/18 pt-7 md:grid-cols-[1fr_1fr]">
             <p className="max-w-lg text-[clamp(1.25rem,2.2vw,2rem)] leading-relaxed tracking-[-.025em]">明亮只停留片刻。O—01 很快轉向茶煙、濕木與岩石，把乾淨的鹹味收進更深的輪廓。</p>
             <p className="max-w-xl text-base leading-8 text-ink/58 md:justify-self-end">我們以冷杉和礦物分子重建海風，再讓焙火烏龍帶出體溫。最後的台灣檜木不是厚重木頭，而是一道貼近皮膚的乾燥線條。</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#060707] px-4 py-5 text-white md:px-6 md:py-7">
+        <div className="mx-auto max-w-[1500px]">
+          <div className="mb-10 px-1 pt-16 md:mb-16 md:px-6 md:pt-24">
+            <p className="eyebrow text-white/38">DESIGNED BY THE COAST</p>
+            <h2 className="mt-7 max-w-[12ch] text-[clamp(3.5rem,7.6vw,8rem)] font-semibold leading-[.88] tracking-[-.07em]">光線走過的地方，<br />就是瓶身的輪廓。</h2>
+          </div>
+
+          <div className="product-feature-grid grid gap-4 lg:grid-cols-[1.45fr_.55fr]">
+            <figure className="product-macro-panel reveal-image relative min-h-[72svh] overflow-hidden rounded-[28px] bg-black">
+              <Image src={`${basePath}/images/o01-glass-macro.webp`} alt="O-01 煙燻黑玻璃瓶身的冷暖光澤特寫" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 72vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-transparent to-black/12" aria-hidden="true" />
+              <figcaption className="absolute inset-x-7 bottom-7 flex items-end justify-between gap-8 md:inset-x-10 md:bottom-10">
+                <div>
+                  <p className="eyebrow text-white/45">FACETED GLASS / 01</p>
+                  <p className="mt-3 max-w-lg text-xl leading-8 text-white/78">厚玻璃以不對稱曲面折射光線，正面安靜，轉身才看見稜角。</p>
+                </div>
+                <span className="hidden text-5xl font-light text-white/28 md:block">01</span>
+              </figcaption>
+            </figure>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              <article className="product-feature-card reveal-block flex min-h-[22rem] flex-col justify-between rounded-[28px] bg-[#171919] p-7 md:p-9">
+                <p className="eyebrow text-white/38">MADE SLOWLY</p>
+                <div>
+                  <p className="text-[clamp(5rem,9vw,8.5rem)] font-semibold leading-none tracking-[-.08em]">112<span className="ml-2 text-2xl font-medium tracking-normal text-white/45">天</span></p>
+                  <p className="mt-5 max-w-xs text-base leading-7 text-white/55">從低溫萃取、熟成，到逐瓶檢視與手工裝瓶。</p>
+                </div>
+              </article>
+              <article className="product-feature-card reveal-block flex min-h-[22rem] flex-col justify-between rounded-[28px] bg-ember p-7 text-ink md:p-9">
+                <p className="eyebrow text-black/42">ONE FORMAT</p>
+                <div>
+                  <p className="text-[clamp(4.8rem,8vw,8rem)] font-semibold leading-none tracking-[-.08em]">50<span className="ml-2 text-2xl font-medium tracking-normal text-black/45">mL</span></p>
+                  <p className="mt-5 max-w-xs text-base leading-7 text-black/60">Eau de parfum。可回收深色玻璃，無塑外包裝。</p>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </section>
@@ -171,6 +222,34 @@ export function ProductPage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="details" className="bg-chalk px-5 py-24 text-ink md:px-12 md:py-36">
+        <div className="mx-auto grid max-w-[1500px] gap-16 lg:grid-cols-[.58fr_1.42fr] lg:gap-24">
+          <div className="reveal-block lg:sticky lg:top-36 lg:self-start">
+            <p className="eyebrow text-black/38">PRODUCT DETAILS</p>
+            <h2 className="mt-6 text-[clamp(3.3rem,6vw,6.4rem)] font-semibold leading-[.88] tracking-[-.065em]">O—01<br />深潮</h2>
+            <p className="mt-7 max-w-sm text-base leading-8 text-black/56">一支從海面移動到林線的潮汐・木質調淡香精。</p>
+          </div>
+
+          <dl className="product-spec-list border-t border-black/20">
+            {[
+              ["香氣家族", "潮汐・木質調"],
+              ["前調", "佛手柑、海鹽、冷杉"],
+              ["中調", "焙火烏龍、冷煙"],
+              ["後調", "台灣檜木、岩蘭草、濕苔"],
+              ["規格", "50 mL · Eau de parfum"],
+              ["製作", "低溫萃取 · 112 天熟成與裝瓶週期"],
+              ["包裝", "可回收深色玻璃 · 無塑外包裝"],
+              ["使用方式", "噴灑於手腕、頸側或衣物內層；避免摩擦香氣。"],
+            ].map(([term, detail]) => (
+              <div key={term} className="reveal-block grid gap-3 border-b border-black/20 py-7 sm:grid-cols-[.42fr_1fr] sm:gap-8">
+                <dt className="text-sm font-semibold text-black/42">{term}</dt>
+                <dd className="text-[clamp(1.15rem,2vw,1.7rem)] leading-relaxed tracking-[-.025em]">{detail}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 

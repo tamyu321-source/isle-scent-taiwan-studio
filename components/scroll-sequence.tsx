@@ -1,15 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import { Pause, Play, RotateCcw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const FRAME_COUNT = 16;
-const PLAYBACK_DURATION = 14_400;
+const PLAYBACK_DURATION = 9_800;
 const chapters = [
-  { at: 0, no: "01", kicker: "SEA MIST", word: "海", title: "海霧，先抵達。", body: "佛手柑與海鹽打開空氣，像浪還沒靠岸以前的第一道冷光。" },
-  { at: .25, no: "02", kicker: "ROASTED TEA", word: "火", title: "接著，是茶火。", body: "焙火烏龍緩慢升溫，讓黑色玻璃裡出現一道溫暖的邊界。" },
-  { at: .5, no: "03", kicker: "FOREST LINE", word: "林", title: "再沉入林線。", body: "檜木、岩蘭草與濕苔，把氣味拉向更深、更安靜的地方。" },
-  { at: .75, no: "04", kicker: "SKIN", word: "餘", title: "最後，留在肌膚。", body: "當地景退去，只剩一段貼近身體、沒有名字的餘韻。" },
+  { at: 0, no: "01", kicker: "THE COAST", word: "海", title: "從海霧開始。", body: "東岸清晨的冷光，成為 O—01 的第一個輪廓。" },
+  { at: .24, no: "02", kicker: "THE GLASS", word: "光", title: "把流動，留在玻璃裡。", body: "不規則切面折射冷藍與琥珀色光，每一個角度都不相同。" },
+  { at: .5, no: "03", kicker: "THE FORM", word: "形", title: "一只瓶，也是一段地形。", body: "十六個角度連續轉動，讓厚度、陰影與邊緣逐一浮現。" },
+  { at: .76, no: "04", kicker: "THE SCENT", word: "餘", title: "最後，讓氣味接手。", body: "海鹽、茶火與檜木，從物件退到肌膚，只留下餘韻。" },
 ];
 
 type PlaybackState = "idle" | "playing" | "paused" | "complete";
@@ -51,8 +52,12 @@ function cameraAt(progress: number) {
 }
 
 export function ScrollSequence() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const coastIntroRef = useRef<HTMLDivElement>(null);
+  const macroRef = useRef<HTMLDivElement>(null);
+  const coastFinalRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const controllerRef = useRef<PlaybackController | null>(null);
@@ -109,13 +114,14 @@ export function ScrollSequence() {
       resizeCanvas();
       const sourceWidth = image.naturalWidth / 4;
       const sourceHeight = image.naturalHeight / 4;
-      const framePosition = progress * (FRAME_COUNT - 1);
+      const rotationProgress = smoothstep((progress - .4) / .43);
+      const framePosition = rotationProgress * (FRAME_COUNT - 1);
       const firstFrame = Math.floor(framePosition);
       const secondFrame = Math.min(FRAME_COUNT - 1, firstFrame + 1);
       const blend = framePosition - firstFrame;
       const portrait = canvas.height > canvas.width;
       const baseScale = Math.min(canvas.width / sourceWidth, canvas.height / sourceHeight);
-      const camera = cameraAt(progress);
+      const camera = cameraAt(rotationProgress);
       const scale = baseScale * camera.scale * (portrait ? 1.28 : 1);
       const destinationWidth = sourceWidth * scale;
       const destinationHeight = sourceHeight * scale;
@@ -145,7 +151,7 @@ export function ScrollSequence() {
         );
       };
 
-      const arrival = smoothstep(progress / .09);
+      const arrival = smoothstep((progress - .4) / .1);
       draw(firstFrame, arrival, camera.focus);
       if (secondFrame !== firstFrame && blend > .02) draw(secondFrame, blend * arrival, camera.focus);
       context.globalAlpha = 1;
@@ -158,6 +164,24 @@ export function ScrollSequence() {
       section.style.setProperty("--sequence-shift-x", `${Math.sin(progress * Math.PI * 2) * 8}%`);
       section.style.setProperty("--sequence-glass-x", `${progress * 190 - 95}%`);
       section.style.setProperty("--sequence-aurora-opacity", String(.38 + progress * .42));
+
+      const introOpacity = 1 - smoothstep((progress - .14) / .13);
+      const macroOpacity = smoothstep((progress - .17) / .1) * (1 - smoothstep((progress - .41) / .11));
+      const canvasOpacity = smoothstep((progress - .4) / .1) * (1 - smoothstep((progress - .78) / .1));
+      const finalOpacity = smoothstep((progress - .77) / .14);
+      if (coastIntroRef.current) {
+        coastIntroRef.current.style.opacity = String(introOpacity);
+        coastIntroRef.current.style.transform = `scale(${1.04 + progress * .08})`;
+      }
+      if (macroRef.current) {
+        macroRef.current.style.opacity = String(macroOpacity);
+        macroRef.current.style.transform = `scale(${1.08 - progress * .06}) translate3d(${(progress - .3) * -3}%, 0, 0)`;
+      }
+      canvas.style.opacity = String(canvasOpacity);
+      if (coastFinalRef.current) {
+        coastFinalRef.current.style.opacity = String(finalOpacity);
+        coastFinalRef.current.style.transform = `scale(${1.13 - finalOpacity * .09})`;
+      }
 
       const nextIndex = chapters.reduce((latest, chapter, index) => progress >= chapter.at ? index : latest, 0);
       if (nextIndex !== lastActiveIndex) {
@@ -279,13 +303,25 @@ export function ScrollSequence() {
   return (
     <section ref={sectionRef} id="sequence" className="sequence-section relative h-[132svh] bg-black text-white">
       <div className="sequence-stage sticky top-0 h-[100svh] min-h-[620px] overflow-hidden bg-black">
+        <div ref={coastIntroRef} className="sequence-scene absolute inset-0 opacity-100" aria-hidden="true">
+          <Image src={`${basePath}/images/coast-bottle.webp`} alt="" fill sizes="100vw" className="object-cover object-center" />
+          <div className="sequence-scene-shade absolute inset-0" />
+        </div>
+        <div ref={macroRef} className="sequence-scene absolute inset-0 opacity-0" aria-hidden="true">
+          <Image src={`${basePath}/images/o01-glass-macro.webp`} alt="" fill sizes="100vw" className="object-cover object-center" />
+          <div className="sequence-scene-shade sequence-scene-shade-macro absolute inset-0" />
+        </div>
         <div className="sequence-aurora pointer-events-none absolute inset-0" aria-hidden="true" />
         <div className="sequence-horizon pointer-events-none absolute inset-0" aria-hidden="true" />
         <div key={activeIndex} className="sequence-word pointer-events-none absolute inset-0 grid place-items-center" aria-hidden="true">
           {chapters[activeIndex].word}
         </div>
 
-        <canvas ref={canvasRef} className={`sequence-canvas absolute inset-0 h-full w-full transition-opacity duration-1000 ${ready ? "opacity-100" : "opacity-0"}`} aria-label="O-01 深潮香水自動旋轉與鏡頭推進展示" role="img" />
+        <canvas ref={canvasRef} className={`sequence-canvas absolute inset-0 h-full w-full opacity-0 ${ready ? "is-ready" : ""}`} aria-label="O-01 深潮香水自動旋轉與鏡頭推進展示" role="img" />
+        <div ref={coastFinalRef} className="sequence-scene sequence-scene-final absolute inset-0 opacity-0" aria-hidden="true">
+          <Image src={`${basePath}/images/coast-bottle.webp`} alt="" fill sizes="100vw" className="object-cover object-center" />
+          <div className="sequence-scene-shade sequence-scene-shade-final absolute inset-0" />
+        </div>
         <div className="sequence-glass pointer-events-none absolute inset-0" aria-hidden="true" />
         <div className="sequence-vignette pointer-events-none absolute inset-0" aria-hidden="true" />
 
@@ -293,7 +329,7 @@ export function ScrollSequence() {
 
         <div className="absolute inset-x-5 top-[78px] z-10 flex items-center justify-between text-[.7rem] font-semibold tracking-[.2em] text-white/48 md:inset-x-12">
           <span>O—01 / 深潮</span>
-          <span>AN OLFACTIVE PORTRAIT</span>
+          <span>A PRODUCT PORTRAIT</span>
         </div>
 
         <div className="absolute inset-x-5 bottom-[14vh] z-10 md:inset-x-12 md:bottom-[16vh]">
@@ -310,7 +346,7 @@ export function ScrollSequence() {
           <div className="flex min-w-0 flex-1 items-center gap-2" aria-hidden="true">
             {chapters.map((chapter, index) => <span key={chapter.no} className="sequence-tick" data-active={index <= activeIndex} />)}
           </div>
-          <span className="hidden text-[.66rem] font-semibold tracking-[.18em] text-white/40 sm:block">AUTO FILM · 14 SEC</span>
+          <span className="hidden text-[.66rem] font-semibold tracking-[.18em] text-white/40 sm:block">AUTO FILM · 10 SEC</span>
           <button type="button" onClick={handlePlayback} className="sequence-control grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/28 bg-black/30 text-white backdrop-blur-xl transition-colors hover:bg-white hover:text-black" aria-label={controlLabel} disabled={!ready}>
             <ControlIcon size={16} fill={playbackState === "playing" ? "currentColor" : "none"} />
           </button>
