@@ -26,6 +26,7 @@ const routes = [
   "mori-studio",
   "mori-studio/member",
   "mori-studio/admin",
+  "pure-white",
 ];
 
 for (const route of routes) {

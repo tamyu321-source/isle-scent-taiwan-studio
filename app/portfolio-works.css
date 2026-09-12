@@ -1,4 +1,4 @@
-.portfolio-work-index{display:grid;grid-template-columns:repeat(4,1fr);margin:40px 0 60px;border-top:1px solid #b9b7b0;border-bottom:1px solid #b9b7b0;}
+.portfolio-work-index{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:40px 0 60px;border-top:1px solid #b9b7b0;border-bottom:1px solid #b9b7b0;}
 .portfolio-work-index a{display:flex;align-items:center;gap:12px;padding:22px 12px;font-size:14px;}
 .portfolio-work-index a+ a{border-left:1px solid #b9b7b0;}
 .portfolio-work-index span{font:20px Georgia,serif;color:#6a6a60;}
@@ -34,3 +34,8 @@
 .portfolio-real-work .portfolio-real-preview>span{color:#252b23;}
 .portfolio-real-work .portfolio-tag-row span{font-size:12px;font-weight:400;letter-spacing:.04em;border-color:#ffffff40;opacity:.8;}
 .portfolio-real-work .portfolio-work-actions .portfolio-enter-button{background:#dfdfc3;color:#1c251e;}
+.portfolio-real-feature{grid-column:1/-1;display:grid;grid-template-columns:1.35fr 1fr;gap:0 45px;align-items:center;}
+.portfolio-real-feature .portfolio-real-meta{grid-column:1/-1;}
+.portfolio-real-feature .portfolio-real-copy{padding-top:0;}
+@media(max-width:1100px){.portfolio-work-index{grid-template-columns:1fr 1fr}.portfolio-work-index a:nth-child(odd){border-left:0}.portfolio-work-index a:nth-child(n+3){border-top:1px solid #ffffff30}.portfolio-work-index a:last-child:nth-child(odd){grid-column:1/-1}.portfolio-real-feature{gap:0 28px}.portfolio-real-feature .portfolio-work-actions{gap:16px}}
+@media(max-width:850px){.portfolio-real-feature{display:block}.portfolio-real-feature .portfolio-real-copy{padding-top:26px}.portfolio-real-feature .portfolio-real-copy>p:not(.portfolio-real-subtitle){min-height:0}}
