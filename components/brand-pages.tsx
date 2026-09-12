@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ArrowLeft, ArrowUpRight, MapPin } from "lucide-react";
+import { ScrollSequence } from "@/components/scroll-sequence";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -88,7 +89,7 @@ export function CollectionsPage() {
 
 export function ProductPage() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-  return <main className="bg-ink text-chalk"><SiteHeader /><section className="grid min-h-[100svh] pt-[56px] lg:grid-cols-[1.05fr_.95fr]"><figure className="relative min-h-[60svh]"><Image src={`${basePath}/images/coast-bottle.webp`} alt="O-01 深潮香水" fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 55vw" /></figure><div className="flex flex-col justify-between p-5 py-12 md:p-12 lg:p-16"><p className="eyebrow text-white/40">EAU DE PARFUM · 50ML</p><div className="py-16"><p className="text-lg text-white/45">O-01 / 潮汐・木質調</p><h1 className="mt-6 text-[clamp(5rem,10vw,11rem)] font-medium leading-[.78] tracking-[-.09em]">深 潮</h1><p className="mt-10 max-w-md text-base leading-8 text-white/60">冷杉與海鹽先打開空氣，焙火烏龍在中央留下暖意，最後沉入檜木、岩蘭草與濕苔。</p><div className="mt-10 grid grid-cols-3 gap-4 border-y border-white/15 py-5 text-sm"><span>海鹽<br /><small className="text-white/35">TOP</small></span><span>烏龍<br /><small className="text-white/35">HEART</small></span><span>檜木<br /><small className="text-white/35">BASE</small></span></div></div><a href={internalHref("/contact")} className="flex w-full items-center justify-between bg-chalk px-5 py-4 text-sm font-semibold text-ink">詢問現貨與試香 <ArrowUpRight size={18} /></a></div></section><SiteFooter /></main>;
+  return <main className="bg-ink text-chalk"><SiteHeader /><section className="grid min-h-[100svh] pt-[56px] lg:grid-cols-[1.05fr_.95fr]"><figure className="relative min-h-[60svh]"><Image src={`${basePath}/images/coast-bottle.webp`} alt="O-01 深潮香水" fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 55vw" /></figure><div className="flex flex-col justify-between p-5 py-12 md:p-12 lg:p-16"><p className="eyebrow text-white/40">EAU DE PARFUM · 50ML</p><div className="py-16"><p className="text-lg text-white/45">O-01 / 潮汐・木質調</p><h1 className="mt-6 text-[clamp(5rem,10vw,11rem)] font-medium leading-[.78] tracking-[-.09em]">深 潮</h1><p className="mt-10 max-w-md text-base leading-8 text-white/60">冷杉與海鹽先打開空氣，焙火烏龍在中央留下暖意，最後沉入檜木、岩蘭草與濕苔。</p><div className="mt-10 grid grid-cols-3 gap-4 border-y border-white/15 py-5 text-sm"><span>海鹽<br /><small className="text-white/35">TOP</small></span><span>烏龍<br /><small className="text-white/35">HEART</small></span><span>檜木<br /><small className="text-white/35">BASE</small></span></div></div><a href="#sequence" className="flex w-full items-center justify-between bg-chalk px-5 py-4 text-sm font-semibold text-ink">觀看氣味展開 <ArrowUpRight size={18} /></a></div></section><ScrollSequence /><SiteFooter /></main>;
 }
 
 export function JournalPage() {
