@@ -1,4 +1,4 @@
-.portfolio-work-index{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:40px 0 60px;border-top:1px solid #b9b7b0;border-bottom:1px solid #b9b7b0;}
+.portfolio-work-index{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin:40px 0 60px;border-top:1px solid #b9b7b0;border-bottom:1px solid #b9b7b0;}
 .portfolio-work-index a{display:flex;align-items:center;gap:12px;padding:22px 12px;font-size:14px;}
 .portfolio-work-index a+ a{border-left:1px solid #b9b7b0;}
 .portfolio-work-index span{font:20px Georgia,serif;color:#6a6a60;}
