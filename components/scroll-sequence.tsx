@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import NextImage from "next/image";
 import { Pause, Play, RotateCcw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -304,11 +304,11 @@ export function ScrollSequence() {
     <section ref={sectionRef} id="sequence" className="sequence-section relative h-[132svh] bg-black text-white">
       <div className="sequence-stage sticky top-0 h-[100svh] min-h-[620px] overflow-hidden bg-black">
         <div ref={coastIntroRef} className="sequence-scene absolute inset-0 opacity-100" aria-hidden="true">
-          <Image src={`${basePath}/images/coast-bottle.webp`} alt="" fill sizes="100vw" className="object-cover object-center" />
+          <NextImage src={`${basePath}/images/coast-bottle.webp`} alt="" fill sizes="100vw" className="object-cover object-center" />
           <div className="sequence-scene-shade absolute inset-0" />
         </div>
         <div ref={macroRef} className="sequence-scene absolute inset-0 opacity-0" aria-hidden="true">
-          <Image src={`${basePath}/images/o01-glass-macro.webp`} alt="" fill sizes="100vw" className="object-cover object-center" />
+          <NextImage src={`${basePath}/images/o01-glass-macro.webp`} alt="" fill sizes="100vw" className="object-cover object-center" />
           <div className="sequence-scene-shade sequence-scene-shade-macro absolute inset-0" />
         </div>
         <div className="sequence-aurora pointer-events-none absolute inset-0" aria-hidden="true" />
@@ -319,7 +319,7 @@ export function ScrollSequence() {
 
         <canvas ref={canvasRef} className={`sequence-canvas absolute inset-0 h-full w-full opacity-0 ${ready ? "is-ready" : ""}`} aria-label="O-01 深潮香水自動旋轉與鏡頭推進展示" role="img" />
         <div ref={coastFinalRef} className="sequence-scene sequence-scene-final absolute inset-0 opacity-0" aria-hidden="true">
-          <Image src={`${basePath}/images/coast-bottle.webp`} alt="" fill sizes="100vw" className="object-cover object-center" />
+          <NextImage src={`${basePath}/images/coast-bottle.webp`} alt="" fill sizes="100vw" className="object-cover object-center" />
           <div className="sequence-scene-shade sequence-scene-shade-final absolute inset-0" />
         </div>
         <div className="sequence-glass pointer-events-none absolute inset-0" aria-hidden="true" />
