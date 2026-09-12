@@ -15,8 +15,13 @@ const routes = [
   "stockists",
   "contact",
   "work/isle-scent",
+  "work/ledger-flow",
+  "work/signal-desk",
+  "work/tax-flow",
   "piglet-daycare",
   "piglet-daycare/admin",
+  "order-hub",
+  "order-hub/admin",
 ];
 
 for (const route of routes) {

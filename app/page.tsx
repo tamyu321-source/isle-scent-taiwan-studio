@@ -33,6 +33,17 @@ const systemProjects: SystemProject[] = [
   },
   {
     index: "03",
+    title: "Order Flow",
+    type: "Order Operations Platform",
+    year: "2026",
+    className: "portfolio-project-order",
+    description: "從專屬下單連結到訂貨、到貨、庫存與出貨，把原本散落在 Excel 和訊息裡的訂單工作串成同一條流程。",
+    tags: ["ORDER LINK", "OPERATIONS", "FULFILLMENT"],
+    words: ["LINK", "ORDER", "SHIP"],
+    href: "/order-hub/",
+  },
+  {
+    index: "04",
     title: "Ledger Flow",
     type: "Desktop Finance System",
     year: "2026",
@@ -40,9 +51,10 @@ const systemProjects: SystemProject[] = [
     description: "把多頁籤、申報表、憑證與列印流程，收斂成一致而可長期維護的桌面產品體驗。",
     tags: ["PRODUCT UI", "ELECTRON", "DESIGN SYSTEM"],
     words: ["CLEAR", "STABLE", "SCALABLE"],
+    href: "/work/ledger-flow/",
   },
   {
-    index: "04",
+    index: "05",
     title: "Signal Desk",
     type: "Risk-first Trading Automation",
     year: "2026",
@@ -50,9 +62,10 @@ const systemProjects: SystemProject[] = [
     description: "讓線上狀態、資產辨識、交易前驗證與重試紀錄都能被清楚看見的自動化工作台。",
     tags: ["AUTOMATION", "RISK GUARD", "OBSERVABILITY"],
     words: ["CHECK", "DECIDE", "TRACE"],
+    href: "/work/signal-desk/",
   },
   {
-    index: "05",
+    index: "06",
     title: "Tax Flow",
     type: "Browser Workflow Automation",
     year: "2026",
@@ -60,8 +73,22 @@ const systemProjects: SystemProject[] = [
     description: "處理多分頁生命週期、低規格環境與人工確認節點，讓複雜申報流程可靠交棒。",
     tags: ["RPA", "BROWSER LIFECYCLE", "SAFE HANDOFF"],
     words: ["PREPARE", "VERIFY", "HAND OFF"],
+    href: "/work/tax-flow/",
   },
 ];
+
+function SystemProjectVisual({ project, basePath }: { project: SystemProject; basePath: string }) {
+  const content = <>
+    {project.image && <Image src={`${basePath}${project.image}`} alt="" fill className="portfolio-system-image object-cover" sizes="(max-width: 900px) 100vw, 55vw" />}
+    <div className="portfolio-system-rail"><i /><i /><i /></div>
+    <div className="portfolio-system-words">
+      {project.words.map((word, index) => <span key={word}><b>0{index + 1}</b>{word}</span>)}
+    </div>
+    <div className="portfolio-system-status"><span>ACTIVE SYSTEM</span><span>●</span></div>
+    <span className="portfolio-visual-enter">OPEN WORK <ArrowUpRight size={16} /></span>
+  </>;
+  return <a className="portfolio-system-visual" href={`${basePath}${project.href}`} aria-label={`開啟 ${project.title} 作品`}>{content}</a>;
+}
 
 export default function Home() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -90,13 +117,13 @@ export default function Home() {
 
       <section id="work" className="portfolio-work" aria-labelledby="work-title">
         <div className="portfolio-section-heading">
-          <p className="portfolio-label">01—05 / SELECTED WORK</p>
+          <p className="portfolio-label">01—06 / SELECTED WORK</p>
           <h2 id="work-title">作品不只被觀看。<br />它也必須能運作。</h2>
           <p>品牌體驗、產品介面與自動化系統。以下包含概念作品與經過匿名化的實務專案。</p>
         </div>
 
         <article className="portfolio-featured">
-          <a className="portfolio-featured-visual" href={`${basePath}/work/isle-scent/`} aria-label="查看 Isle / Scent 專案案例">
+          <a className="portfolio-featured-visual" href={`${basePath}/collections/o-01/`} aria-label="直接進入 Isle / Scent 品牌網站">
             <Image
               src={`${basePath}/images/coast-bottle.webp`}
               alt="Isle / Scent O-01 香氛網站主視覺"
@@ -107,14 +134,14 @@ export default function Home() {
             />
             <div className="portfolio-featured-shade" aria-hidden="true" />
             <span className="portfolio-featured-number">01</span>
-            <span className="portfolio-featured-open">VIEW CASE <ArrowUpRight size={17} /></span>
+            <span className="portfolio-featured-open">ENTER SITE <ArrowUpRight size={17} /></span>
           </a>
           <div className="portfolio-featured-copy">
             <div className="portfolio-project-meta"><span>BRAND EXPERIENCE</span><span>2026</span></div>
             <h3>Isle / Scent</h3>
             <p>從品牌概念、視覺語言到 11 頁響應式網站，以電影式多場景時間軸，讓台灣島嶼香氣成為可感受的數位體驗。</p>
             <div className="portfolio-tag-row"><span>ART DIRECTION</span><span>INTERACTIVE FRONT-END</span><span>DEPLOYMENT</span></div>
-            <a className="portfolio-text-link" href={`${basePath}/work/isle-scent/`}>閱讀完整案例 <ArrowUpRight size={18} /></a>
+            <div className="portfolio-link-row"><a className="portfolio-text-link" href={`${basePath}/collections/o-01/`}>直接進入網站 <ArrowUpRight size={18} /></a><a className="portfolio-case-note-link" href={`${basePath}/work/isle-scent/`}>閱讀案例說明</a></div>
           </div>
         </article>
 
@@ -126,16 +153,9 @@ export default function Home() {
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
                 <div className="portfolio-tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-                {project.href && <a className="portfolio-text-link" href={`${basePath}${project.href}`}>開啟網站 <ArrowUpRight size={18} /></a>}
+                {project.href && <a className="portfolio-text-link" href={`${basePath}${project.href}`}>進入完整作品 <ArrowUpRight size={18} /></a>}
               </div>
-              <div className="portfolio-system-visual" aria-hidden="true">
-                {project.image && <Image src={`${basePath}${project.image}`} alt="" fill className="portfolio-system-image object-cover" sizes="(max-width: 900px) 100vw, 55vw" />}
-                <div className="portfolio-system-rail"><i /><i /><i /></div>
-                <div className="portfolio-system-words">
-                  {project.words.map((word, index) => <span key={word}><b>0{index + 1}</b>{word}</span>)}
-                </div>
-                <div className="portfolio-system-status"><span>ACTIVE SYSTEM</span><span>●</span></div>
-              </div>
+              <SystemProjectVisual project={project} basePath={basePath} />
             </article>
           ))}
         </div>
@@ -163,7 +183,10 @@ export default function Home() {
         <h2 id="contact-title">LET&apos;S MAKE<br /><em>IT WORK.</em></h2>
         <div className="portfolio-contact-bottom">
           <p>適合品牌網站、互動前端、產品介面與自動化專案。<br />Taiwan · Available remotely</p>
-          <a href="https://github.com/tamyu321-source" target="_blank" rel="noreferrer">VIEW GITHUB <ArrowUpRight size={20} /></a>
+          <div className="portfolio-contact-actions">
+            <Image src={`${basePath}/images/line-contact-qr.png`} alt="加入 Yorke Hsu LINE 的 QR Code" width={128} height={128} />
+            <div><a href="https://line.me/ti/p/um2wrmZxsN" target="_blank" rel="noreferrer">ADD LINE <ArrowUpRight size={18} /></a><a href="mailto:tamyu321@gmail.com">tamyu321@gmail.com <ArrowUpRight size={18} /></a><a href="https://github.com/tamyu321-source" target="_blank" rel="noreferrer">VIEW GITHUB <ArrowUpRight size={18} /></a></div>
+          </div>
         </div>
       </section>
 
