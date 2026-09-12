@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    timeout-minutes: 20
+    timeout-minutes: 30
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -41,6 +41,14 @@ jobs:
         run: |
           python -X utf8 -m unittest discover -s tools/fieldwork -p 'test_*.py' -v
           node --test tests/fieldwork.test.mjs
+      - name: Install Checkpoint browser
+        run: |
+          python -m pip install -r tools/checkpoint/requirements.txt
+          python -m playwright install --with-deps chromium
+      - name: Test Checkpoint failure handling
+        run: |
+          python -X utf8 -m unittest discover -s tools/checkpoint -p 'test_*.py' -v
+          node --test tests/checkpoint.test.mjs
       - name: Refresh public merchant records
         run: >-
           python -X utf8 tools/fieldwork/fieldwork.py
@@ -51,11 +59,24 @@ jobs:
       - name: Report collection status
         run: node scripts/fieldwork-summary.mjs
       - name: Package Python download
-        run: node scripts/package-fieldwork.mjs
+        run: |
+          node scripts/package-fieldwork.mjs
+          node scripts/package-checkpoint.mjs
       - name: Build static site
         run: npm run build
       - name: Prepare clean URLs
         run: node scripts/prepare-github-pages.mjs
+      - name: Checkpoint browser release gate
+        id: checkpoint
+        run: node scripts/run-checkpoint.mjs
+      - name: Preserve failed browser evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkpoint-failure-${{ github.run_id }}
+          path: outputs/checkpoint-ci/
+          retention-days: 7
+          if-no-files-found: ignore
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact

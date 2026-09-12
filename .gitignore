@@ -48,3 +48,5 @@ __pycache__/
 /public/data/fieldwork/snapshot.json
 *.tsbuildinfo
 /tools/fieldwork/output/
+/tools/checkpoint/output/
+/public/data/checkpoint/

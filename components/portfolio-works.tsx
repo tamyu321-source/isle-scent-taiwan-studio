@@ -105,6 +105,18 @@ const projects: Project[] = [
       label: "下載 Python 工具",
     },
   },
+  {
+    anchor: "project-08",
+    title: "CHECKPOINT",
+    subtitle: "瀏覽器巡檢 · 操作與證據",
+    type: "BROWSER AUTOMATION & QA",
+    image: "work-checkpoint-preview.webp",
+    href: "/checkpoint/",
+    description:
+      "讓瀏覽器實際走過導覽、規格選擇與資料下載。逐步核對畫面與結果，留下桌面、手機截圖，再以巡檢結果把關每次發佈。",
+    tags: ["瀏覽器自動化", "功能巡檢", "截圖報告"],
+    extra: { href: "/downloads/checkpoint-python.zip", label: "下載巡檢工具" },
+  },
 ];
 
 export function PortfolioWorks() {
