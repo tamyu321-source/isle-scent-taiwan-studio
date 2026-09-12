@@ -1,40 +1,31 @@
-import { copyFile, cp, mkdir, writeFile } from "node:fs/promises";
+import { copyFile, cp, mkdir, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const outputDirectory = path.resolve("dist/client");
 const repositoryName = process.env.GITHUB_REPOSITORY?.split("/")[1];
-const routes = [
-  "isle-scent",
-  "story",
-  "collections",
-  "collections/o-01",
-  "craft",
-  "ingredients",
-  "spaces",
-  "journal",
-  "journal/field-note-07",
-  "stockists",
-  "contact",
-  "work/isle-scent",
-  "work/ledger-flow",
-  "work/signal-desk",
-  "work/tax-flow",
-  "piglet-daycare",
-  "piglet-daycare/admin",
-  "order-hub",
-  "order-hub/admin",
-  "mori-studio",
-  "mori-studio/member",
-  "mori-studio/admin",
-  "pure-white",
-];
-
-for (const route of routes) {
-  const source = path.join(outputDirectory, `${route}.html`);
-  const destinationDirectory = path.join(outputDirectory, route);
-  await mkdir(destinationDirectory, { recursive: true });
-  await copyFile(source, path.join(destinationDirectory, "index.html"));
+async function prepareRoutes(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  for (const entry of entries) {
+    const source = path.join(directory, entry.name);
+    if (
+      entry.isDirectory() &&
+      !entry.name.startsWith("_") &&
+      !entry.name.startsWith(".")
+    ) {
+      await prepareRoutes(source);
+    } else if (
+      entry.isFile() &&
+      entry.name.endsWith(".html") &&
+      !["index.html", "404.html", "500.html"].includes(entry.name)
+    ) {
+      const destination = path.join(directory, entry.name.slice(0, -5));
+      await mkdir(destination, { recursive: true });
+      await copyFile(source, path.join(destination, "index.html"));
+    }
+  }
 }
+
+await prepareRoutes(outputDirectory);
 
 if (repositoryName) {
   await cp(

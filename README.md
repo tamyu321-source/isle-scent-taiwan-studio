@@ -7,13 +7,17 @@
 | 編號 | 作品 | 前台 | 管理 / 會員 |
 | --- | --- | --- | --- |
 | 01 | Isle / Scent | /isle-scent/ | 產品詳情 /collections/o-01/ |
-| 02 | 豬仔仔幼兒園（狗狗貓貓） | /piglet-daycare/ | /piglet-daycare/admin/ |
-| 03 | Order Flow | /order-hub/ | /order-hub/admin/ |
-| 04 | MORI 留白陶作 | /mori-studio/ | /mori-studio/admin/、/mori-studio/member/ |
-| 05 | PURE WHITE | /pure-white/ | 原味商品規格、品嚐提案、常見問題 |
+| 02 | PURE WHITE | /pure-white/ | /pure-white/original/ |
+| 03 | 豬仔仔幼兒園（狗狗貓貓） | /piglet-daycare/ | /piglet-daycare/admin/ |
+| 04 | Order Flow | /order-hub/ | /order-hub/admin/ |
+| 05 | MORI 留白陶作 | /mori-studio/ | /mori-studio/admin/、/mori-studio/member/ |
 | 06 | ShareFlow 廣告分潤台 | /shareflow/ | /shareflow/admin/ |
 
-PURE WHITE 是奶白與鈷藍調性的希臘優格品牌概念網站，包含手作製程敘事、規格切換、商品介紹視窗、三種日常品嚐提案及常見問題。影像為生成的概念素材，規格與配方不代表上市商品，無實際訂購功能、營養數據或健康功效宣稱。進場動畫尊重減少動態偏好，手機提供可操作的導覽選單。
+前兩件作品全寬，其餘作品以桌面雙欄、手機單欄呈現。顯示編號依資料順序產生；`project-01` 至 `project-06` 的既有錨點識別不隨展示排序改變。
+
+PURE WHITE 是白色與鈷藍調性的希臘優格品牌概念網站。首頁包含原料、質地、製程、規格、日常搭配及 FAQ；產品頁以三段捲動分鏡展示完整產品、湯匙特寫與兩種規格。首頁選擇會以 `?size=cup` 或 `?size=jar` 帶入產品頁，詳情頁切換後重新整理也會保留。共用資料在 `components/pure-white-content.ts`，動態展示使用 IntersectionObserver 與 requestAnimationFrame，不依賴動畫框架。
+
+影像為生成的概念素材，規格與配方不代表上市商品，無實際訂購功能、營養數據或健康功效宣稱。減少動態模式、短視窗及動畫尚未初始化時，直接呈現完整靜態分鏡。素材提示詞見 [影像製作紀錄](docs/pure-white-art-direction.md)。
 
 MORI 採莫蘭迪色系，提供體驗日期與時段、名額驗證、器物庫存、購物袋、模擬付款或待付款、會員訂單紀錄、管理台月曆、狀態與價格管理。取消訂單會回補庫存並釋放席次；既有訂單保留成交價格。
 
@@ -25,7 +29,7 @@ MORI 純資料流程檢查（Node 24）：`node scripts/check-mori.mjs`。
 
 ## 作品內容
 
-- 作品集首頁：個人定位、精選作品、能力與聯絡入口
+- 作品集首頁：個人定位、作品、能力與聯絡入口
 - `/work/isle-scent`：嶼氣品牌網站案例說明
 - `/work/ledger-flow`：桌面財務系統案例說明
 - `/work/signal-desk`：交易自動化工作台案例說明
@@ -37,9 +41,10 @@ MORI 純資料流程檢查（Node 24）：`node scripts/check-mori.mjs`。
 - `/order-hub/admin`：訂單連結、訂貨、庫存與出貨管理中台
 - `/shareflow`：合作夥伴營收與分潤後台
 - `/shareflow/admin`：收入來源、分潤規則與客戶權限管理台
+- `/pure-white`：原味希臘優格品牌首頁
+- `/pure-white/original`：產品細節、規格、成分與保存方式
 - 三項匿名化實務案例：桌面財務系統、交易自動化與瀏覽器流程自動化
 - 原創品牌概念、視覺方向與繁體中文內容
-- 11 個完整頁面，而非單頁展示稿
 - 首頁與產品頁使用 Canvas Sprite Sequence，進入視窗後自動播放 16 格影格融合與多鏡位推拉動畫
 - 支援滑鼠、觸控、手機版選單與 `prefers-reduced-motion`
 - 圖片採用專案專屬生成素材，包含海岸主視覺、瓶身微距與島嶼原料，皆提供 WebP 輕量版本
@@ -85,8 +90,12 @@ npm run build
 
 - GitHub Pages：`https://tamyu321-source.github.io/isle-scent-taiwan-studio/`
 - 每次推送到 `main` 分支後，GitHub Actions 會自動重新建置與發布。
+- 只維護 GitHub Pages，既有 Sites 不再同步發布。
+- `scripts/prepare-github-pages.mjs` 依建置產生的 HTML 建立目錄入口，包含產品詳情與 ShareFlow 的深層路由。
 
-首頁五件作品皆為可公開瀏覽的概念作品。歷史案例說明路由保留，但不再混入互動作品的編號清單。
+本機驗證 Pages 子路徑時，先設定 `GITHUB_ACTIONS=true` 與 `GITHUB_REPOSITORY=tamyu321-source/isle-scent-taiwan-studio`，執行 `npm run build` 後再執行 `node scripts/prepare-github-pages.mjs`。發布目錄為 `dist/client`。
+
+首頁六件作品皆為可公開瀏覽的概念作品。歷史案例說明路由保留，但不再混入互動作品的編號清單。
 
 豬仔仔幼兒園為可操作的作品集展示版本，預約、客戶、費用、相簿、方案與留言資料會儲存在目前瀏覽器中。示範後台帳號為 `admin`，密碼為 `piglet2026`。
 
