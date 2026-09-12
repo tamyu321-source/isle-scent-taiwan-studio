@@ -500,17 +500,21 @@
 }
 .pw-ritual-layout {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 8%;
-  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 6%;
+  align-items: start;
+}
+.pw-ritual figure {
+  position: sticky;
+  top: 120px;
 }
 .pw-ritual figure img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
 }
 .pw-ritual figcaption {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.13em;
   margin-top: 16px;
   color: var(--pw-muted);
@@ -554,11 +558,66 @@
 .pw-serving-tabs p {
   color: var(--pw-muted);
 }
-.pw-serving-tabs .pw-ingredients-line {
-  margin-top: 28px;
+.pw-recipe-meta {
+  display: flex;
+  gap: 12px;
+  margin: -6px 0 18px;
+  font-size: 14px;
+  color: var(--pw-blue);
+}
+.pw-recipe-meta span + span::before {
+  content: "/";
+  margin-right: 12px;
+  color: var(--pw-muted);
+}
+.pw-recipe-ingredients {
+  margin-block: 26px;
   border-top: 1px solid var(--pw-line);
-  padding-top: 20px;
-  font-size: 13px;
+  padding-top: 22px;
+}
+.pw-serving-tabs h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.pw-recipe-ingredients dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding-block: 5px;
+  font-size: 15px;
+}
+.pw-recipe-ingredients dd {
+  white-space: nowrap;
+  color: var(--pw-muted);
+  font-variant-numeric: tabular-nums;
+}
+.pw-recipe-method ol {
+  list-style: decimal-leading-zero;
+  padding-left: 28px;
+  font-size: 16px;
+  line-height: 1.9;
+}
+.pw-recipe-method li {
+  padding-left: 8px;
+  margin-bottom: 12px;
+}
+.pw-recipe-method li::marker {
+  font-size: 12px;
+  color: var(--pw-blue);
+}
+.pw-recipe-note {
+  border-left: 2px solid var(--pw-blue);
+  margin-top: 25px;
+  padding-left: 18px;
+}
+.pw-recipe-note p,
+.pw-serving-tabs .pw-recipe-allergens {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.pw-serving-tabs .pw-recipe-allergens {
+  margin-top: 20px;
 }
 .pw-questions {
   display: grid;
@@ -1028,6 +1087,9 @@
   }
   .pw-ritual {
     padding-block: 35px 80px;
+  }
+  .pw-ritual figure {
+    position: static;
   }
   .pw-section-heading {
     margin-bottom: 25px;

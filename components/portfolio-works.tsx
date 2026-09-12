@@ -90,6 +90,21 @@ const projects: Project[] = [
       "把多個廣告來源、收入調整與合約比例收進同一個後台。合作夥伴可查看營收與結算進度，管理員則能同步資料、調整分潤與管理權限。",
     tags: ["API 收入整合", "自動分潤", "權限管理"],
   },
+  {
+    anchor: "project-07",
+    title: "FIELDWORK",
+    subtitle: "商家資料 · Python 自動化工作台",
+    type: "PYTHON & DATA AUTOMATION",
+    image: "work-fieldwork-preview.webp",
+    href: "/fieldwork/",
+    description:
+      "把臺南與桃園的公開店家資料整理成可用名單。Python 蒐集官方資料與店家網頁，保留來源、比對差異，再依條件查詢並匯出。",
+    tags: ["Python 爬蟲", "資料整併", "CSV／JSON 匯出"],
+    extra: {
+      href: "/downloads/fieldwork-python.zip",
+      label: "下載 Python 工具",
+    },
+  },
 ];
 
 export function PortfolioWorks() {

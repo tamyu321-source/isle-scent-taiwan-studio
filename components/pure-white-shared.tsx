@@ -229,22 +229,20 @@ export function DailyRitual() {
       <div className="pw-section-heading">
         <p className="pw-eyebrow">AT YOUR TABLE</p>
         <h2 id="pw-ritual-title">原味，好搭。</h2>
-        <p>從早餐到餐桌，用你喜歡的方式。</p>
+        <p>三道簡單配方，從一人早餐到四人的餐桌。</p>
       </div>
       <div className="pw-ritual-layout">
         <figure>
           <Image
             src={yogurtImage(selected.image)}
-            alt={
-              serving === "afternoon"
-                ? "湯匙舀起濃厚原味優格"
-                : "原味優格搭配水果、穀物與麵包的餐桌提案"
-            }
+            alt={selected.alt}
             width={1536}
             height={1024}
             sizes="(max-width: 760px) 100vw, 55vw"
           />
-          <figcaption>FRESH FROM YOUR KITCHEN.</figcaption>
+          <figcaption>
+            {selected.label} / {selected.servings} · 成品影像為搭配示意
+          </figcaption>
         </figure>
         <Tabs
           value={serving}
@@ -261,8 +259,35 @@ export function DailyRitual() {
           {servingIdeas.map((item) => (
             <TabsContent key={item.id} value={item.id}>
               <h3>{item.title}</h3>
+              <div className="pw-recipe-meta">
+                <span>{item.servings}</span>
+                <span>{item.time}</span>
+              </div>
               <p>{item.description}</p>
-              <p className="pw-ingredients-line">{item.ingredients}</p>
+              <div className="pw-recipe-ingredients">
+                <h4>準備材料</h4>
+                <dl>
+                  {item.ingredients.map(([name, amount]) => (
+                    <div key={name}>
+                      <dt>{name}</dt>
+                      <dd>{amount}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <div className="pw-recipe-method">
+                <h4>一起做</h4>
+                <ol>
+                  {item.steps.map((step) => (
+                    <li key={step}>{step}</li>
+                  ))}
+                </ol>
+              </div>
+              <aside className="pw-recipe-note">
+                <h4>餐桌筆記</h4>
+                <p>{item.tip}</p>
+              </aside>
+              <p className="pw-recipe-allergens">食材提醒｜{item.allergens}</p>
             </TabsContent>
           ))}
         </Tabs>

@@ -44,3 +44,7 @@ next-env.d.ts
 /.codex/
 /outputs/
 /work/
+__pycache__/
+/public/data/fieldwork/snapshot.json
+*.tsbuildinfo
+/tools/fieldwork/output/

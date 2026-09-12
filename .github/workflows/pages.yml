@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '17 0 * * *'
 
 permissions:
   contents: read
@@ -16,6 +18,7 @@ concurrency:
 
 jobs:
   build-and-deploy:
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -30,6 +33,25 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test Fieldwork adapters and exports
+        run: |
+          python -X utf8 -m unittest discover -s tools/fieldwork -p 'test_*.py' -v
+          node --test tests/fieldwork.test.mjs
+      - name: Refresh public merchant records
+        run: >-
+          python -X utf8 tools/fieldwork/fieldwork.py
+          --output-dir public/data/fieldwork
+          --seed public/data/fieldwork/merchants.json
+          --snapshot-url https://tamyu321-source.github.io/isle-scent-taiwan-studio/data/fieldwork/merchants.json
+          --max-pages 100
+      - name: Report collection status
+        run: node scripts/fieldwork-summary.mjs
+      - name: Package Python download
+        run: node scripts/package-fieldwork.mjs
       - name: Build static site
         run: npm run build
       - name: Prepare clean URLs
