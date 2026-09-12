@@ -5,9 +5,34 @@ import { PortfolioHeader } from "@/components/portfolio-header";
 
 export const dynamic = "force-static";
 
-const systemProjects = [
+type SystemProject = {
+  index: string;
+  title: string;
+  type: string;
+  year: string;
+  className: string;
+  description: string;
+  tags: string[];
+  words: string[];
+  image?: string;
+  href?: string;
+};
+
+const systemProjects: SystemProject[] = [
   {
     index: "02",
+    title: "豬仔仔幼兒園",
+    type: "Pet Boarding Web App",
+    year: "2026",
+    className: "portfolio-project-piglet",
+    description: "活潑的狗狗貓貓寄宿前台，串聯可操作的預約、客戶、費用、相簿、方案與留言管理後台。",
+    tags: ["BRAND WEB", "ADMIN SYSTEM", "LOCAL DATA"],
+    words: ["PLAY", "STAY", "MANAGE"],
+    image: "/images/daycare-cheese-closeup.webp",
+    href: "/piglet-daycare/",
+  },
+  {
+    index: "03",
     title: "Ledger Flow",
     type: "Desktop Finance System",
     year: "2026",
@@ -17,7 +42,7 @@ const systemProjects = [
     words: ["CLEAR", "STABLE", "SCALABLE"],
   },
   {
-    index: "03",
+    index: "04",
     title: "Signal Desk",
     type: "Risk-first Trading Automation",
     year: "2026",
@@ -27,7 +52,7 @@ const systemProjects = [
     words: ["CHECK", "DECIDE", "TRACE"],
   },
   {
-    index: "04",
+    index: "05",
     title: "Tax Flow",
     type: "Browser Workflow Automation",
     year: "2026",
@@ -65,7 +90,7 @@ export default function Home() {
 
       <section id="work" className="portfolio-work" aria-labelledby="work-title">
         <div className="portfolio-section-heading">
-          <p className="portfolio-label">01—04 / SELECTED WORK</p>
+          <p className="portfolio-label">01—05 / SELECTED WORK</p>
           <h2 id="work-title">作品不只被觀看。<br />它也必須能運作。</h2>
           <p>品牌體驗、產品介面與自動化系統。以下包含概念作品與經過匿名化的實務專案。</p>
         </div>
@@ -101,8 +126,10 @@ export default function Home() {
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
                 <div className="portfolio-tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+                {project.href && <a className="portfolio-text-link" href={`${basePath}${project.href}`}>開啟網站 <ArrowUpRight size={18} /></a>}
               </div>
               <div className="portfolio-system-visual" aria-hidden="true">
+                {project.image && <Image src={`${basePath}${project.image}`} alt="" fill className="portfolio-system-image object-cover" sizes="(max-width: 900px) 100vw, 55vw" />}
                 <div className="portfolio-system-rail"><i /><i /><i /></div>
                 <div className="portfolio-system-words">
                   {project.words.map((word, index) => <span key={word}><b>0{index + 1}</b>{word}</span>)}

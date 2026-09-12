@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "../vendor/shadcn-tailwind-4.13.0.css";
+@import "./piglet.css";
 
 :root { --ink: #121313; --chalk: #f2f0e9; --ember: #c96b39; --mist: #a8b5b7; --line: rgba(18,19,19,.16); --radius: 0; --ease-cinematic: cubic-bezier(.22, 1, .36, 1); }
 @theme inline { --color-ink: var(--ink); --color-chalk: var(--chalk); --color-ember: var(--ember); --color-mist: var(--mist); --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; }
@@ -208,6 +209,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .portfolio-system-copy h3 { margin-top: auto; font-size: clamp(3.5rem, 6.4vw, 7rem); }
 .portfolio-system-copy > p { max-width: 34rem; }
 .portfolio-system-visual { position: relative; display: flex; min-height: 32rem; flex-direction: column; justify-content: space-between; overflow: hidden; margin: 1.35rem 0 1.35rem; padding: 1.35rem; background: var(--project-accent); color: var(--portfolio-ink); }
+.portfolio-system-visual > *:not(img) { position: relative; z-index: 2; }
+.portfolio-project-piglet .portfolio-system-visual { color: white; }
+.portfolio-project-piglet .portfolio-system-visual::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(10,15,18,.32); }
+.portfolio-system-image { z-index: 0; filter: saturate(.88) contrast(1.05); transition: transform 1.2s var(--ease-cinematic); }
+.portfolio-project-piglet .portfolio-system-visual:hover .portfolio-system-image { transform: scale(1.035); }
 .portfolio-system-rail { display: flex; gap: .45rem; }
 .portfolio-system-rail i { width: .5rem; aspect-ratio: 1; border: 1px solid currentColor; border-radius: 50%; }
 .portfolio-system-rail i:first-child { background: currentColor; }
