@@ -1,85 +1,146 @@
 import Image from "next/image";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
-import { ScrollSequence } from "@/components/scroll-sequence";
+import { PortfolioFooter } from "@/components/portfolio-footer";
+import { PortfolioHeader } from "@/components/portfolio-header";
 
 export const dynamic = "force-static";
+
+const systemProjects = [
+  {
+    index: "02",
+    title: "Ledger Flow",
+    type: "Desktop Finance System",
+    year: "2026",
+    className: "portfolio-project-ledger",
+    description: "把多頁籤、申報表、憑證與列印流程，收斂成一致而可長期維護的桌面產品體驗。",
+    tags: ["PRODUCT UI", "ELECTRON", "DESIGN SYSTEM"],
+    words: ["CLEAR", "STABLE", "SCALABLE"],
+  },
+  {
+    index: "03",
+    title: "Signal Desk",
+    type: "Risk-first Trading Automation",
+    year: "2026",
+    className: "portfolio-project-signal",
+    description: "讓線上狀態、資產辨識、交易前驗證與重試紀錄都能被清楚看見的自動化工作台。",
+    tags: ["AUTOMATION", "RISK GUARD", "OBSERVABILITY"],
+    words: ["CHECK", "DECIDE", "TRACE"],
+  },
+  {
+    index: "04",
+    title: "Tax Flow",
+    type: "Browser Workflow Automation",
+    year: "2026",
+    className: "portfolio-project-tax",
+    description: "處理多分頁生命週期、低規格環境與人工確認節點，讓複雜申報流程可靠交棒。",
+    tags: ["RPA", "BROWSER LIFECYCLE", "SAFE HANDOFF"],
+    words: ["PREPARE", "VERIFY", "HAND OFF"],
+  },
+];
 
 export default function Home() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   return (
-    <main className="overflow-clip bg-black">
-      <SiteHeader theme="dark" />
+    <main id="top" className="portfolio-root overflow-clip bg-[#f1eee6] text-[#151515]">
+      <PortfolioHeader />
 
-      <section className="cinematic-hero relative min-h-[100svh] overflow-hidden bg-black text-white">
-        <Image
-          src={`${basePath}/images/coast-bottle.webp`}
-          alt="海霧岩岸上的 O-01 深潮香水"
-          fill
-          priority
-          className="cinematic-hero-image object-cover"
-          sizes="100vw"
-        />
-        <div className="cinematic-hero-shade absolute inset-0" aria-hidden="true" />
-
-        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1200px] flex-col items-center px-5 pb-10 pt-24 text-center md:pb-14 md:pt-28">
-          <div className="hero-copy-enter">
-            <p className="eyebrow text-white/60">O-01 · EAU DE PARFUM</p>
-            <h1 className="mt-3 text-[clamp(4.6rem,11vw,10rem)] font-semibold leading-[.88] tracking-[-.075em]">深 潮</h1>
-            <p className="mx-auto mt-5 max-w-xl text-[clamp(1.05rem,2vw,1.45rem)] leading-relaxed text-white/78">島嶼的黑潮，落在肌膚上。</p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3">
-              <a className="button-primary" href="#sequence">進入氣味</a>
-              <a className="button-secondary" href={`${basePath}/collections/o-01/`}>進一步了解 <ArrowUpRight size={15} /></a>
-            </div>
-          </div>
-
-          <a href="#sequence" className="hero-scroll-cue mt-auto" aria-label="向下探索逐幀動畫">
-            <span>SCROLL TO DISCOVER</span>
-            <ArrowDown size={16} />
+      <section className="portfolio-hero" aria-labelledby="portfolio-title">
+        <div className="portfolio-grid" aria-hidden="true" />
+        <div className="portfolio-orbit" aria-hidden="true"><span>AVAILABLE FOR SELECTED PROJECTS · TAIWAN · </span></div>
+        <div className="portfolio-hero-meta">
+          <p>CREATIVE DEVELOPER</p>
+          <p>FRONT-END / SYSTEMS / AUTOMATION</p>
+        </div>
+        <h1 id="portfolio-title" className="portfolio-wordmark" aria-label="Yorke Hsu">
+          <span>YORKE</span><span>HSU</span>
+        </h1>
+        <div className="portfolio-hero-bottom">
+          <p className="portfolio-hero-statement">把複雜的系統，做成<br />清楚、好用、會被記住的體驗。</p>
+          <a href="#work" className="portfolio-round-link" aria-label="前往精選作品">
+            <span>SELECTED<br />WORK</span><ArrowDown size={22} strokeWidth={1.5} />
           </a>
         </div>
       </section>
 
-      <ScrollSequence />
-
-      <section className="view-stage bg-chalk px-5 py-24 text-ink md:px-12 md:py-36">
-        <div className="reveal-block mx-auto max-w-5xl text-center">
-          <p className="eyebrow text-ink/45">FROM THE ISLAND</p>
-          <h2 className="mt-6 text-[clamp(3rem,7.2vw,7.5rem)] font-semibold leading-[.94] tracking-[-.055em]">每一道氣味，<br />都有地形。</h2>
-          <p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-ink/60 md:text-lg">檜木、焙火烏龍與海霧，不是香調清單，而是島嶼在身體裡留下的距離。</p>
-          <a className="button-dark mt-9" href={`${basePath}/ingredients/`}>查看島嶼原料 <ArrowUpRight size={16} /></a>
+      <section id="work" className="portfolio-work" aria-labelledby="work-title">
+        <div className="portfolio-section-heading">
+          <p className="portfolio-label">01—04 / SELECTED WORK</p>
+          <h2 id="work-title">作品不只被觀看。<br />它也必須能運作。</h2>
+          <p>品牌體驗、產品介面與自動化系統。以下包含概念作品與經過匿名化的實務專案。</p>
         </div>
 
-        <figure className="landscape-window reveal-image mx-auto mt-16 aspect-[16/9] max-w-[1500px] overflow-hidden md:mt-24">
-          <Image src={`${basePath}/images/island-botanicals.webp`} alt="雨後岩石上的檜木、茶葉與蘭花" fill className="object-cover" sizes="(max-width: 768px) 100vw, 90vw" />
-        </figure>
-      </section>
+        <article className="portfolio-featured">
+          <a className="portfolio-featured-visual" href={`${basePath}/work/isle-scent/`} aria-label="查看 Isle / Scent 專案案例">
+            <Image
+              src={`${basePath}/images/coast-bottle.webp`}
+              alt="Isle / Scent O-01 香氛網站主視覺"
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 900px) 100vw, 62vw"
+            />
+            <div className="portfolio-featured-shade" aria-hidden="true" />
+            <span className="portfolio-featured-number">01</span>
+            <span className="portfolio-featured-open">VIEW CASE <ArrowUpRight size={17} /></span>
+          </a>
+          <div className="portfolio-featured-copy">
+            <div className="portfolio-project-meta"><span>BRAND EXPERIENCE</span><span>2026</span></div>
+            <h3>Isle / Scent</h3>
+            <p>從品牌概念、視覺語言到 11 頁響應式網站，以電影式多場景時間軸，讓台灣島嶼香氣成為可感受的數位體驗。</p>
+            <div className="portfolio-tag-row"><span>ART DIRECTION</span><span>INTERACTIVE FRONT-END</span><span>DEPLOYMENT</span></div>
+            <a className="portfolio-text-link" href={`${basePath}/work/isle-scent/`}>閱讀完整案例 <ArrowUpRight size={18} /></a>
+          </div>
+        </article>
 
-      <section className="product-stage grid min-h-[100svh] bg-black text-chalk lg:grid-cols-2">
-        <figure className="reveal-image relative min-h-[66svh] overflow-hidden lg:min-h-screen">
-          <Image src={`${basePath}/images/coast-bottle.webp`} alt="海岸晨光裡的 O-01 香水瓶" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
-        </figure>
-        <div className="reveal-block flex flex-col justify-center px-5 py-20 md:px-12 lg:px-[10vw]">
-          <p className="eyebrow text-white/42">SIGNATURE / O-01</p>
-          <h2 className="mt-7 text-[clamp(4rem,8vw,8.5rem)] font-semibold leading-[.86] tracking-[-.07em]">深 潮</h2>
-          <p className="mt-7 text-xl text-white/55">潮汐・木質調</p>
-          <p className="mt-7 max-w-md text-base leading-8 text-white/62">海鹽與冷杉先打開空氣，焙火烏龍在中央留下暖意，最後沉入台灣檜木與濕苔。</p>
-          <a className="button-light mt-10" href={`${basePath}/collections/o-01/`}>查看 O-01 <ArrowUpRight size={16} /></a>
+        <div className="portfolio-project-list">
+          {systemProjects.map((project) => (
+            <article className={`portfolio-system-project ${project.className}`} key={project.index}>
+              <div className="portfolio-system-copy">
+                <div className="portfolio-project-meta"><span>{project.index} / {project.type}</span><span>{project.year}</span></div>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <div className="portfolio-tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+              </div>
+              <div className="portfolio-system-visual" aria-hidden="true">
+                <div className="portfolio-system-rail"><i /><i /><i /></div>
+                <div className="portfolio-system-words">
+                  {project.words.map((word, index) => <span key={word}><b>0{index + 1}</b>{word}</span>)}
+                </div>
+                <div className="portfolio-system-status"><span>ACTIVE SYSTEM</span><span>●</span></div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="closing-stage bg-ember px-5 py-28 text-ink md:px-12 md:py-44">
-        <div className="reveal-block mx-auto max-w-[1200px] text-center">
-          <p className="eyebrow text-ink/45">ISLE / SCENT</p>
-          <h2 className="mx-auto mt-7 max-w-[12ch] text-[clamp(3.5rem,8.5vw,9rem)] font-semibold leading-[.9] tracking-[-.065em]">香氣不是裝飾，<br />是另一種抵達。</h2>
-          <p className="mx-auto mt-8 max-w-xl text-base leading-8 text-ink/65">從採集、熟成到裝瓶，讓一座島慢慢靠近。</p>
-          <a className="button-dark mt-10" href={`${basePath}/story/`}>閱讀品牌故事 <ArrowUpRight size={16} /></a>
+      <section id="about" className="portfolio-about" aria-labelledby="about-title">
+        <div>
+          <p className="portfolio-label">ABOUT / APPROACH</p>
+          <h2 id="about-title">設計感，<br />不該犧牲可靠性。</h2>
+        </div>
+        <div className="portfolio-about-copy">
+          <p>我在互動前端、產品系統與流程自動化之間工作。喜歡先理解真實操作，再用清楚的資訊層級、恰到好處的動態與可維護的程式，把複雜度留在畫面背後。</p>
+          <p>從第一個視覺瞬間，到例外狀態、手機體驗與正式部署，都視為同一件作品的一部分。</p>
+        </div>
+        <ol className="portfolio-capabilities">
+          <li><span>01</span><strong>Interactive Front-end</strong><small>動態敘事、RWD、設計落地</small></li>
+          <li><span>02</span><strong>Product Systems</strong><small>複雜介面、桌面應用、設計系統</small></li>
+          <li><span>03</span><strong>Workflow Automation</strong><small>RPA、風險防護、可觀測流程</small></li>
+          <li><span>04</span><strong>Launch &amp; Handoff</strong><small>建置、部署、維護與交付</small></li>
+        </ol>
+      </section>
+
+      <section id="contact" className="portfolio-contact" aria-labelledby="contact-title">
+        <p className="portfolio-label">HAVE A PROJECT IN MIND?</p>
+        <h2 id="contact-title">LET&apos;S MAKE<br /><em>IT WORK.</em></h2>
+        <div className="portfolio-contact-bottom">
+          <p>適合品牌網站、互動前端、產品介面與自動化專案。<br />Taiwan · Available remotely</p>
+          <a href="https://github.com/tamyu321-source" target="_blank" rel="noreferrer">VIEW GITHUB <ArrowUpRight size={20} /></a>
         </div>
       </section>
 
-      <SiteFooter />
+      <PortfolioFooter />
     </main>
   );
 }

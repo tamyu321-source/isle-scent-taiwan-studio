@@ -14,6 +14,7 @@ const routes = [
   "journal/field-note-07",
   "stockists",
   "contact",
+  "work/isle-scent",
 ];
 
 for (const route of routes) {

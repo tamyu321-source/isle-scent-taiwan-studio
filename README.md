@@ -1,9 +1,13 @@
-# 嶼氣 ISLE / SCENT
+# Yorke Hsu — Portfolio
 
-一個以「台灣島嶼地景」為題的高端香氛品牌概念網站，也是可直接放進前端作品集的完整案例。
+個人作品集網站，聚焦互動前端、產品系統與流程自動化。原本的「嶼氣 ISLE / SCENT」品牌網站已整理為首件完整案例，並保留可操作的線上體驗。
 
-## 作品定位
+## 作品內容
 
+- 作品集首頁：個人定位、精選作品、能力與聯絡入口
+- `/work/isle-scent`：嶼氣品牌網站案例說明
+- `/collections/o-01`：O-01 電影式互動產品 Demo
+- 三項匿名化實務案例：桌面財務系統、交易自動化與瀏覽器流程自動化
 - 原創品牌概念、視覺方向與繁體中文內容
 - 11 個完整頁面，而非單頁展示稿
 - 首頁與產品頁使用 Canvas Sprite Sequence，進入視窗後自動播放 16 格影格融合與多鏡位推拉動畫
@@ -13,17 +17,18 @@
 
 ## 頁面
 
-1. `/` 首頁與滾動逐幀敘事
-2. `/collections` 香氣系列
-3. `/collections/o-01` 單品頁
-4. `/story` 品牌故事
-5. `/craft` 製作工藝
-6. `/ingredients` 島嶼原料
-7. `/spaces` 空間香氛
-8. `/journal` 誌記列表
-9. `/journal/field-note-07` 誌記文章
-10. `/stockists` 體驗據點
-11. `/contact` 聯絡合作
+1. `/` 個人作品集首頁
+2. `/work/isle-scent` 嶼氣專案案例
+3. `/collections` 香氣系列
+4. `/collections/o-01` 單品頁
+5. `/story` 品牌故事
+6. `/craft` 製作工藝
+7. `/ingredients` 島嶼原料
+8. `/spaces` 空間香氛
+9. `/journal` 誌記列表
+10. `/journal/field-note-07` 誌記文章
+11. `/stockists` 體驗據點
+12. `/contact` 聯絡合作
 
 ## 技術
 
@@ -49,10 +54,4 @@ npm run build
 - GitHub Pages：`https://tamyu321-source.github.io/isle-scent-taiwan-studio/`
 - 每次推送到 `main` 分支後，GitHub Actions 會自動重新建置與發布。
 
-## 作品集使用方式
-
-這是一個概念品牌案例。對外展示時，可在作品說明中標示：
-
-> Concept brand website — visual direction, responsive front-end development, Canvas scroll sequence and deployment.
-
-若要改成個人正式案件頁，只需將聯絡頁的示範信箱替換成你的信箱，並依需求替換品牌文字與產品素材。
+首頁中的實務系統案例皆經匿名化；嶼氣則為可公開瀏覽的概念品牌案例。
