@@ -1,21 +1,26 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, Check, Minus, Plus, ShieldCheck, ShoppingBag } from "lucide-react";
+import { FormEvent, useMemo, useState, useSyncExternalStore } from "react";
+import { ArrowLeft, ArrowRight, Check, Minus, Plus, ShoppingBag } from "lucide-react";
 import { CustomerOrder, newOrderHubId, orderHubCurrency, useOrderHubStore } from "@/lib/order-store";
 
 type CustomerForm = { name: string; phone: string; email: string; address: string; note: string };
 const emptyCustomer: CustomerForm = { name: "", phone: "", email: "", address: "", note: "" };
+const subscribeToLink = (listener: () => void) => {
+  window.addEventListener("popstate", listener);
+  return () => window.removeEventListener("popstate", listener);
+};
+const getLinkSlug = () => new URLSearchParams(window.location.search).get("link") ?? "weekend-select";
 
 export function OrderPublic() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const { data, setData, ready } = useOrderHubStore();
-  const [slug] = useState(() => typeof window === "undefined" ? "weekend-select" : new URLSearchParams(window.location.search).get("link") ?? "weekend-select");
+  const slug = useSyncExternalStore(subscribeToLink, getLinkSlug, () => "weekend-select");
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [customer, setCustomer] = useState<CustomerForm>(emptyCustomer);
   const [submitted, setSubmitted] = useState<CustomerOrder | null>(null);
 
-  const activeLink = data.links.find((item) => item.slug === slug && item.active) ?? data.links.find((item) => item.active);
+  const activeLink = data.links.find((item) => item.slug === slug && item.active);
   const products = useMemo(() => data.products.filter((product) => activeLink?.productIds.includes(product.id) && product.active), [activeLink, data.products]);
   const itemCount = Object.values(quantities).reduce((sum, quantity) => sum + quantity, 0);
   const total = products.reduce((sum, product) => sum + product.price * (quantities[product.id] ?? 0), 0);
@@ -57,7 +62,7 @@ export function OrderPublic() {
           <div className="oh-confirm-icon"><Check size={38} /></div>
           <p className="oh-kicker">ORDER RECEIVED</p>
           <h1>收到你的訂單了。</h1>
-          <p>我們會確認品項與到貨時間，再透過你留下的聯絡方式通知。</p>
+          <p>示範訂單已登記於此瀏覽器，可在管理後台查看。不會實際出貨或發送通知。</p>
           <dl><div><dt>訂單編號</dt><dd>{submitted.number}</dd></div><div><dt>訂單金額</dt><dd>{orderHubCurrency(submitted.total)}</dd></div><div><dt>目前狀態</dt><dd><span className="oh-status is-new">新訂單</span></dd></div></dl>
           <button className="oh-btn oh-btn-dark" onClick={() => setSubmitted(null)}><ArrowLeft size={17} /> 返回下單頁</button>
           <a className="oh-demo-admin" href={`${basePath}/order-hub/admin/`}>作品展示：開啟管理後台 <ArrowRight size={15} /></a>
@@ -70,7 +75,7 @@ export function OrderPublic() {
     <main className="oh-shop">
       <header className="oh-shop-header">
         <a href={`${basePath}/`} className="oh-shop-logo"><span>DG</span><strong>{data.shopName}</strong></a>
-        <div className="oh-secure"><ShieldCheck size={16} /> 安全下單</div>
+        <a className="oh-secure" href={`${basePath}/order-hub/admin/`}>展示管理台 <ArrowRight size={16} /></a>
       </header>
 
       <div className="oh-campaign-band"><span>PRIVATE ORDER LINK</span><span>•</span><span>{activeLink?.slug ?? "ORDER CLOSED"}</span></div>
@@ -118,7 +123,7 @@ export function OrderPublic() {
           </div>
           <div className="oh-summary-total"><span>總計</span><strong>{orderHubCurrency(total)}</strong></div>
           <button form="customer-order" disabled={!ready || !itemCount} className="oh-btn oh-btn-lime" type="submit">送出訂單 <ArrowRight size={18} /></button>
-          <p className="oh-summary-note">送出後商家將確認庫存與出貨時間。此頁為作品集互動展示版。</p>
+          <p className="oh-summary-note">作品集互動展示版。資料僅存在此瀏覽器，不會實際收款、出貨或發送通知，請使用示範聯絡資料。</p>
         </aside>
       </section>
     </main>

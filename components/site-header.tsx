@@ -10,7 +10,7 @@ export function SiteHeader({ theme = "dark" }: { theme?: "dark" | "light" }) {
   return (
     <header className="site-header fixed inset-x-0 top-0 z-50 text-chalk" data-theme={theme}>
       <div className="mx-auto grid h-[56px] max-w-[1500px] grid-cols-[1fr_auto_1fr] items-center px-5 md:px-12">
-        <a href={`${basePath}/`} className="relative z-50 text-[.78rem] font-bold tracking-[.18em]" aria-label="嶼氣首頁">嶼 氣</a>
+        <a href={`${basePath}/isle-scent/`} className="relative z-50 text-[.78rem] font-bold tracking-[.18em]" aria-label="嶼氣首頁">嶼 氣</a>
         <nav className="hidden items-center gap-7 lg:flex" aria-label="主要導覽">{links.map(([label, href]) => <a key={href} href={`${basePath}${href}/`} className="text-sm opacity-70 transition-opacity hover:opacity-100">{label}</a>)}</nav>
         <div className="flex items-center justify-end gap-5">
           <a href={`${basePath}/contact/`} className="nav-contact hidden text-xs font-semibold md:block">聯絡合作</a>

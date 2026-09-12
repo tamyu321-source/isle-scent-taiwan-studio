@@ -4,6 +4,7 @@ import path from "node:path";
 const outputDirectory = path.resolve("dist/client");
 const repositoryName = process.env.GITHUB_REPOSITORY?.split("/")[1];
 const routes = [
+  "isle-scent",
   "story",
   "collections",
   "collections/o-01",
@@ -22,6 +23,9 @@ const routes = [
   "piglet-daycare/admin",
   "order-hub",
   "order-hub/admin",
+  "mori-studio",
+  "mori-studio/member",
+  "mori-studio/admin",
 ];
 
 for (const route of routes) {

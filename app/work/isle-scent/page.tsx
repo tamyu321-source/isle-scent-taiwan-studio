@@ -12,7 +12,7 @@ export const dynamic = "force-static";
 
 export default function IsleScentCaseStudy() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-  const demoHref = `${basePath}/collections/o-01/`;
+  const demoHref = `${basePath}/isle-scent/`;
 
   return (
     <main id="top" className="portfolio-root portfolio-case-root bg-[#f1eee6] text-[#151515]">
