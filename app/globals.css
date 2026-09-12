@@ -6,6 +6,7 @@
 @import "./mori.css";
 @import "./portfolio-works.css";
 @import "./pure-white.css";
+@import "./portfolio-about.css";
 
 :root { --ink: #121313; --chalk: #f2f0e9; --ember: #c96b39; --mist: #a8b5b7; --line: rgba(18,19,19,.16); --radius: 0; --ease-cinematic: cubic-bezier(.22, 1, .36, 1); }
 @theme inline { --color-ink: var(--ink); --color-chalk: var(--chalk); --color-ember: var(--ember); --color-mist: var(--mist); --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; }

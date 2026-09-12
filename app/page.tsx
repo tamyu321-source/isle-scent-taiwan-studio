@@ -1,10 +1,15 @@
 import Image from "next/image";
+import type { Metadata } from "next";
+import { PortfolioAbout } from "@/components/portfolio-about";
 import { PortfolioWorks } from "@/components/portfolio-works";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { PortfolioFooter } from "@/components/portfolio-footer";
 import { PortfolioHeader } from "@/components/portfolio-header";
 
 export const dynamic = "force-static";
+export const metadata: Metadata = {
+  description: "我是 Yorke Hsu，專注於互動前端、產品介面與流程自動化。從品牌敘事、響應式網站到管理流程，結合設計思考與工程實作，讓內容被理解、操作更清楚。",
+};
 
 export default function Home() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -33,22 +38,7 @@ export default function Home() {
 
       <PortfolioWorks />
 
-      <section id="about" className="portfolio-about" aria-labelledby="about-title">
-        <div>
-          <p className="portfolio-label">ABOUT / APPROACH</p>
-          <h2 id="about-title">設計感，<br />不該犧牲可靠性。</h2>
-        </div>
-        <div className="portfolio-about-copy">
-          <p>我在互動前端、產品系統與流程自動化之間工作。喜歡先理解真實操作，再用清楚的資訊層級、恰到好處的動態與可維護的程式，把複雜度留在畫面背後。</p>
-          <p>從第一個視覺瞬間，到例外狀態、手機體驗與正式部署，都視為同一件作品的一部分。</p>
-        </div>
-        <ol className="portfolio-capabilities">
-          <li><span>01</span><strong>Interactive Front-end</strong><small>動態敘事、RWD、設計落地</small></li>
-          <li><span>02</span><strong>Product Systems</strong><small>複雜介面、桌面應用、設計系統</small></li>
-          <li><span>03</span><strong>Workflow Automation</strong><small>RPA、風險防護、可觀測流程</small></li>
-          <li><span>04</span><strong>Launch &amp; Handoff</strong><small>建置、部署、維護與交付</small></li>
-        </ol>
-      </section>
+      <PortfolioAbout />
 
       <section id="contact" className="portfolio-contact" aria-labelledby="contact-title">
         <p className="portfolio-label">HAVE A PROJECT IN MIND?</p>
