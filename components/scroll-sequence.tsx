@@ -302,7 +302,7 @@ export function ScrollSequence() {
 
   return (
     <section ref={sectionRef} id="sequence" className="sequence-section relative h-[132svh] bg-black text-white">
-      <div className="sequence-stage sticky top-0 h-[100svh] min-h-[620px] overflow-hidden bg-black">
+      <div className="sequence-stage sticky top-0 h-[100svh] overflow-hidden bg-black md:min-h-[620px]">
         <div ref={coastIntroRef} className="sequence-scene absolute inset-0 opacity-100" aria-hidden="true">
           <NextImage src={`${basePath}/images/coast-bottle.webp`} alt="" fill sizes="100vw" className="object-cover object-center" />
           <div className="sequence-scene-shade absolute inset-0" />
@@ -327,12 +327,12 @@ export function ScrollSequence() {
 
         {!ready && <div className="absolute inset-0 grid place-items-center text-xs font-semibold tracking-[.22em] text-white/40">LOADING O—01</div>}
 
-        <div className="absolute inset-x-5 top-[78px] z-10 flex items-center justify-between text-[.7rem] font-semibold tracking-[.2em] text-white/48 md:inset-x-12">
+        <div className="sequence-meta absolute inset-x-5 top-[76px] z-10 flex items-center justify-between gap-4 text-[.66rem] font-semibold tracking-[.16em] text-white/48 md:inset-x-12 md:top-[78px] md:text-[.7rem] md:tracking-[.2em]">
           <span>O—01 / 深潮</span>
           <span>A PRODUCT PORTRAIT</span>
         </div>
 
-        <div className="absolute inset-x-5 bottom-[14vh] z-10 md:inset-x-12 md:bottom-[16vh]">
+        <div className="sequence-copy-wrap absolute inset-x-5 bottom-[15vh] z-10 md:inset-x-12 md:bottom-[16vh]">
           {chapters.map((chapter, index) => (
             <article key={chapter.no} className="sequence-copy absolute bottom-0 w-full max-w-lg" data-active={index === activeIndex} data-align={index % 2 === 0 ? "left" : "right"}>
               <p className="eyebrow text-white/45">{chapter.no} / 04 · {chapter.kicker}</p>

@@ -31,7 +31,7 @@ export default function Home() {
             <p className="eyebrow text-white/60">O-01 · EAU DE PARFUM</p>
             <h1 className="mt-3 text-[clamp(4.6rem,11vw,10rem)] font-semibold leading-[.88] tracking-[-.075em]">深 潮</h1>
             <p className="mx-auto mt-5 max-w-xl text-[clamp(1.05rem,2vw,1.45rem)] leading-relaxed text-white/78">島嶼的黑潮，落在肌膚上。</p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <div className="hero-actions mt-7 flex flex-wrap justify-center gap-3">
               <a className="button-primary" href="#sequence">進入氣味</a>
               <a className="button-secondary" href={`${basePath}/collections/o-01/`}>進一步了解 <ArrowUpRight size={15} /></a>
             </div>
@@ -54,7 +54,7 @@ export default function Home() {
           <a className="button-dark mt-9" href={`${basePath}/ingredients/`}>查看島嶼原料 <ArrowUpRight size={16} /></a>
         </div>
 
-        <figure className="landscape-window reveal-image mx-auto mt-16 aspect-[16/9] max-w-[1500px] overflow-hidden md:mt-24">
+        <figure className="landscape-window reveal-image mx-auto mt-16 aspect-[4/5] max-w-[1500px] overflow-hidden sm:aspect-[16/10] md:mt-24 lg:aspect-[16/9]">
           <Image src={`${basePath}/images/island-botanicals.webp`} alt="雨後岩石上的檜木、茶葉與蘭花" fill className="object-cover" sizes="(max-width: 768px) 100vw, 90vw" />
         </figure>
       </section>

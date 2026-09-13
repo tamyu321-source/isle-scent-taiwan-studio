@@ -36,41 +36,50 @@ const approach = [
 export function PortfolioAbout() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   return (
-    <section id="about" className="portfolio-about portfolio-about-expanded" aria-labelledby="about-title">
-      <div className="portfolio-profile-heading">
-        <p className="portfolio-label">ABOUT / YORKE HSU</p>
-        <h2 id="about-title">設計感，<br />不該犧牲可靠性。</h2>
-        <div className="portfolio-profile-signature">
-          <p>Yorke Hsu</p>
-          <span>互動前端・產品介面・流程自動化</span>
-          <span>台灣 / 遠端協作</span>
+    <section id="about" className="portfolio-about portfolio-about-designed" aria-labelledby="about-title">
+      <div className="pa-profile pa-shell">
+        <div className="pa-chapter"><p>ABOUT / YORKE HSU</p><span>DESIGN × ENGINEERING</span></div>
+        <div className="pa-profile-grid">
+          <aside className="pa-identity" aria-label="Yorke Hsu 個人識別">
+            <div className="pa-identity-top"><span>CREATIVE DEVELOPER</span><span>Y/H</span></div>
+            <div className="pa-monogram" aria-hidden="true"><span>Y</span><i>/</i><span>H</span></div>
+            <div className="pa-identity-name"><p>Yorke Hsu</p><span>互動前端・產品介面・流程自動化</span></div>
+            <div className="pa-identity-bottom"><span>台灣 / 遠端協作</span><a href="#work" aria-label="查看 Yorke Hsu 的精選作品"><ArrowUpRight size={23} aria-hidden="true" /></a></div>
+          </aside>
+          <div className="pa-introduction">
+            <p className="pa-kicker">關於我 / 不只把畫面做好。</p>
+            <h2 id="about-title">設計感，<br />不該犧牲<span className="pa-highlight">可靠性。</span></h2>
+            <p className="pa-lead">我是 Yorke Hsu，一位專注於互動前端、產品介面與流程自動化的開發者。我希望做出的網站，既能傳達品牌，也能讓人順利完成手上的事。</p>
+            <div className="pa-bio"><p>我習慣先理解需求背後的工作方式：訪客如何找到資訊、管理者如何處理資料，以及操作卡住時，系統該如何回應。再將這些需求轉化為清楚的資訊層級、合適的互動與可維護的程式結構。</p><p>這份作品集呈現我對品牌敘事、營運介面與互動流程的實作思考。每個專案選擇不同的視覺語言，但共同的方向始終是：讓內容被理解，讓操作有邏輯，讓細節有理由。</p></div>
+            <a className="pa-text-link" href="#work">用作品認識我的做法 <ArrowUpRight size={18} aria-hidden="true" /></a>
+          </div>
+        </div>
+        <div className="pa-principle">
+          <div><p className="pa-kicker">THE WAY I SEE IT</p><p className="pa-principle-title">視覺與工程，<br /><em>是同一件事。</em></p></div>
+          <p>一個按鈕的位置、一段動畫的節奏、一張表單的錯誤提示，都會影響使用體驗。因此，我在意第一眼的感受，也在意反覆使用之後，是否依然直覺、穩定。</p>
         </div>
       </div>
 
-      <div className="portfolio-about-copy">
-        <p className="portfolio-profile-lead">我是 Yorke Hsu，一位專注於互動前端、產品介面與流程自動化的開發者。我希望做出的網站，既能傳達品牌，也能讓人順利完成手上的事。</p>
-        <p>我習慣先理解需求背後的工作方式：訪客如何找到資訊、管理者如何處理資料，以及操作卡住時，系統該如何回應。再將這些需求轉化為清楚的資訊層級、合適的互動與可維護的程式結構。</p>
-        <p>對我而言，視覺與工程不是分開的兩件事。一個按鈕的位置、一段動畫的節奏、一張表單的錯誤提示，都會影響使用體驗。因此，我在意第一眼的感受，也在意反覆使用之後，是否依然直覺、穩定。</p>
-        <p>這份作品集呈現我對品牌敘事、營運介面與互動流程的實作思考。每個專案選擇不同的視覺語言，但共同的方向始終是：讓內容被理解，讓操作有邏輯，讓細節有理由。</p>
-        <a className="portfolio-profile-link" href="#work">用作品認識我的做法 <ArrowUpRight size={18} aria-hidden="true" /></a>
+      <div className="pa-expertise" aria-labelledby="expertise-title">
+        <div className="pa-shell">
+          <div className="pa-section-heading"><p className="pa-kicker">WHAT I BRING / 專業能力</p><h3 id="expertise-title">從品牌表達，<br />到<em>實際操作。</em></h3><p>把設計、資料與開發<br />放在同一個脈絡裡思考。</p></div>
+          <ol className="pa-capabilities">
+            {capabilities.map(item => <li className="pa-capability" key={item.number}>
+              <div className="pa-capability-top"><span className="pa-capability-number">{item.number}</span><span>{item.english}</span></div>
+              <h4>{item.title}</h4>
+              <p className="pa-capability-description">{item.description}</p>
+              <ul className="pa-focus" aria-label={item.title + "的重點"}>{item.focus.split(" / ").map(focus => <li key={focus}>{focus}</li>)}</ul>
+              <a href={item.href.startsWith("#") ? item.href : basePath + item.href}>{item.work}<span><ArrowUpRight size={19} aria-hidden="true" /></span></a>
+            </li>)}
+          </ol>
+          <p className="pa-expertise-note">作品中的管理與結帳流程為互動示範。正式營運所需的共用資料庫、身分驗證、金流與第三方串接，會依需求另行確認範圍。</p>
+        </div>
       </div>
 
-      <div className="portfolio-expertise" aria-labelledby="expertise-title">
-        <div className="portfolio-about-subheading"><p className="portfolio-label">WHAT I BRING</p><h3 id="expertise-title">從品牌表達，到實際操作。</h3><p>把設計、資料與開發放在同一個脈絡裡思考。</p></div>
-        <ol className="portfolio-capabilities portfolio-expertise-list">
-          {capabilities.map(item => <li key={item.number}>
-            <span className="portfolio-expertise-number">{item.number}</span>
-            <div className="portfolio-expertise-title"><p>{item.english}</p><h4>{item.title}</h4></div>
-            <div className="portfolio-expertise-detail"><p>{item.description}</p><p className="portfolio-expertise-focus">{item.focus}</p><a href={item.href.startsWith("#") ? item.href : basePath + item.href}>{item.work}<ArrowUpRight size={16} aria-hidden="true" /></a></div>
-          </li>)}
-        </ol>
-        <p className="portfolio-expertise-note">作品中的管理與結帳流程為互動示範。正式營運所需的共用資料庫、身分驗證、金流與第三方串接，會依需求另行確認範圍。</p>
-      </div>
-
-      <div className="portfolio-approach" aria-labelledby="approach-title">
-        <div className="portfolio-about-subheading"><p className="portfolio-label">HOW I WORK</p><h3 id="approach-title">好的合作，從理解開始。</h3></div>
-        <ol className="portfolio-approach-list">{approach.map(item => <li key={item.step}><span>{item.step}</span><h4>{item.title}</h4><p>{item.text}</p></li>)}</ol>
-        <div className="portfolio-collaboration-note"><p>無論已有完整設計稿，或正在整理網站改版與系統需求，<br />都可以先從目前遇到的問題、期待的成果與預計時程聊起。</p><a className="portfolio-profile-link" href="#contact">聊聊你的專案 <ArrowUpRight size={18} aria-hidden="true" /></a></div>
+      <div className="pa-approach pa-shell" aria-labelledby="approach-title">
+        <div className="pa-section-heading"><p className="pa-kicker">HOW I WORK / 合作方式</p><h3 id="approach-title">好的合作，<br />從<em>理解開始。</em></h3></div>
+        <ol className="pa-approach-list">{approach.map(item => <li key={item.step}><div className="pa-step"><span>{item.step.split(" / ")[0]}</span><span>{item.step.split(" / ")[1]}</span></div><h4>{item.title}</h4><p>{item.text}</p></li>)}</ol>
+        <div className="pa-collaboration"><div><p className="pa-kicker">LET’S TALK ABOUT YOUR NEXT STEP</p><p>讓下一個想法，<br /><strong>有個好的開始。</strong></p><span>無論已有完整設計稿，或正在整理改版與系統需求，<br />都可以從目前的問題、期待的成果與預計時程聊起。</span></div><a href="#contact"><span>聊聊你的專案</span><ArrowUpRight size={30} strokeWidth={1.5} aria-hidden="true" /></a></div>
       </div>
     </section>
   );
