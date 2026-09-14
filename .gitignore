@@ -50,3 +50,6 @@ __pycache__/
 /tools/fieldwork/output/
 /tools/checkpoint/output/
 /public/data/checkpoint/
+
+
+/output
