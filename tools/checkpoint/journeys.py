@@ -13,6 +13,7 @@ from browser_checks import navigate, page_health
 
 def portfolio_steps(page, base, mobile, errors, evidence):
     titles = [
+        "VECTOR",
         "Isle / Scent",
         "PURE WHITE",
         "豬仔仔幼兒園",
@@ -35,12 +36,12 @@ def portfolio_steps(page, base, mobile, errors, evidence):
 
     def order():
         cards = page.locator("#work article")
-        expect(cards).to_have_count(8)
+        expect(cards).to_have_count(len(titles))
         assert cards.locator("h3").all_text_contents() == titles, "作品順序與預期不同"
         assert cards.locator(".portfolio-real-number").all_text_contents() == [
-            f"{i:02}" for i in range(1, 9)
+            f"{i:02}" for i in range(1, len(titles) + 1)
         ], "作品編號不連續"
-        return "8 件作品依照 01–08 排列，名稱與順序一致"
+        return "9 件作品依照 01–09 排列，名稱與順序一致（含 VECTOR）"
 
     def entries():
         checked = []
@@ -63,8 +64,8 @@ def portfolio_steps(page, base, mobile, errors, evidence):
     return [
         ("開啟作品集", "取得作品集頁面", lambda: navigate(page, base)),
         ("操作導覽", "桌面或手機導覽可到達作品區", navigation),
-        ("核對作品順序", "8 件作品，編號 01–08", order),
-        ("逐一開啟作品入口", "8 個入口成功載入並可返回", entries),
+        ("核對作品順序", "9 件作品，編號 01–09（含 VECTOR）", order),
+        ("逐一開啟作品入口", "9 個入口成功載入並可返回", entries),
         ("核對畫面與錯誤", "沒有未處理錯誤或水平溢出", lambda: page_health(page, errors)),
     ]
 
