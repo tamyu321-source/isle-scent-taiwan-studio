@@ -20,7 +20,7 @@ const projects: Project[] = [
     title: "VECTOR",
     subtitle: "3D 感知標註 · 資料生產工作台",
     type: "3D PERCEPTION & DATA TOOLS",
-    image: "work-vector-preview.png",
+    image: "work-vector-preview.jpg",
     href: "/vector/",
     description:
       "旋轉點雲場景、拖曳與框選物件，完成 3D 邊界框標註。串連任務排序、品質覆核與分析，以可實際操作的合成資料，展示 React、TypeScript 與 Three.js 的整合。",

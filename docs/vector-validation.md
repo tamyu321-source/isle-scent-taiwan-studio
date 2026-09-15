@@ -37,6 +37,6 @@ The in-app browser canceled download events, so actual file downloads were verif
 
 Workspace, tasks, analytics, quality and logs were checked at 320, 390, 768 and 1440 CSS pixels (20 combinations). Every check had `document.documentElement.scrollWidth <= document.documentElement.clientWidth`. The vertical scrollbar makes the available content width 15px smaller at some sizes. Wide task tables scroll inside their container. Desktop and full mobile screenshots were visually reviewed.
 
-Working evidence is in the ignored `outputs/vector-qa/` directory. The default desktop screenshot is tracked as `public/images/work-vector-preview.png` and used on the portfolio. GitHub Actions repeats the model checks and the repository's existing six-case portfolio browser release gate before publishing.
+Working evidence is in the ignored `outputs/vector-qa/` directory. The default desktop screenshot is tracked as `public/images/work-vector-preview.jpg` and used on the portfolio. GitHub Actions repeats the model checks and the repository's existing six-case portfolio browser release gate before publishing.
 
 This is a static portfolio demo using synthetic data and browser-local state. Production authentication, multiuser concurrency, real-model integration and real-road accuracy are outside the implemented scope. See [technical documentation](./vector-perception.md).
