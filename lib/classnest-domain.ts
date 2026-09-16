@@ -265,7 +265,7 @@ export function seedNest(now: number): NestState {
         subject: "音樂",
         color: 2,
         intro:
-          "陪孩子用耳朵發現細節，用旋律表达心情。依學習節奏安排基礎演奏與創作練習。",
+          "陪孩子用耳朵發現細節，用旋律表達心情。依學習節奏安排基礎演奏與創作練習。",
         specialty: "鋼琴啟蒙・旋律創作",
       },
       {
@@ -824,7 +824,8 @@ export function csvText(rows: (string | number)[][]) {
         row
           .map((value) => {
             let text = String(value);
-            if (/^[=+@\-\t\r]/.test(text)) text = "'" + text;
+            if (typeof value === "string" && /^[=+@\-\t\r]/.test(text))
+              text = "'" + text;
             return '"' + text.replaceAll('"', '""') + '"';
           })
           .join(","),

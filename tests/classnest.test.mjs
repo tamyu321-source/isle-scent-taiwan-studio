@@ -346,6 +346,8 @@ test("another family cannot book or cancel a child's class, and CSV escapes form
   );
   assert.match(csvText([["=SUM(1,2)", 'a"b', "中文"]]), /^\ufeff"'=SUM/);
   assert.match(csvText([['a"b']]), /a""b/);
+  assert.equal(csvText([[-2, 3, 0]]), '\ufeff"-2","3","0"');
+  assert.equal(csvText([["-SUM(A1:A2)"]]), '\ufeff"\'-SUM(A1:A2)"');
 });
 test("rolling schedule adds future weeks and keeps previous bookings and stopped sessions", () => {
   let s = seedNest(NOW);

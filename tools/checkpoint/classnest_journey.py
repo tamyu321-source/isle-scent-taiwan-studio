@@ -89,6 +89,9 @@ def classnest_steps(page, base, mobile, errors, evidence):
         rows = list(csv.DictReader(io.StringIO(raw.decode("utf-8-sig"))))
         assert any(row["原因"] == "CHECKPOINT 補堂驗證" and row["可用變動"] == "4" for row in rows)
         assert any(row["類型"] == "上課扣堂" for row in rows)
+        assert sum(int(row["可用變動"]) for row in rows) == 32
+        assert sum(int(row["凍結變動"]) for row in rows) == 3
+        assert sum(int(row["已扣變動"]) for row in rows) == 1
         return "管理端補 4 堂並留下原因；實際下載 CSV 核對補堂與扣堂紀錄"
 
     def group_stop():
