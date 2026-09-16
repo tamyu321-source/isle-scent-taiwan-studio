@@ -43,6 +43,8 @@ jobs:
           node --test tests/fieldwork.test.mjs
       - name: Test VECTOR project integrity
         run: node --experimental-strip-types --test tests/vector.test.mjs
+      - name: Test ClassNest booking and credit transactions
+        run: node --experimental-strip-types --test tests/classnest.test.mjs
       - name: Install Checkpoint browser
         run: |
           python -m pip install -r tools/checkpoint/requirements.txt

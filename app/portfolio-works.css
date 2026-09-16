@@ -168,3 +168,226 @@
     transition: none;
   }
 }
+/* Compact project catalog; preserve every project entry and anchor. */
+.portfolio-work.portfolio-real-work {
+  padding-top: 55px;
+  padding-bottom: 75px;
+}
+.portfolio-work-heading,
+.portfolio-work-filters {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.portfolio-work-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.portfolio-work-heading p {
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  color: #a9aa9d;
+  margin: 0 0 12px;
+}
+.portfolio-work-heading h2 {
+  font-size: clamp(25px, 3vw, 38px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+.portfolio-work-heading > span {
+  font-size: 12px;
+  color: #aaa99e;
+  white-space: nowrap;
+}
+.portfolio-work-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.portfolio-work-filters button {
+  border: 1px solid #ffffff25;
+  background: transparent;
+  color: #b8b9ac;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 12px;
+  min-height: 44px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+.portfolio-work-filters button > span {
+  font-size: 10px;
+  opacity: 0.55;
+}
+.portfolio-work-filters button[aria-pressed="true"] {
+  background: #dfdfc3;
+  color: #1e281f;
+  border-color: #dfdfc3;
+}
+.portfolio-work-filters button:focus-visible {
+  outline: 2px solid #dfdfc3;
+  outline-offset: 3px;
+}
+.portfolio-real-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 34px 25px;
+  max-width: 1400px;
+}
+.portfolio-real-card[hidden] {
+  display: none;
+}
+.portfolio-real-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.portfolio-real-meta {
+  padding: 13px 0;
+  gap: 10px;
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  min-height: 55px;
+}
+.portfolio-real-number {
+  font-size: 30px;
+  min-width: 30px;
+}
+.portfolio-real-preview {
+  aspect-ratio: 16/9;
+}
+.portfolio-real-preview > span {
+  font-size: 9px;
+  padding: 7px 10px;
+  right: 9px;
+  bottom: 9px;
+  gap: 7px;
+}
+.portfolio-real-copy {
+  padding-top: 16px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.portfolio-real-subtitle {
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  line-height: 1.7;
+}
+.portfolio-real-copy h3 {
+  font-size: 26px;
+  line-height: 1.3;
+  margin: 6px 0 11px;
+}
+.portfolio-real-copy > p:not(.portfolio-real-subtitle) {
+  font-size: 12px;
+  line-height: 1.85;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  min-height: 44px;
+}
+.portfolio-real-copy .portfolio-tag-row {
+  gap: 5px;
+  margin: 15px 0 13px;
+}
+.portfolio-real-work .portfolio-tag-row span {
+  font-size: 9px;
+  padding: 5px 7px;
+  letter-spacing: 0;
+}
+.portfolio-work-actions {
+  gap: 7px 13px;
+  font-size: 10px;
+  margin-top: auto;
+}
+.portfolio-work-actions > a {
+  gap: 5px;
+  min-height: 44px;
+}
+.portfolio-work-actions .portfolio-enter-button {
+  padding: 9px 12px;
+  gap: 13px;
+  font-size: 11px;
+}
+.portfolio-work-actions svg {
+  width: 14px;
+  height: 14px;
+}
+.portfolio-real-copy > .portfolio-tag-row {
+  flex-wrap: wrap;
+}
+@media (max-width: 1099px) {
+  .portfolio-real-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 34px 24px;
+  }
+}
+@media (max-width: 699px) {
+  .portfolio-work.portfolio-real-work {
+    padding-top: 35px;
+    padding-bottom: 45px;
+  }
+  .portfolio-work-heading {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .portfolio-work-heading h2 {
+    font-size: 26px;
+  }
+  .portfolio-work-heading p {
+    font-size: 9px;
+  }
+  .portfolio-work-heading > span {
+    font-size: 10px;
+  }
+  .portfolio-work-filters {
+    gap: 6px;
+    margin-bottom: 26px;
+  }
+  .portfolio-work-filters button {
+    font-size: 11px;
+    padding: 9px 11px;
+    gap: 7px;
+  }
+  .portfolio-real-grid {
+    grid-template-columns: 1fr;
+    gap: 29px;
+  }
+  .portfolio-real-meta {
+    padding: 10px 0;
+    font-size: 9px;
+    min-height: 46px;
+  }
+  .portfolio-real-number {
+    font-size: 28px;
+  }
+  .portfolio-real-copy {
+    padding-top: 14px;
+  }
+  .portfolio-real-copy h3 {
+    font-size: 26px;
+  }
+  .portfolio-real-copy > p:not(.portfolio-real-subtitle) {
+    font-size: 12px;
+  }
+  .portfolio-real-subtitle {
+    font-size: 11px;
+  }
+  .portfolio-work-actions {
+    gap: 8px 14px;
+    font-size: 11px;
+  }
+  .portfolio-real-copy .portfolio-tag-row {
+    margin: 13px 0;
+  }
+  .portfolio-real-preview > span {
+    font-size: 10px;
+  }
+}

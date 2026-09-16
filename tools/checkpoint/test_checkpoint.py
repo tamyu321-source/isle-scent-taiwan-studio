@@ -136,7 +136,7 @@ class BrowserFailureTests(unittest.TestCase):
                 code = checkpoint.run(args)
             self.assertEqual(code, 1)
             report = read_json(next(Path(directory).glob("*/report.json")))
-            self.assertEqual(len(report["cases"]), 3)
+            self.assertEqual(len(report["cases"]), 4)
             self.assertTrue(all(case["status"] == "blocked" for case in report["cases"]))
 
 

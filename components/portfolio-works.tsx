@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import { ArrowUpRight, LayoutDashboard } from "lucide-react";
 
 type Project = {
@@ -9,12 +12,24 @@ type Project = {
   href: string;
   description: string;
   tags: string[];
-  featured?: boolean;
   admin?: string;
   extra?: { href: string; label: string };
 };
 
 const projects: Project[] = [
+  {
+    anchor: "project-10",
+    title: "ClassNest 課伴",
+    subtitle: "多老師選課 · 家庭學習計畫",
+    type: "EDUCATION & BOOKING",
+    image: "work-classnest-preview.jpg",
+    href: "/classnest/",
+    admin: "/classnest/admin/",
+    extra: { href: "/classnest/teacher/", label: "老師端" },
+    description:
+      "跨老師安排一對一與團體課，連續週次預約、限時保留名額與堂數帳本，串起家長選課、老師點名和教務管理。",
+    tags: ["交易與狀態管理", "多角色預約", "堂數帳本"],
+  },
   {
     anchor: "project-09",
     title: "VECTOR",
@@ -25,7 +40,6 @@ const projects: Project[] = [
     description:
       "旋轉點雲場景、拖曳與框選物件，完成 3D 邊界框標註。串連任務排序、品質覆核與分析，以可實際操作的合成資料，展示 React、TypeScript 與 Three.js 的整合。",
     tags: ["Three.js / WebGL", "3D 標註", "資料生產平台"],
-    featured: true,
   },
   {
     anchor: "project-01",
@@ -37,7 +51,6 @@ const projects: Project[] = [
     description:
       "以大幅影像與動態敘事，呈現台灣島嶼香氣。從產品細節、品牌故事到聯絡資訊，完整探索香氛品牌。",
     tags: ["動態敘事", "品牌官網", "響應式設計"],
-    featured: true,
     extra: { href: "/work/isle-scent/", label: "案例說明" },
   },
   {
@@ -50,7 +63,6 @@ const projects: Project[] = [
     description:
       "從一杯原味，到每一口的細節。以白色、鈷藍與產品特寫，串起手作製程、規格選擇和跟隨捲動的質地展示。",
     tags: ["品牌官網", "產品分鏡", "捲動互動"],
-    featured: true,
     extra: { href: "/pure-white/original/", label: "產品詳情" },
   },
   {
@@ -133,6 +145,28 @@ const projects: Project[] = [
 
 export function PortfolioWorks() {
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  const [category, setCategory] = useState("全部");
+  const categoryFor = (project: Project) =>
+    ["project-01", "project-05"].includes(project.anchor)
+      ? "品牌網站"
+      : ["project-07", "project-08", "project-09"].includes(project.anchor)
+        ? "自動化工具"
+        : "應用系統";
+  useEffect(() => {
+    const reveal = () => {
+      if (/^#project-/.test(window.location.hash)) {
+        setCategory("全部");
+        requestAnimationFrame(() =>
+          document
+            .getElementById(window.location.hash.slice(1))
+            ?.scrollIntoView(),
+        );
+      }
+    };
+    reveal();
+    window.addEventListener("hashchange", reveal);
+    return () => window.removeEventListener("hashchange", reveal);
+  }, []);
 
   return (
     <section
@@ -140,12 +174,45 @@ export function PortfolioWorks() {
       className="portfolio-work portfolio-real-work"
       aria-label="作品集"
     >
+      <div className="portfolio-work-heading">
+        <div>
+          <p>SELECTED WORK / 2026</p>
+          <h2>不同題目，同樣專注。</h2>
+        </div>
+        <span aria-live="polite">
+          {
+            projects.filter(
+              (p) => category === "全部" || categoryFor(p) === category,
+            ).length
+          }{" "}
+          / {projects.length} 件作品
+        </span>
+      </div>
+      <div className="portfolio-work-filters" aria-label="作品分類">
+        {["全部", "品牌網站", "應用系統", "自動化工具"].map((value) => (
+          <button
+            key={value}
+            aria-pressed={category === value}
+            onClick={() => setCategory(value)}
+          >
+            {value}
+            <span>
+              {
+                projects.filter(
+                  (p) => value === "全部" || categoryFor(p) === value,
+                ).length
+              }
+            </span>
+          </button>
+        ))}
+      </div>
       <div className="portfolio-real-grid">
         {projects.map((project, index) => (
           <article
             key={project.anchor}
             id={project.anchor}
-            className={`portfolio-real-card${project.featured ? " portfolio-real-feature" : ""}`}
+            hidden={category !== "全部" && categoryFor(project) !== category}
+            className="portfolio-real-card"
           >
             <div className="portfolio-real-meta">
               <span className="portfolio-real-number">
@@ -159,7 +226,8 @@ export function PortfolioWorks() {
               href={base + project.href}
               aria-label={`進入 ${project.title}`}
             >
-              <img
+              <Image
+                unoptimized
                 src={`${base}/images/${project.image}`}
                 alt={`${project.title} 網站預覽`}
                 width={1264}

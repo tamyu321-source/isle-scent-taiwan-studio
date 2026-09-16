@@ -15,6 +15,7 @@ const result = spawnSync(
       "worker.py",
       "browser_checks.py",
       "journeys.py",
+      "classnest_journey.py",
       "reporting.py",
       "requirements.txt",
       "README.md",

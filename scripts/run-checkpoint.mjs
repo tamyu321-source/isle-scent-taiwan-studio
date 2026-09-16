@@ -79,13 +79,13 @@ try {
     const report = JSON.parse(
       await readFile(path.join(reportDirectory, "report.json"), "utf8"),
     );
-    const required = ["portfolio", "yogurt", "fieldwork"].flatMap((journey) =>
+    const required = ["portfolio", "yogurt", "fieldwork", "classnest"].flatMap((journey) =>
       ["desktop", "mobile"].map((view) => `${journey}-${view}`),
     );
     if (
       !report.complete ||
       report.status !== "passed" ||
-      report.cases.length !== 6 ||
+      report.cases.length !== required.length ||
       !required.every((id) =>
         report.cases.some(
           (item) =>

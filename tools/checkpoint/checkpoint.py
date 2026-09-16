@@ -122,6 +122,7 @@ def run(args):
             ("portfolio", "作品集導覽"),
             ("yogurt", "PURE WHITE 產品體驗"),
             ("fieldwork", "FIELDWORK 資料操作"),
+            ("classnest", "ClassNest 預約與堂數"),
         ]
     )
     configs = []

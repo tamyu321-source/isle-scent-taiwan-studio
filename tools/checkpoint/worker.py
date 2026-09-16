@@ -32,6 +32,7 @@ def execute(config_path):
         from playwright.sync_api import sync_playwright, expect, TimeoutError as PlaywrightTimeout
         from browser_checks import BlockedError, generic_steps
         from journeys import portfolio_steps, yogurt_steps, fieldwork_steps
+        from classnest_journey import classnest_steps
 
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch(headless=config["headless"])
@@ -58,6 +59,7 @@ def execute(config_path):
                     "portfolio": portfolio_steps,
                     "yogurt": yogurt_steps,
                     "fieldwork": fieldwork_steps,
+                    "classnest": classnest_steps,
                 }[config["journey"]](
                     page, config["target"], config["viewport"] == "mobile", errors, directory
                 )

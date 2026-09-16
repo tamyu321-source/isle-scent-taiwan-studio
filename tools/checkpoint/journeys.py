@@ -13,6 +13,7 @@ from browser_checks import navigate, page_health
 
 def portfolio_steps(page, base, mobile, errors, evidence):
     titles = [
+        "ClassNest 課伴",
         "VECTOR",
         "Isle / Scent",
         "PURE WHITE",
@@ -41,7 +42,19 @@ def portfolio_steps(page, base, mobile, errors, evidence):
         assert cards.locator(".portfolio-real-number").all_text_contents() == [
             f"{i:02}" for i in range(1, len(titles) + 1)
         ], "作品編號不連續"
-        return "9 件作品依照 01–09 排列，名稱與順序一致（含 VECTOR）"
+        return f"{len(titles)} 件作品名稱、順序與編號一致"
+
+    def categories():
+        filters = page.locator(".portfolio-work-filters")
+        filters.get_by_role("button", name=re.compile("品牌網站")).click()
+        expect(page.locator("#work article:visible")).to_have_count(2)
+        filters.get_by_role("button", name=re.compile("應用系統")).click()
+        expect(page.locator("#work article:visible")).to_have_count(5)
+        filters.get_by_role("button", name=re.compile("自動化工具")).click()
+        expect(page.locator("#work article:visible")).to_have_count(3)
+        filters.get_by_role("button", name=re.compile("全部")).click()
+        expect(page.locator("#work article:visible")).to_have_count(len(titles))
+        return "分類依序顯示 2、5、3 件作品；全部恢復 10 件"
 
     def entries():
         checked = []
@@ -64,8 +77,9 @@ def portfolio_steps(page, base, mobile, errors, evidence):
     return [
         ("開啟作品集", "取得作品集頁面", lambda: navigate(page, base)),
         ("操作導覽", "桌面或手機導覽可到達作品區", navigation),
-        ("核對作品順序", "9 件作品，編號 01–09（含 VECTOR）", order),
-        ("逐一開啟作品入口", "9 個入口成功載入並可返回", entries),
+        ("核對作品順序", "10 件作品，編號 01–10（含 ClassNest）", order),
+        ("操作作品分類", "四個分類正確顯示作品且入口完整", categories),
+        ("逐一開啟作品入口", "10 個入口成功載入並可返回", entries),
         ("核對畫面與錯誤", "沒有未處理錯誤或水平溢出", lambda: page_health(page, errors)),
     ]
 
