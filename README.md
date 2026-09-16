@@ -59,10 +59,10 @@
 | 豬仔仔幼兒園、Order Flow | 展示資料存在目前瀏覽器。示範管理帳號分別為 `admin / piglet2026`、`admin / order2026`。 |
 | MORI | 示範會員、體驗預約與選物訂單；取消會回補庫存及席次，既有訂單保留成交價。 |
 | ShareFlow | 當前頁面的分潤與權限流程示範，未串接真實廣告帳戶或正式身分驗證。 |
-| VECTOR | 合成點雲、物件與軌跡，本機保存標註；未連接真實駕駛資料、AI 推論或團隊同步服務。 |
+| VECTOR | 合成點雲、物件與軌跡，本機保存標註；未連接真實駕駛資料、感知模型或團隊同步服務。 |
 | FIELDWORK | 讀取發佈時蒐集的公開商家資料，保留來源與擷取狀態；資料核對不等同電話確認或營業保證。 |
 | CHECKPOINT | 發佈產物附帶實際瀏覽器執行報告；網頁不會啟動訪客電腦的程式。本機工具使用獨立瀏覽器環境。 |
-| Isle / Scent、PURE WHITE | 原創品牌概念及生成影像；產品規格與配方不代表上市商品，無實際訂購功能或健康功效宣稱。 |
+| Isle / Scent、PURE WHITE | 品牌概念與示意影像；產品規格與配方不代表上市商品，無實際訂購功能或健康功效宣稱。 |
 
 清除網站資料會移除本機展示紀錄。正式營運需另接共用資料庫、伺服器端交易、身分與權限驗證；ClassNest 亦需可信任的伺服器時間。
 
@@ -97,9 +97,9 @@ npm run dev
 若使用 Volta，可將命令前置 `volta run --node 24.11.1`。瀏覽器巡檢另外需要 Python 3.11、Playwright 與 Chromium：
 
 ```powershell
-py -3.11 -m venv .sites-runtime/checkpoint-venv
-.\.sites-runtime\checkpoint-venv\Scripts\python.exe -m pip install -r tools/checkpoint/requirements.txt
-.\.sites-runtime\checkpoint-venv\Scripts\python.exe -m playwright install chromium
+py -3.11 -m venv .runtime/checkpoint-venv
+.\.runtime\checkpoint-venv\Scripts\python.exe -m pip install -r tools/checkpoint/requirements.txt
+.\.runtime\checkpoint-venv\Scripts\python.exe -m playwright install chromium
 ```
 
 ## 驗證
@@ -111,10 +111,10 @@ node --experimental-strip-types --test tests/classnest.test.mjs tests/vector.tes
 node --test tests/fieldwork.test.mjs tests/checkpoint.test.mjs
 node scripts/check-mori.mjs
 py -3.11 -X utf8 -m unittest discover -s tools/fieldwork -p "test_*.py" -v
-.\.sites-runtime\checkpoint-venv\Scripts\python.exe -X utf8 -m unittest discover -s tools/checkpoint -p "test_*.py" -v
+.\.runtime\checkpoint-venv\Scripts\python.exe -X utf8 -m unittest discover -s tools/checkpoint -p "test_*.py" -v
 
 # 另開終端保持 npm run dev；執行 ClassNest 操作與響應式驗收
-.\.sites-runtime\checkpoint-venv\Scripts\python.exe -X utf8 tools/checkpoint/classnest_qa.py --base http://localhost:5173/ --output outputs/classnest-qa
+.\.runtime\checkpoint-venv\Scripts\python.exe -X utf8 tools/checkpoint/classnest_qa.py --base http://localhost:5173/ --output outputs/classnest-qa
 ```
 
 - ClassNest：16 組規則測試，涵蓋最後名額、跨老師撞課、批次回滾、堂數不足、暫留到期、重複確認／點名、24 小時取消邊界、改期失敗保留原課、停課與人工補堂。
@@ -125,7 +125,7 @@ py -3.11 -X utf8 -m unittest discover -s tools/fieldwork -p "test_*.py" -v
 
 ## GitHub Pages 發佈
 
-目前只維護 GitHub Pages，既有 Sites 不再同步發佈。[pages.yml](.github/workflows/pages.yml) 在推送 `main`、手動執行及每日排程時執行測試、更新 FIELDWORK 公開資料、打包工具、靜態建置及 CHECKPOINT 驗收。排程預定台灣時間 08:17，實際時間以 Actions 為準。
+網站透過 GitHub Pages 發佈。[pages.yml](.github/workflows/pages.yml) 在推送 `main`、手動執行及每日排程時執行測試、更新 FIELDWORK 公開資料、打包工具、靜態建置及 CHECKPOINT 驗收。排程預定台灣時間 08:17，實際時間以 Actions 為準。
 
 所有路由與資源支援 `/isle-scent-taiwan-studio/` 子路徑。`scripts/prepare-github-pages.mjs` 依 HTML 產物建立含尾斜線的深層入口，發佈目錄為 `dist/client`。本機重現 Pages 建置及完整瀏覽器門檻：
 
@@ -134,7 +134,7 @@ $env:GITHUB_ACTIONS = 'true'
 $env:GITHUB_REPOSITORY = 'tamyu321-source/isle-scent-taiwan-studio'
 npm run build
 node scripts/prepare-github-pages.mjs
-node scripts/run-checkpoint.mjs --python .sites-runtime/checkpoint-venv/Scripts/python.exe
+node scripts/run-checkpoint.mjs --python .runtime/checkpoint-venv/Scripts/python.exe
 # 完成後在目前終端清除測試用環境變數
 Remove-Item Env:GITHUB_ACTIONS
 Remove-Item Env:GITHUB_REPOSITORY

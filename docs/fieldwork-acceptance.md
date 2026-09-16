@@ -28,7 +28,7 @@ Tested the static Pages build under `/isle-scent-taiwan-studio/`, not just the d
 - PURE WHITE: all three recipe tabs changed the recipe, amounts and image; keyboard ArrowRight switched from afternoon to savory. Both homepage and product page use the shared component.
 - Product detail retained `?size=jar`; mobile navigation and reduced-motion mode worked. Images blocked in the browser still left full recipe text readable with no horizontal overflow. Network blocking, cache and media overrides were removed after the test.
 
-Screenshots are retained locally in `outputs/fieldwork-qa/`: desktop, mobile, recipe-desktop and recipe-mobile. The portfolio thumbnail is a real browser screenshot, not a generated interface mockup. Food photograph prompts and generation provenance are in `docs/pure-white-recipes.md`.
+Screenshots are retained locally in `outputs/fieldwork-qa/`: desktop, mobile, recipe-desktop and recipe-mobile. The portfolio thumbnail is a real browser screenshot, not an interface illustration. Food imagery and recipe specifications are documented in `docs/pure-white-recipes.md`.
 
 ## Deployment boundaries
 
@@ -36,4 +36,4 @@ Only GitHub `main` and its existing Pages workflow are used. The workflow adds d
 
 The workflow may retain an older valid snapshot and report `stale` or `partial` when a source fails. Scheduled GitHub jobs can be delayed or disabled; no exact-time SLA is claimed. Live deployment and workflow completion are verified after pushing.
 
-The pre-existing changes in `app/portfolio-about.css` and `components/portfolio-about.tsx` are excluded from the commit. Sites hosting is unchanged.
+The pre-existing changes in `app/portfolio-about.css` and `components/portfolio-about.tsx` are excluded from the commit.

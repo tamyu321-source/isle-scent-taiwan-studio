@@ -423,7 +423,7 @@ export function VectorPanels({
             <dl className="vx-dataset-spec">
               <div>
                 <dt>資料來源</dt>
-                <dd>程式生成的合成城市場景</dd>
+                <dd>合成城市場景</dd>
               </div>
               <div>
                 <dt>時間序列</dt>

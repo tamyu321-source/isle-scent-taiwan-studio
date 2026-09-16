@@ -37,7 +37,7 @@ The following records the original CHECKPOINT delivery. Its eight-project catalo
 - Case selection, desktop/mobile keyboard tabs, status filters and empty-filter state were exercised with the actual report.
 - Screenshot dialog, Escape, reduced-motion mode and report-fetch failure were exercised. Failed refresh retained the previously loaded report and showed an error.
 - The read-only `read_checkpoint_result` page tool returned the selected real case and rejected unexpected arguments without changing page state.
-- Screenshot images are real browser captures, not generated interface mockups. The portfolio preview is derived from the completed reader UI.
+- Screenshot images are real browser captures, not interface illustrations. The portfolio preview is derived from the completed reader UI.
 
 ### Delivery boundary
 
@@ -45,4 +45,4 @@ The following records the original CHECKPOINT delivery. Its eight-project catalo
 - The ZIP was extracted into a fresh directory with a separate virtual environment. Dependency installation, Chromium installation and a visible-browser desktop run all completed; all three journeys passed.
 - Public reports are generated into the Pages artifact after testing that same static build. They explicitly identify the build-preview environment and commit; they are not presented as tests against the already-deployed production site.
 - The release gate requires all six cases and every required step to complete successfully with screenshot evidence. A failed run keeps the previous site online and uploads diagnostic evidence to Actions for seven days.
-- Sites and existing uncommitted About changes are excluded.
+- Existing uncommitted About changes were excluded from the initial delivery.

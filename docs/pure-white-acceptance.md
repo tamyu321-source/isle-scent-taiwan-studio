@@ -32,4 +32,4 @@
 
 ## 發布範圍
 
-只提交本次作品集、優格、影像與 Pages 路由準備修改。`app/portfolio-about.css`、`components/portfolio-about.tsx` 的既有未提交修改不納入。GitHub `main` 透過既有 Actions 發布；Sites 不同步。
+只提交本次作品集、優格、影像與 Pages 路由準備修改。`app/portfolio-about.css`、`components/portfolio-about.tsx` 的既有未提交修改不納入。GitHub `main` 透過既有 Actions 發布。
