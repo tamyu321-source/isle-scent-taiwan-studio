@@ -1,0 +1,265 @@
+{
+  "schema": 1,
+  "source": "Python MissionRuntime generated; synthetic data",
+  "policy": {
+    "auto_limit": 500,
+    "review_limit": 1000
+  },
+  "cases": [
+    {
+      "key": "within-limit",
+      "title": "限額內自動準備",
+      "amount": 240,
+      "destination": "vendor:atlas",
+      "state": "COMPLETED",
+      "checks": [
+        "單次授權執行"
+      ],
+      "events": [
+        {
+          "seq": 3,
+          "event": "MISSION_SUBMITTED",
+          "actor": "agent-ops",
+          "details": {
+            "amount": 240,
+            "destination": "vendor:atlas",
+            "resource": "ledger-us"
+          },
+          "hash": "f5194ab85330"
+        },
+        {
+          "seq": 4,
+          "event": "POLICY_DECISION",
+          "actor": "policy",
+          "details": {
+            "reason": "WITHIN_LIMIT",
+            "state": "READY"
+          },
+          "hash": "c10e581c7c53"
+        },
+        {
+          "seq": 5,
+          "event": "TOKEN_ISSUED",
+          "actor": "agent-ops",
+          "details": {
+            "ttl_seconds": 120
+          },
+          "hash": "77b24dd27ac5"
+        },
+        {
+          "seq": 6,
+          "event": "EXECUTION_COMPLETED",
+          "actor": "agent-ops",
+          "details": {
+            "effect": {
+              "amount": 240,
+              "destination": "vendor:atlas",
+              "kind": "payment_instruction_prepared",
+              "reference": "mis_df00b44a87ba"
+            }
+          },
+          "hash": "2e539d4536cc"
+        }
+      ]
+    },
+    {
+      "key": "two-person",
+      "title": "高額任務雙人覆核",
+      "amount": 760,
+      "destination": "vendor:north",
+      "state": "COMPLETED",
+      "checks": [
+        "獨立覆核者批准",
+        "單次授權執行"
+      ],
+      "events": [
+        {
+          "seq": 7,
+          "event": "MISSION_SUBMITTED",
+          "actor": "agent-ops",
+          "details": {
+            "amount": 760,
+            "destination": "vendor:north",
+            "resource": "ledger-us"
+          },
+          "hash": "9cfa6e0db147"
+        },
+        {
+          "seq": 8,
+          "event": "POLICY_DECISION",
+          "actor": "policy",
+          "details": {
+            "reason": "TWO_PERSON_REVIEW",
+            "state": "PENDING_APPROVAL"
+          },
+          "hash": "9a6926410660"
+        },
+        {
+          "seq": 9,
+          "event": "MISSION_APPROVED",
+          "actor": "reviewer-lee",
+          "details": {
+            "resource": "ledger-us"
+          },
+          "hash": "e11697821bb8"
+        },
+        {
+          "seq": 10,
+          "event": "TOKEN_ISSUED",
+          "actor": "agent-ops",
+          "details": {
+            "ttl_seconds": 120
+          },
+          "hash": "f1bc739f4654"
+        },
+        {
+          "seq": 11,
+          "event": "EXECUTION_COMPLETED",
+          "actor": "agent-ops",
+          "details": {
+            "effect": {
+              "amount": 760,
+              "destination": "vendor:north",
+              "kind": "payment_instruction_prepared",
+              "reference": "mis_c67a89ba96c6"
+            }
+          },
+          "hash": "3dc38cb91dbc"
+        }
+      ]
+    },
+    {
+      "key": "no-authority",
+      "title": "沒有資源權限",
+      "amount": 240,
+      "destination": "vendor:atlas",
+      "state": "DENIED",
+      "checks": [],
+      "events": [
+        {
+          "seq": 12,
+          "event": "MISSION_SUBMITTED",
+          "actor": "agent-guest",
+          "details": {
+            "amount": 240,
+            "destination": "vendor:atlas",
+            "resource": "ledger-us"
+          },
+          "hash": "e02727e5e81d"
+        },
+        {
+          "seq": 13,
+          "event": "POLICY_DECISION",
+          "actor": "policy",
+          "details": {
+            "reason": "NO_AUTHORITY",
+            "state": "DENIED"
+          },
+          "hash": "66fb1994b72a"
+        }
+      ]
+    },
+    {
+      "key": "blocked-destination",
+      "title": "策略拒絕目標",
+      "amount": 80,
+      "destination": "blocked:external",
+      "state": "DENIED",
+      "checks": [],
+      "events": [
+        {
+          "seq": 14,
+          "event": "MISSION_SUBMITTED",
+          "actor": "agent-ops",
+          "details": {
+            "amount": 80,
+            "destination": "blocked:external",
+            "resource": "ledger-us"
+          },
+          "hash": "b6415631af96"
+        },
+        {
+          "seq": 15,
+          "event": "POLICY_DECISION",
+          "actor": "policy",
+          "details": {
+            "reason": "BLOCKED_DESTINATION",
+            "state": "DENIED"
+          },
+          "hash": "e9f57d02458f"
+        }
+      ]
+    },
+    {
+      "key": "replay",
+      "title": "執行憑證重放",
+      "amount": 120,
+      "destination": "vendor:atlas",
+      "state": "COMPLETED",
+      "checks": [
+        "單次授權執行",
+        "重放拒絕：EXECUTION_DENIED"
+      ],
+      "events": [
+        {
+          "seq": 16,
+          "event": "MISSION_SUBMITTED",
+          "actor": "agent-ops",
+          "details": {
+            "amount": 120,
+            "destination": "vendor:atlas",
+            "resource": "ledger-us"
+          },
+          "hash": "bdf7f91b2572"
+        },
+        {
+          "seq": 17,
+          "event": "POLICY_DECISION",
+          "actor": "policy",
+          "details": {
+            "reason": "WITHIN_LIMIT",
+            "state": "READY"
+          },
+          "hash": "0fe2e0255450"
+        },
+        {
+          "seq": 18,
+          "event": "TOKEN_ISSUED",
+          "actor": "agent-ops",
+          "details": {
+            "ttl_seconds": 120
+          },
+          "hash": "d20fb32a584a"
+        },
+        {
+          "seq": 19,
+          "event": "EXECUTION_COMPLETED",
+          "actor": "agent-ops",
+          "details": {
+            "effect": {
+              "amount": 120,
+              "destination": "vendor:atlas",
+              "kind": "payment_instruction_prepared",
+              "reference": "mis_cbfa9f46c41b"
+            }
+          },
+          "hash": "d2dcd9d06d10"
+        },
+        {
+          "seq": 20,
+          "event": "EXECUTION_REJECTED",
+          "actor": "agent-ops",
+          "details": {
+            "reason": "TOKEN_AUTHORITY_OR_STATE"
+          },
+          "hash": "ce8c6bc32289"
+        }
+      ]
+    }
+  ],
+  "chain": {
+    "valid": true,
+    "checked": 20,
+    "head": "ce8c6bc32289e019273ab531b01db8a80b024b26c8b024c3a0096f9f72d1fca0"
+  }
+}

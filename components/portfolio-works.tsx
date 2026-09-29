@@ -18,6 +18,29 @@ type Project = {
 
 const projects: Project[] = [
   {
+    anchor: "project-12",
+    title: "ASK YORKE",
+    subtitle: "常駐 AI · 作品導覽與需求整理",
+    type: "AI PRODUCT & INTERACTION",
+    image: "work-ask-yorke-preview.png",
+    href: "/ask-yorke/",
+    description:
+      "從真實作品回答訪客問題，並把專案想法整理成可帶走的需求摘要。全站常駐入口串接 Qwen，展示可操作的 AI 體驗與公開使用限制。",
+    tags: ["Qwen / Worker", "作品導覽", "需求整理"],
+  },
+  {
+    anchor: "project-11",
+    title: "AUTHORITY",
+    subtitle: "Agent Runtime · 權限與可審計執行",
+    type: "PYTHON SYSTEMS ENGINEERING",
+    image: "work-agent-runtime-preview.jpg",
+    href: "/agent-runtime/",
+    description:
+      "以 Python 實作任務執行、角色授權、策略判斷、短效憑證與審計鏈。真實運行的合成情境呈現放行、雙人覆核、拒絕與重放防護。",
+    tags: ["Python / FastAPI", "權限與策略", "審計鏈"],
+    extra: { href: "/downloads/agent-runtime-python.zip", label: "下載 Python 原型" },
+  },
+  {
     anchor: "project-10",
     title: "ClassNest 課伴",
     subtitle: "多老師選課 · 家庭學習計畫",
@@ -149,7 +172,7 @@ export function PortfolioWorks() {
   const categoryFor = (project: Project) =>
     ["project-01", "project-05"].includes(project.anchor)
       ? "品牌網站"
-      : ["project-07", "project-08", "project-09"].includes(project.anchor)
+      : ["project-07", "project-08", "project-09", "project-11", "project-12"].includes(project.anchor)
         ? "自動化工具"
         : "應用系統";
   useEffect(() => {

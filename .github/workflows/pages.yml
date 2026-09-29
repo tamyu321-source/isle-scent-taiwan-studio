@@ -43,8 +43,16 @@ jobs:
           node --test tests/fieldwork.test.mjs
       - name: Test VECTOR project integrity
         run: node --experimental-strip-types --test tests/vector.test.mjs
+      - name: Test ASK YORKE knowledge and limits
+        run: node --experimental-strip-types --test tests/ask-yorke.test.mjs tests/ask-yorke-worker.test.mjs
       - name: Test ClassNest booking and credit transactions
         run: node --experimental-strip-types --test tests/classnest.test.mjs
+      - name: Test Agent Runtime and generate evidence
+        run: |
+          python -m pip install -r tools/agent-runtime/requirements.txt
+          cd tools/agent-runtime
+          python -X utf8 -m unittest discover -p 'test_*.py' -v
+          python -X utf8 -m agent_runtime.demo --output ../../public/data/agent-runtime/demo.json
       - name: Install Checkpoint browser
         run: |
           python -m pip install -r tools/checkpoint/requirements.txt
@@ -66,7 +74,11 @@ jobs:
         run: |
           node scripts/package-fieldwork.mjs
           node scripts/package-checkpoint.mjs
+          node scripts/package-agent-runtime.mjs
       - name: Build static site
+        env:
+          NEXT_PUBLIC_ASK_YORKE_API_URL: ${{ vars.ASK_YORKE_API_URL }}
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
         run: npm run build
       - name: Prepare clean URLs
         run: node scripts/prepare-github-pages.mjs

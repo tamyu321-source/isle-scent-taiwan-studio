@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AskYorkeWidget } from "@/components/ask-yorke";
 
 export const metadata: Metadata = {
   title: { default: "Yorke Hsu — Creative Developer", template: "%s — Yorke Hsu" },
@@ -11,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="zh-Hant"><body>{children}</body></html>;
+  return <html lang="zh-Hant"><body>{children}<AskYorkeWidget /></body></html>;
 }

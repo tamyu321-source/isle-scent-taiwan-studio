@@ -13,6 +13,8 @@ from browser_checks import navigate, page_health
 
 def portfolio_steps(page, base, mobile, errors, evidence):
     titles = [
+        "ASK YORKE",
+        "AUTHORITY",
         "ClassNest 課伴",
         "VECTOR",
         "Isle / Scent",
@@ -51,10 +53,10 @@ def portfolio_steps(page, base, mobile, errors, evidence):
         filters.get_by_role("button", name=re.compile("應用系統")).click()
         expect(page.locator("#work article:visible")).to_have_count(5)
         filters.get_by_role("button", name=re.compile("自動化工具")).click()
-        expect(page.locator("#work article:visible")).to_have_count(3)
+        expect(page.locator("#work article:visible")).to_have_count(5)
         filters.get_by_role("button", name=re.compile("全部")).click()
         expect(page.locator("#work article:visible")).to_have_count(len(titles))
-        return "分類依序顯示 2、5、3 件作品；全部恢復 10 件"
+        return "分類依序顯示 2、5、5 件作品；全部恢復 12 件"
 
     def entries():
         checked = []
@@ -64,11 +66,21 @@ def portfolio_steps(page, base, mobile, errors, evidence):
             assert destination.startswith(base), "作品入口離開指定的作品集"
             with page.expect_navigation(wait_until="load"):
                 link.click()
-            expect(page).to_have_url(destination)
+            expect(page).to_have_url(re.compile(rf"^{re.escape(destination.rstrip('/'))}/?$"))
             response = page.reload(wait_until="load")
             assert response and response.status < 400, f"{title} 載入失敗"
             assert page.title().strip(), f"{title} 沒有標題"
             page.locator("main").wait_for(state="visible")
+            if title == "AUTHORITY":
+                page.get_by_role("button", name="高額任務雙人覆核").click()
+                expect(page.locator(".ar-trace")).to_contain_text("獨立覆核通過")
+                page.get_by_role("button", name="沒有資源權限").click()
+                expect(page.locator(".ar-trace")).to_contain_text("DENIED")
+                expect(page.locator(".ar-verification")).to_contain_text("VALID")
+            if title == "ASK YORKE":
+                expect(page.locator(".ay-hero h1")).to_contain_text("讓作品回答問題")
+                page.get_by_role("tab", name="整理專案需求").click()
+                expect(page.get_by_text("把初步想法，整理成清楚的需求。")).to_be_visible()
             checked.append(title)
             page.go_back(wait_until="load")
             page.locator("#work").wait_for(state="visible")
@@ -77,9 +89,9 @@ def portfolio_steps(page, base, mobile, errors, evidence):
     return [
         ("開啟作品集", "取得作品集頁面", lambda: navigate(page, base)),
         ("操作導覽", "桌面或手機導覽可到達作品區", navigation),
-        ("核對作品順序", "10 件作品，編號 01–10（含 ClassNest）", order),
+        ("核對作品順序", "12 件作品，編號 01–12（含 ASK YORKE）", order),
         ("操作作品分類", "四個分類正確顯示作品且入口完整", categories),
-        ("逐一開啟作品入口", "10 個入口成功載入並可返回", entries),
+        ("逐一開啟作品入口", "12 個入口成功載入並可返回", entries),
         ("核對畫面與錯誤", "沒有未處理錯誤或水平溢出", lambda: page_health(page, errors)),
     ]
 

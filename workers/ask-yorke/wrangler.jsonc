@@ -1,0 +1,15 @@
+{
+  "name": "yorke-ask",
+  "main": "./index.ts",
+  "compatibility_date": "2026-09-29",
+  "triggers": { "crons": ["7 16 * * *"] },
+  "vars": {
+    "SITE_ORIGIN": "https://tamyu321-source.github.io",
+    "QWEN_API_HOST": "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
+  },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "yorke-ask-usage",
+    "database_id": "34f1923a-2f75-45c9-9214-45aa30ca9035"
+  }]
+}

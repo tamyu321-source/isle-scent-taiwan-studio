@@ -1,27 +1,43 @@
 # Yorke Hsu — Portfolio
 
-個人作品集網站，聚焦互動前端、產品系統與流程自動化。收錄 **10 件可操作作品**，從品牌體驗、課程與訂單管理，到 3D 標註、資料蒐集及瀏覽器巡檢，搭配實際畫面縮圖與前台、老師端、管理台和工具下載入口。
+個人作品集網站，聚焦互動前端、產品系統與流程自動化。收錄 **12 件可操作作品**，從常駐 AI 導覽、品牌體驗、課程與訂單管理，到 Python Agent Runtime、3D 標註、資料蒐集及瀏覽器巡檢。
 
-[瀏覽作品集](https://tamyu321-source.github.io/isle-scent-taiwan-studio/#work) · [ClassNest 課伴](https://tamyu321-source.github.io/isle-scent-taiwan-studio/classnest/) · [CHECKPOINT 驗收報告](https://tamyu321-source.github.io/isle-scent-taiwan-studio/checkpoint/) · [GitHub Actions](https://github.com/tamyu321-source/isle-scent-taiwan-studio/actions/workflows/pages.yml)
+[瀏覽作品集](https://tamyu321-source.github.io/isle-scent-taiwan-studio/#work) · [ASK YORKE](https://tamyu321-source.github.io/isle-scent-taiwan-studio/ask-yorke/) · [AUTHORITY Agent Runtime](https://tamyu321-source.github.io/isle-scent-taiwan-studio/agent-runtime/) · [ClassNest 課伴](https://tamyu321-source.github.io/isle-scent-taiwan-studio/classnest/) · [CHECKPOINT 驗收報告](https://tamyu321-source.github.io/isle-scent-taiwan-studio/checkpoint/) · [GitHub Actions](https://github.com/tamyu321-source/isle-scent-taiwan-studio/actions/workflows/pages.yml)
 
-## 十件互動作品
+## 十二件互動作品
 
-| 展示順序 | 作品與入口 | 分類 | 功能與延伸入口 |
+| 作品錨點 | 作品與入口 | 分類 | 功能與延伸入口 |
 | --- | --- | --- | --- |
-| 01 | [ClassNest 課伴](https://tamyu321-source.github.io/isle-scent-taiwan-studio/classnest/) | 應用系統 | 多老師預約、限時保留、堂數帳本；[老師端](https://tamyu321-source.github.io/isle-scent-taiwan-studio/classnest/teacher/)、[管理端](https://tamyu321-source.github.io/isle-scent-taiwan-studio/classnest/admin/) |
-| 02 | [VECTOR](https://tamyu321-source.github.io/isle-scent-taiwan-studio/vector/) | 自動化工具 | Three.js 點雲、3D 標註、品質覆核、任務與資料匯出 |
-| 03 | [Isle / Scent](https://tamyu321-source.github.io/isle-scent-taiwan-studio/isle-scent/) | 品牌網站 | 香氛品牌、Canvas 動態敘事；[產品詳情](https://tamyu321-source.github.io/isle-scent-taiwan-studio/collections/o-01/)、[案例說明](https://tamyu321-source.github.io/isle-scent-taiwan-studio/work/isle-scent/) |
-| 04 | [PURE WHITE](https://tamyu321-source.github.io/isle-scent-taiwan-studio/pure-white/) | 品牌網站 | 希臘優格品牌、規格選擇、捲動分鏡與食譜；[產品詳情](https://tamyu321-source.github.io/isle-scent-taiwan-studio/pure-white/original/) |
-| 05 | [豬仔仔幼兒園](https://tamyu321-source.github.io/isle-scent-taiwan-studio/piglet-daycare/) | 應用系統 | 狗狗貓貓寄宿、預約、客戶、費用與相簿；[管理台](https://tamyu321-source.github.io/isle-scent-taiwan-studio/piglet-daycare/admin/) |
-| 06 | [Order Flow](https://tamyu321-source.github.io/isle-scent-taiwan-studio/order-hub/) | 應用系統 | 專屬下單連結、採購、庫存與出貨；[管理台](https://tamyu321-source.github.io/isle-scent-taiwan-studio/order-hub/admin/) |
-| 07 | [MORI 留白陶作](https://tamyu321-source.github.io/isle-scent-taiwan-studio/mori-studio/) | 應用系統 | 陶作體驗、名額、選物與模擬結帳；[管理台](https://tamyu321-source.github.io/isle-scent-taiwan-studio/mori-studio/admin/)、[會員空間](https://tamyu321-source.github.io/isle-scent-taiwan-studio/mori-studio/member/) |
-| 08 | [ShareFlow](https://tamyu321-source.github.io/isle-scent-taiwan-studio/shareflow/) | 應用系統 | 廣告收入、分潤試算與結算紀錄；[管理台](https://tamyu321-source.github.io/isle-scent-taiwan-studio/shareflow/admin/) |
-| 09 | [FIELDWORK](https://tamyu321-source.github.io/isle-scent-taiwan-studio/fieldwork/) | 自動化工具 | 公開商家資料蒐集、來源核對、CSV／JSON；[下載 Python 工具](https://tamyu321-source.github.io/isle-scent-taiwan-studio/downloads/fieldwork-python.zip) |
-| 10 | [CHECKPOINT](https://tamyu321-source.github.io/isle-scent-taiwan-studio/checkpoint/) | 自動化工具 | 真實瀏覽器操作、截圖、下載與發佈檢查；[下載巡檢工具](https://tamyu321-source.github.io/isle-scent-taiwan-studio/downloads/checkpoint-python.zip) |
+| 12 | [ASK YORKE](https://tamyu321-source.github.io/isle-scent-taiwan-studio/ask-yorke/) | 自動化工具 | 全站常駐 AI 作品導覽、需求整理與可複製摘要；公開呼叫須另部署 Worker |
+| 01 | [AUTHORITY](https://tamyu321-source.github.io/isle-scent-taiwan-studio/agent-runtime/) | 自動化工具 | Python Agent Runtime：任務、權限、策略、執行憑證、審計鏈；[下載原型](https://tamyu321-source.github.io/isle-scent-taiwan-studio/downloads/agent-runtime-python.zip) |
+| 02 | [ClassNest 課伴](https://tamyu321-source.github.io/isle-scent-taiwan-studio/classnest/) | 應用系統 | 多老師預約、限時保留、堂數帳本；[老師端](https://tamyu321-source.github.io/isle-scent-taiwan-studio/classnest/teacher/)、[管理端](https://tamyu321-source.github.io/isle-scent-taiwan-studio/classnest/admin/) |
+| 03 | [VECTOR](https://tamyu321-source.github.io/isle-scent-taiwan-studio/vector/) | 自動化工具 | Three.js 點雲、3D 標註、品質覆核、任務與資料匯出 |
+| 04 | [Isle / Scent](https://tamyu321-source.github.io/isle-scent-taiwan-studio/isle-scent/) | 品牌網站 | 香氛品牌、Canvas 動態敘事；[產品詳情](https://tamyu321-source.github.io/isle-scent-taiwan-studio/collections/o-01/)、[案例說明](https://tamyu321-source.github.io/isle-scent-taiwan-studio/work/isle-scent/) |
+| 05 | [PURE WHITE](https://tamyu321-source.github.io/isle-scent-taiwan-studio/pure-white/) | 品牌網站 | 希臘優格品牌、規格選擇、捲動分鏡與食譜；[產品詳情](https://tamyu321-source.github.io/isle-scent-taiwan-studio/pure-white/original/) |
+| 06 | [豬仔仔幼兒園](https://tamyu321-source.github.io/isle-scent-taiwan-studio/piglet-daycare/) | 應用系統 | 狗狗貓貓寄宿、預約、客戶、費用與相簿；[管理台](https://tamyu321-source.github.io/isle-scent-taiwan-studio/piglet-daycare/admin/) |
+| 07 | [Order Flow](https://tamyu321-source.github.io/isle-scent-taiwan-studio/order-hub/) | 應用系統 | 專屬下單連結、採購、庫存與出貨；[管理台](https://tamyu321-source.github.io/isle-scent-taiwan-studio/order-hub/admin/) |
+| 08 | [MORI 留白陶作](https://tamyu321-source.github.io/isle-scent-taiwan-studio/mori-studio/) | 應用系統 | 陶作體驗、名額、選物與模擬結帳；[管理台](https://tamyu321-source.github.io/isle-scent-taiwan-studio/mori-studio/admin/)、[會員空間](https://tamyu321-source.github.io/isle-scent-taiwan-studio/mori-studio/member/) |
+| 09 | [ShareFlow](https://tamyu321-source.github.io/isle-scent-taiwan-studio/shareflow/) | 應用系統 | 廣告收入、分潤試算與結算紀錄；[管理台](https://tamyu321-source.github.io/isle-scent-taiwan-studio/shareflow/admin/) |
+| 10 | [FIELDWORK](https://tamyu321-source.github.io/isle-scent-taiwan-studio/fieldwork/) | 自動化工具 | 公開商家資料蒐集、來源核對、CSV／JSON；[下載 Python 工具](https://tamyu321-source.github.io/isle-scent-taiwan-studio/downloads/fieldwork-python.zip) |
+| 11 | [CHECKPOINT](https://tamyu321-source.github.io/isle-scent-taiwan-studio/checkpoint/) | 自動化工具 | 真實瀏覽器操作、截圖、下載與發佈檢查；[下載巡檢工具](https://tamyu321-source.github.io/isle-scent-taiwan-studio/downloads/checkpoint-python.zip) |
 
-作品分類為「全部 10／品牌網站 2／應用系統 5／自動化工具 3」。桌面 ≥1100px 三欄、700–1099px 兩欄、手機單欄；每張卡片保留縮圖、標題、兩行簡介、技術標籤與入口，不再使用跨整列的大卡片。
+作品分類為「全部 12／品牌網站 2／應用系統 5／自動化工具 5」。桌面 ≥1100px 三欄、700–1099px 兩欄、手機單欄；每張卡片保留縮圖、標題、兩行簡介、技術標籤與入口，不再使用跨整列的大卡片。
 
-畫面編號依展示順序產生，既有 `project-01` 至 `project-09` 錨點保留；ClassNest 使用 `project-10` 並置於首位。直接開啟作品錨點會顯示全部分類，讓目標作品保持可見。作品資料與分類實作位於 [components/portfolio-works.tsx](components/portfolio-works.tsx)。
+畫面編號依展示順序產生，既有 `project-01` 至 `project-11` 錨點保留；ASK YORKE 使用 `project-12` 並置於首位。直接開啟作品錨點會顯示全部分類，讓目標作品保持可見。作品資料與分類實作位於 [components/portfolio-works.tsx](components/portfolio-works.tsx)。
+
+## ASK YORKE
+
+全站固定入口和獨立作品頁共用兩種模式：「找相關作品」依核對過的公開作品資料回答並連結案例；「整理專案需求」把訪客想法整理為目標、使用者、流程、優先事項與待確認問題。訪客可複製摘要，透過現有 LINE 或郵件自行聯絡。對話只保存在訪客瀏覽器，可自行清除。作品卡預覽圖擷取自本機實際頁面；公開 Qwen 呼叫由 Cloudflare Worker 提供。
+
+GitHub Pages 無法保管 Qwen Key，因此公開 AI 呼叫由獨立的 Cloudflare Worker 處理。Worker 驗證 Turnstile、使用北京地域 `qwen3.8-flash`，執行每日及每月限額；私密 Key 不進入靜態網站。部署與費用設定見 [Worker 說明](workers/ask-yorke/README.md)。在 API URL 與公開 Site Key 尚未設定時，頁面顯示設定中並保留作品導覽與聯絡入口。
+
+![ASK YORKE 作品頁實際桌面畫面](public/images/work-ask-yorke-preview.png)
+
+## AUTHORITY Agent Runtime
+
+對應企業級 Agent 平台的 Python 核心能力：任務狀態與去重、角色與資源授權、策略限額及雙人覆核、一次性執行憑證、SHA-256 審計鏈。五個合成情境由 Python 核心執行後產生，網頁可切換查看其事件。FastAPI 僅供本機示範，沒有真實身分驗證或付款。設計與職缺對照見 [架構說明](docs/agent-runtime-architecture.md)及[職缺分析](docs/agent-runtime-role-fit.md)；程式碼和執行方法見 [Python 原型](tools/agent-runtime/README.md)。
+
+![AUTHORITY 作品頁實際桌面畫面](public/images/work-agent-runtime-preview.jpg)
 
 ## ClassNest 課伴
 
@@ -51,10 +67,12 @@
 
 ## 展示資料與範圍
 
-本專案使用 GitHub Pages 靜態託管。管理台與角色選擇用於展示介面及流程，**不是正式登入或多用戶後端**。沒有真實付款、扣款、寄信、視訊教室、原生 App 安裝包或外部通知。
+主站使用 GitHub Pages 靜態託管；ASK YORKE 的公開 AI 請求另外使用 Cloudflare Worker。管理台與角色選擇用於展示介面及流程，**不是正式登入或多用戶後端**。沒有真實付款、扣款、寄信、視訊教室、原生 App 安裝包或外部通知。
 
 | 作品 | 資料與體驗方式 |
 | --- | --- |
+| ASK YORKE | 對話與摘要保存在訪客瀏覽器；Worker 僅保存匿名限額計數。公開呼叫需另部署 Worker 並設定百煉專用 Key。 |
+| AUTHORITY | Python 核心在發佈時產生合成情境與審計紀錄快照；網站切換情境僅閱讀快照。本機可另啟 FastAPI 原型，沒有真實付款。 |
 | ClassNest | IndexedDB 保存虛構家庭、預約與堂數；同瀏覽器、同網站來源的分頁可同步，不跨裝置。家長／老師／管理員直接切換。 |
 | 豬仔仔幼兒園、Order Flow | 展示資料存在目前瀏覽器。示範管理帳號分別為 `admin / piglet2026`、`admin / order2026`。 |
 | MORI | 示範會員、體驗預約與選物訂單；取消會回補庫存及席次，既有訂單保留成交價。 |
@@ -72,17 +90,17 @@ React 19 / TypeScript / Vinext / Vite / Tailwind CSS 4 / Base UI / Three.js / Ca
 
 | 目錄 | 用途 |
 | --- | --- |
-| `app/` | 作品集、作品前台與各角色路由；目前靜態建置輸出 34 個路由 |
+| `app/` | 作品集、作品前台與各角色路由 |
 | `components/` | 共用 UI、各作品互動元件與作品卡片 |
 | `lib/`、`hooks/` | 領域模型、資料驗證、瀏覽器保存與狀態邏輯 |
 | `public/images/`、`public/downloads/` | 圖片、實際畫面縮圖與可下載工具 |
-| `tools/fieldwork/`、`tools/checkpoint/` | 可在 Windows 執行的 Python 工具與測試 |
+| `tools/fieldwork/`、`tools/checkpoint/`、`tools/agent-runtime/` | 可在 Windows 執行的 Python 工具、系統原型與測試 |
 | `tests/`、`scripts/` | 模型測試、打包、靜態路由準備及瀏覽器發佈檢查 |
 | `docs/` | 各作品的架構、設計與驗收說明 |
 
 Isle / Scent 使用 Canvas 逐幀影格、`IntersectionObserver` 與 `requestAnimationFrame` 呈現多鏡位敘事；PURE WHITE 提供捲動分鏡及可保留的規格選擇。兩者均尊重 `prefers-reduced-motion`。VECTOR 將 Three.js 渲染與 React 介面狀態分離，提供選取、拖曳、框選與軌跡播放。
 
-歷史案例路由保留：[桌面財務系統](https://tamyu321-source.github.io/isle-scent-taiwan-studio/work/ledger-flow/)、[交易自動化](https://tamyu321-source.github.io/isle-scent-taiwan-studio/work/signal-desk/)、[瀏覽器流程自動化](https://tamyu321-source.github.io/isle-scent-taiwan-studio/work/tax-flow/)。它們不列入十件互動作品的編號。
+歷史案例路由保留：[桌面財務系統](https://tamyu321-source.github.io/isle-scent-taiwan-studio/work/ledger-flow/)、[交易自動化](https://tamyu321-source.github.io/isle-scent-taiwan-studio/work/signal-desk/)、[瀏覽器流程自動化](https://tamyu321-source.github.io/isle-scent-taiwan-studio/work/tax-flow/)。它們不列入十二件互動作品的編號。
 
 ## 本機開發
 

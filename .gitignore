@@ -38,6 +38,8 @@ yarn-error.log*
 next-env.d.ts
 /dist/
 /.wrangler/
+/workers/ask-yorke/.wrangler/
+/workers/ask-yorke/.runtime/
 /.runtime/
 # Local runtime, browser evidence, and working files.
 /outputs/
@@ -47,6 +49,9 @@ __pycache__/
 *.tsbuildinfo
 /tools/fieldwork/output/
 /tools/checkpoint/output/
+/tools/agent-runtime/.venv/
+/tools/agent-runtime/*.sqlite3
+/tools/agent-runtime/demo.json
 /public/data/checkpoint/
 
 
