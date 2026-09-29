@@ -6,7 +6,7 @@ GitHub Pages 只提供靜態頁面。本 Worker 是公開 AI 工具唯一能呼�
 
 ## 首次部署
 
-1. 在百煉北京地域重置本次對話中提供的 API Key，建立僅允許 `qwen3.8-flash` 的專用 Key，並為該 Key 設定每月 ¥20 預算、到額停用及提醒。不要把 Key 貼進檔案、命令列參數或 GitHub 變數。
+1. 在百煉北京地域重置本次對話中提供的 API Key，建立僅允許 `qwen3.8-flash` 的專用 Key。若控制台提供預算管理，為該 Key 設定每月 ¥20、到額停用及提醒。不要把 Key 貼進檔案、命令列參數或 GitHub 變數。
 2. 在 Cloudflare 建立 Turnstile Widget，允許 `tamyu321-source.github.io`，記下公開 Site Key；Secret Key 僅配置在 Worker。
 3. D1 資料庫 `yorke-ask-usage` 已建立，ID 已填入 `wrangler.jsonc`。從儲存庫根目錄執行 `npx wrangler d1 execute yorke-ask-usage --remote --config workers/ask-yorke/wrangler.jsonc --file=workers/ask-yorke/schema.sql` 建立資料表。
 4. 依次透過 `npx wrangler secret put DASHSCOPE_API_KEY`、`npx wrangler secret put TURNSTILE_SECRET`、`npx wrangler secret put USAGE_SALT` 互動式輸入私密值。`USAGE_SALT` 使用新產生的隨機字串，不要重用密碼。
@@ -17,9 +17,9 @@ GitHub Pages 只提供靜態頁面。本 Worker 是公開 AI 工具唯一能呼�
 
 ## 限制與回應
 
-- 每個瀏覽器訪客 ID 每台北日 5 次；同一 IP 雜湊每台北日 20 次；全站每台北月 1,000 次。匿名 ID 可被清除或重建，不能等同身分驗證；Turnstile 與全站上限仍保護公開接口。
+- 每個瀏覽器訪客 ID 每台北日 5 次；同一 IP 雜湊每台北日 20 次；全站每台北月 500 次。匿名 ID 可被清除或重建，不能等同身分驗證；Turnstile 與全站上限仍保護公開接口。
 - 每次限 9 則訊息、每則 1,500 字、模型最多輸出 800 tokens。請求在 Turnstile 伺服器驗證成功後才占用計數；上游失敗也計入限額，以保守控制成本。
-- 百煉月度預算的到額停用可能延遲；全站次數上限與字數、輸出限制是另外一層保護，¥20 是預算目標而非絕對費用保證。
+- 目前尚未確認百煉 API Key 的月度預算開關，先以每月 500 次、18 KB 請求與 800 輸出 tokens 的程式限制保守控費。依 2026-09-29 北京地域公開單價估算，即使每次都接近輸入上限，全月 Qwen 費用仍預期低於 ¥20；價格或計費規則變動時需重新核算。百煉預算到額停用即使啟用也可能延遲，¥20 不是絕對費用保證。
 - 每日排程清理 35 天前的訪客與 IP 計數。`SITE_ORIGIN` 只允許正式 GitHub Pages 的瀏覽器來源；開發環境須另用本地 Worker 設定。
 
 ## 驗證

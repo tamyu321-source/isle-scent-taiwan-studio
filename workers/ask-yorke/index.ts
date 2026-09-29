@@ -12,7 +12,7 @@ interface Env {
 
 const path = "/v1/ask";
 const model = "qwen3.8-flash";
-const maxMonthlyCalls = 1000;
+const maxMonthlyCalls = 500;
 const maxDailyCalls = 5;
 const maxIpDailyCalls = 20;
 
