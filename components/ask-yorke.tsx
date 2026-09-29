@@ -191,7 +191,7 @@ function AskYorkeExperience({ fullPage = false }: { fullPage?: boolean }) {
       <form className="ay-composer" onSubmit={(event) => void submit(event)}>
         <label htmlFor={fullPage ? "ay-full-input" : "ay-widget-input"}>描述你的問題或專案想法</label>
         <div><textarea id={fullPage ? "ay-full-input" : "ay-widget-input"} value={draft} maxLength={1500} rows={3} onChange={(event) => setDraft(event.target.value)} placeholder={mode === "works" ? "例如：你做過哪些需要後台管理的作品？" : "例如：我想讓客戶自行預約並收到確認通知…"} disabled={busy || !configured} /><button type="submit" disabled={busy || !configured || !draft.trim()} aria-label="送出問題"><Send size={18} /></button></div>
-        <div className="ay-composer-meta"><span>請勿輸入密碼或敏感個資 · 對話僅保存在此瀏覽器</span><span>{!configured ? "等待公開啟用" : remaining === null ? "每日 5 次免費試用" : `今日剩餘 ${remaining} 次`}</span></div>
+        <div className="ay-composer-meta"><span>勿輸入敏感資料 · 對話送至 Qwen 處理，僅在本機保存</span><span>{!configured ? "等待公開啟用" : remaining === null ? "每日 5 次免費試用" : `今日剩餘 ${remaining} 次`}</span></div>
       </form>
       <div className="ay-turnstile" ref={widgetContainer} />
       {error && <p className="ay-error" role="alert">{error}</p>}
@@ -234,7 +234,7 @@ export function AskYorkePageContent() {
     <header className="ay-page-header"><a href={`${base}/`}>Y/H <span>返回作品集</span></a><span>PROJECT 12 / LIVE AI TOOL</span></header>
     <section className="ay-hero"><p>ASK YORKE / 2026</p><h1>讓作品回答問題，<br /><em>讓想法開始成形。</em></h1><span>一個始終在場的作品導覽與需求整理工具。從真實案例出發，幫你找到參考，也把初步構想變成可討論的摘要。</span></section>
     <section className="ay-workspace" aria-label="ASK YORKE 操作區"><div className="ay-workspace-heading"><span>01 / TRY IT</span><h2>現在，試著描述你的想法。</h2></div><AskYorkeExperience fullPage /></section>
-    <section className="ay-evidence"><div><span>02 / HOW IT WORKS</span><h2>一個可實際使用的 AI 作品。</h2></div><div className="ay-evidence-grid"><article><strong>有根據的作品推薦</strong><p>回覆使用核對過的公開作品資料，僅提供站內有效案例連結；無法確認的經歷不作推測。</p></article><article><strong>可帶走的需求摘要</strong><p>把目標、使用者、流程、優先事項與待確認問題整理成文字，由訪客自己複製並聯絡。</p></article><article><strong>公開使用的成本控制</strong><p>Qwen 密鑰留在服務端，訪客請求經過驗證與次數限制；服務端只保存匿名限額計數。</p></article></div></section>
+    <section className="ay-evidence"><div><span>02 / HOW IT WORKS</span><h2>一個可實際使用的 AI 作品。</h2><a className="ay-code-link" href="https://github.com/tamyu321-source/isle-scent-taiwan-studio/blob/main/workers/ask-yorke/index.ts" target="_blank" rel="noreferrer">查看 Worker 實作 <ArrowRight size={16} /></a></div><div className="ay-evidence-grid"><article><strong>有根據的作品推薦</strong><p>Qwen 選出候選作品後，服務端只回傳核對過的公開作品事實與站內連結。</p></article><article><strong>可帶走的需求摘要</strong><p>把目標、使用者、流程、優先事項與待確認問題整理成待核對的初稿，由訪客自己複製並聯絡。</p></article><article><strong>公開使用的成本控制</strong><p>Qwen 密鑰留在服務端；Turnstile、每日限額及全站每月 500 次上限保護公開接口。服務端只保存匿名限額計數。</p></article></div></section>
     <footer className="ay-page-footer"><a href={`${base}/#work`}>← 返回所有作品</a><span>YORKE HSU / AI INTERACTION & SYSTEMS</span></footer>
   </main>;
 }
