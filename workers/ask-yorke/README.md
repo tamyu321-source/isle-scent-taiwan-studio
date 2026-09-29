@@ -2,6 +2,8 @@
 
 GitHub Pages 只提供靜態頁面。本 Worker 是公開 AI 工具唯一能呼叫 Qwen 的入口；Qwen Key、Turnstile Secret 與計數雜湊鹽只存在 Cloudflare Secret。服務端不保存對話內容或需求摘要。
 
+作品導覽由 Qwen 選候選作品 ID，Worker 僅返回本地公開作品目錄中的標題、連結與事實，不直接展示模型生成的作品描述。需求整理是待核對的初稿，模型補充的流程與優先事項在介面上標為建議。
+
 目前部署於 `https://yorke-ask.tamyu321.workers.dev/v1/ask`，D1 資料庫為 `yorke-ask-usage`。GitHub Pages 工作流程透過公開 repository variables 注入 API URL 與 Turnstile Site Key。
 
 ## 首次部署

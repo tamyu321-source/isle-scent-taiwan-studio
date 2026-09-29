@@ -41,10 +41,11 @@ function loadTurnstile() {
 
 function summary(brief: AskYorkeBrief) {
   return [
+    "AI 整理初稿：請核對推測與建議後再使用",
     `目標：${brief.goal || "待確認"}`,
-    `使用者：${brief.audience || "待確認"}`,
-    `主要流程：${brief.flows.length ? brief.flows.join("、") : "待確認"}`,
-    `優先事項：${brief.priorities.length ? brief.priorities.join("、") : "待確認"}`,
+    `可能使用者（待確認）：${brief.audience || "待確認"}`,
+    `可能流程（待確認）：${brief.flows.length ? brief.flows.join("、") : "待確認"}`,
+    `建議優先事項（待確認）：${brief.priorities.length ? brief.priorities.join("、") : "待確認"}`,
     `待確認問題：${brief.questions.length ? brief.questions.join("；") : "無"}`,
   ].join("\n");
 }
